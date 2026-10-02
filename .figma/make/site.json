@@ -1,0 +1,10 @@
+{
+  "description": "Monitors astronaut health offline by tracking vital signs, environment, and risks, offering personalized alerts and actionable guidance for space missions.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
