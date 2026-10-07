@@ -135,22 +135,6 @@ python scripts/fetch_nasa_data.py
 
 ---
 
-## 3-Minute Judge Demo
-
-Open the **Demo Controls** panel (bottom-right corner → *More → Demo Controls*), press **Auto-play**, or step through manually:
-
-| Step | What to look for |
-|------|-----------------|
-| **1. Hazard Map** | Five hazards → five outcome cascades |
-| **2. Timeline Scrub** | Drag Day 1 → 6 months. Risk curves thicken |
-| **3. Silent Conflict** | "I feel fine" while vision drifts (CUSUM alert) |
-| **4. Alert Compression** | 14 raw signals collapse → 2 smart alerts. Tap "Why?" |
-| **5. Health Coach** | Cited procedure chips, 20-min communication delay |
-| **6. Countermeasure Gap** | Go offline → log treadmill outage → bone risk rises |
-| **7. Triage Hand-off** | Lanes re-sort by delay. Export SBAR → slide to send |
-
----
-
 ## Design Principles
 
 ### Offline-First
