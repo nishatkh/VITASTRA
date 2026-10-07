@@ -153,26 +153,26 @@ export function AlertCard({
 }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className={`${dark ? "bg-nav text-on-nav" : "card"} p-5`}>
-      <div className="flex items-start gap-3">
-        <span className="mt-1.5">
-          <LevelDot level={alert.level} size={14} />
+    <div className={`${dark ? "bg-nav text-on-nav" : "card"} p-4`}>
+      <div className="flex items-start gap-2.5">
+        <span className="mt-1">
+          <LevelDot level={alert.level} size={12} />
         </span>
         <div className="min-w-0 flex-1">
-          <div className="label">{alert.module}</div>
+          <div className="label text-[11px]">{alert.module}</div>
           <Link
             to={alert.route}
-            className="block text-[19px] font-semibold leading-tight tracking-[-0.02em]"
+            className="block text-[16px] font-semibold leading-snug tracking-[-0.01em]"
           >
             {alert.title}
           </Link>
         </div>
         <AlertBadge level={alert.level} dark={dark} />
       </div>
-      <div className="mt-4">
+      <div className="mt-2.5">
         <ConfidenceBar value={alert.confidence} dark={dark} />
       </div>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-2">
         <WhyButton info={alert} dark={dark} />
         {expandable && (
           <button

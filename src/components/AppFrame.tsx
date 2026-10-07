@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, type ReactNode } from "react"
+import { useState, useRef, useCallback, useEffect, type ReactNode } from "react"
 import { NavLink, useLocation, useNavigate } from "react-router"
 import {
   X,
@@ -141,12 +141,52 @@ function PatientStrip() {
   const day = useApp((s) => s.day)
   const { data: ev } = useEvaluation(day)
   const top = ev?.alerts?.find((a) => a.level !== "normal")
+
+  // ── live vitals ──────────────────────────────────────────────────────────
+  const [liveHR,   setLiveHR]   = useState(62)
+  const [liveSpo2, setLiveSpo2] = useState(97.8)
+  const [liveCO2,  setLiveCO2]  = useState(4350)
+  const [liveTemp, setLiveTemp] = useState(36.5)
+  const hrRef   = useRef(62)
+  const co2Ref  = useRef(4350)
+  const spo2Ref = useRef(97.8)
+  const tempRef = useRef(36.5)
+
+  useEffect(() => {
+    if (ev?.nowS?.hr)   { hrRef.current   = ev.nowS.hr;   setLiveHR(ev.nowS.hr) }
+    if (ev?.nowS?.spo2) { spo2Ref.current = ev.nowS.spo2; setLiveSpo2(ev.nowS.spo2) }
+    if (ev?.env?.co2)   { co2Ref.current  = ev.env.co2;   setLiveCO2(ev.env.co2) }
+    if (ev?.sm?.temp)   { tempRef.current = ev.sm.temp;   setLiveTemp(ev.sm.temp) }
+  }, [ev])
+
+  useEffect(() => {
+    // HR + CO2 every 3 s
+    const id1 = setInterval(() => {
+      const hr = Math.max(50, Math.min(100, hrRef.current + (Math.random() - 0.49) * 2.4))
+      hrRef.current = hr; setLiveHR(Math.round(hr * 10) / 10)
+      const co2 = Math.max(3800, Math.min(5200, co2Ref.current + (Math.random() - 0.49) * 40))
+      co2Ref.current = co2; setLiveCO2(Math.round(co2))
+    }, 3000)
+    // SpO2 every 4 s
+    const id2 = setInterval(() => {
+      const s = Math.max(95, Math.min(99.5, spo2Ref.current + (Math.random() - 0.5) * 0.3))
+      spo2Ref.current = s; setLiveSpo2(Math.round(s * 10) / 10)
+    }, 4000)
+    // Skin temp every 6 s
+    const id3 = setInterval(() => {
+      const t = Math.max(36.0, Math.min(37.2, tempRef.current + (Math.random() - 0.5) * 0.08))
+      tempRef.current = t; setLiveTemp(Math.round(t * 100) / 100)
+    }, 6000)
+    return () => { clearInterval(id1); clearInterval(id2); clearInterval(id3) }
+  }, [])
+
   const v = [
-    ["Heart rate", String(Math.round(ev?.nowS?.hr ?? 0)), "bpm"],
-    ["SpO2", ev?.nowS?.spo2?.toFixed(0) ?? "0", "%"],
-    ["Cabin CO2", String(Math.round(ev?.env?.co2 ?? 0)), "ppm"],
-    ["Skin temp", ev?.sm?.temp?.toFixed(1) ?? "0", "°C"],
+    ["Heart rate", String(Math.round(liveHR)),         "bpm"],
+    ["SpO2",       liveSpo2.toFixed(0),                "%"],
+    ["Cabin CO2",  String(Math.round(liveCO2)),         "ppm"],
+    ["Skin temp",  liveTemp.toFixed(1),                 "°C"],
   ]
+
   return (
     <section
       aria-label="Astronaut summary"

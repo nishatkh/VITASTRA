@@ -28,14 +28,46 @@ const METRICS: Record<MetricKey, { label: string; unit: string; dec: number; dom
   co2: { label: "Cabin CO2", unit: "ppm", dec: 0 },
 }
 
+const BASELINE_SPECS: Record<MetricKey, { mean: number; sd: number; driftStart?: number; driftRate?: number }> = {
+  restHR:   { mean: 58.0,  sd: 3.5, driftStart: 30, driftRate: 0.05 },
+  hrv:      { mean: 52.0,  sd: 5.5, driftStart: 30, driftRate: -0.04 },
+  spo2:     { mean: 97.8,  sd: 0.5 },
+  hrr:      { mean: 38.0,  sd: 4.5 },
+  sleep:    { mean: 7.2,   sd: 0.6 },
+  temp:     { mean: 36.6,  sd: 0.2 },
+  stress:   { mean: 28.0,  sd: 6.0 },
+  mood:     { mean: 4.2,   sd: 0.4 },
+  vision:   { mean: 1.0,   sd: 0.04 },
+  reaction: { mean: 245.0, sd: 15.0 },
+  balance:  { mean: 94.0,  sd: 2.8 },
+  co2:      { mean: 3200,  sd: 150 },
+}
+
 function trendData(metric: MetricKey, day: number) {
-  const d = Math.floor(day)
-  return Array.from({ length: d + 1 }, (_, i) => ({
-    d: i + 1,
-    v: 0,
-    lo: 0,
-    hi: 0,
-  }))
+  const spec = BASELINE_SPECS[metric] ?? { mean: 50, sd: 5 }
+  const totalDays = 183
+  const dec = METRICS[metric]?.dec ?? 1
+
+  const lo = +(spec.mean - 1.64 * spec.sd).toFixed(dec)
+  const hi = +(spec.mean + 1.64 * spec.sd).toFixed(dec)
+
+  return Array.from({ length: totalDays }, (_, i) => {
+    const dNum = i + 1
+    const s1 = Math.sin(dNum * 0.17 + 1.2) * (spec.sd * 0.45)
+    const s2 = Math.cos(dNum * 0.31 + 0.8) * (spec.sd * 0.3)
+    const drift = spec.driftStart && dNum > spec.driftStart
+      ? (dNum - spec.driftStart) * (spec.driftRate ?? 0)
+      : 0
+    const rawV = spec.mean + s1 + s2 + drift
+    const val = +rawV.toFixed(dec)
+
+    return {
+      d: dNum,
+      v: val,
+      lo,
+      hi,
+    }
+  })
 }
 
 const tick = { fontSize: 11, fill: "var(--ink-3)" }
@@ -57,7 +89,7 @@ export function BaselineChart({
     [metric, d],
   )
   const m = METRICS[metric]
-  const last = data[data.length - 1]
+  const last = data[Math.min(d, data.length - 1)] || data[data.length - 1]
   return (
     <div
       role="img"

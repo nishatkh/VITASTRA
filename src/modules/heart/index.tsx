@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router"
 import { ModuleShell, StatusRow, NextActions } from "../../components/Layout"
 import { DotNum } from "../../components/DotNum"
-import { DotWave } from "../../components/DotWave"
+import { EcgLine } from "../../components/EcgLine"
 import { BaselineChart } from "../../components/Charts"
 import { MetricTile, levelFromCount } from "../../components/Stat"
 import { SourceChip, SectionHead } from "../../components/ui"
@@ -15,6 +15,42 @@ export default function Heart() {
   const { data: ev } = useEvaluation(day)
   const { data: baselinesData } = useBaselines(day)
   const [m, setM] = useState<MetricKey>("restHR")
+
+  // ── Live continuous data ───────────────────────────────────────────────
+  const [liveHR, setLiveHR] = useState(60)
+  const [liveSm, setLiveSm] = useState<Record<string, number>>({})
+  const hrRef = useRef(60)
+
+  useEffect(() => {
+    if (ev?.nowS?.hr) {
+      hrRef.current = ev.nowS.hr
+      setLiveHR(ev.nowS.hr)
+    }
+    if (ev?.sm) {
+      setLiveSm(ev.sm)
+    }
+  }, [ev])
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      // Walk live heart rate
+      const newHR = Math.max(50, Math.min(100, hrRef.current + (Math.random() - 0.49) * 2.2))
+      hrRef.current = newHR
+      setLiveHR(Math.round(newHR * 10) / 10)
+
+      // Micro drift for summary metrics so they feel continuous
+      setLiveSm((prev) => {
+        if (!prev.restHR) return prev
+        return {
+          ...prev,
+          restHR: +(prev.restHR + (Math.random() - 0.5) * 0.1).toFixed(1),
+          hrv: Math.max(20, Math.min(100, Math.round(prev.hrv + (Math.random() - 0.5) * 0.6))),
+          spo2: +(Math.max(95, Math.min(99.8, prev.spo2 + (Math.random() - 0.5) * 0.05))).toFixed(1),
+        }
+      })
+    }, 2500)
+    return () => clearInterval(id)
+  }, [])
 
   if (!ev) {
     return (
@@ -31,19 +67,32 @@ export default function Heart() {
   const hrvBaseline = bl.find((b) => b.metric === "hrv")
   const hrrBaseline = bl.find((b) => b.metric === "hrr")
 
+  const currentRestHR = liveSm.restHR ?? ev.sm.restHR
+  const currentHrv = liveSm.hrv ?? ev.sm.hrv
+  const currentSpo2 = liveSm.spo2 ?? ev.sm.spo2
+  const currentHrr = liveSm.hrr ?? ev.sm.hrr
+
   const flags = [
-    restHRBaseline && (ev.sm.restHR - restHRBaseline.mean) / restHRBaseline.sd >= 2,
-    hrvBaseline && (ev.sm.hrv - hrvBaseline.mean) / hrvBaseline.sd <= -2,
-    hrrBaseline && (ev.sm.hrr - hrrBaseline.mean) / hrrBaseline.sd <= -2,
+    restHRBaseline && (currentRestHR - restHRBaseline.mean) / restHRBaseline.sd >= 2,
+    hrvBaseline && (currentHrv - hrvBaseline.mean) / hrvBaseline.sd <= -2,
+    hrrBaseline && (currentHrr - hrrBaseline.mean) / hrrBaseline.sd <= -2,
     ev.strain,
   ]
   const n = flags.filter(Boolean).length
   const level = levelFromCount(n)
 
-  const drifted = restHRBaseline && (ev.sm.restHR - restHRBaseline.mean) / restHRBaseline.sd >= 2
+  const drifted = restHRBaseline && (currentRestHR - restHRBaseline.mean) / restHRBaseline.sd >= 2
+
+  const displaySm: Record<string, number> = {
+    restHR: currentRestHR,
+    hrv: currentHrv,
+    spo2: currentSpo2,
+    hrr: currentHrr,
+  }
 
   return (
     <ModuleShell title={["Heart &", "Circulation"]}>
+      {/* ── Live Heart Rate Card ── */}
       <section className="card p-5" aria-label="Live heart rate">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -52,15 +101,23 @@ export default function Heart() {
           </div>
           <SourceChip kind="synthetic" />
         </div>
-        <div className="my-3"><DotNum value={ev.nowS.hr} unit="bpm" size={92} /></div>
-        <DotWave
-          values={ev.live.map((s) => (s.hr - 45) / 75)}
-          label={`Heart rate over the last hour, now ${Math.round(ev.nowS.hr)} bpm`}
-        />
+
+        <div className="my-3">
+          <DotNum value={liveHR} unit="bpm" size={92} />
+        </div>
+
+        <div className="mb-3 text-[13.5px] text-label">
+          Continuous telemetry stream · live QRS wave
+        </div>
+
+        <div className="w-full pt-1">
+          <EcgLine bpm={liveHR} color="var(--signal)" height={64} />
+        </div>
       </section>
+
       <div className="grid grid-cols-2 gap-3">
         {(["restHR", "hrv", "spo2", "hrr"] as MetricKey[]).map((k) => (
-          <MetricTile key={k} k={k} value={ev.sm[k]} selected={m === k} onClick={() => setM(k)} />
+          <MetricTile key={k} k={k} value={displaySm[k]} selected={m === k} onClick={() => setM(k)} />
         ))}
       </div>
       <section className="card p-5">

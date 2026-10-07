@@ -108,10 +108,10 @@ export default function Vision() {
           level === "normal"
             ? ["Next vision check stays on schedule (MED-4.2)"]
             : [
-                "Repeat the vision check in matched lighting (MED-4.2)",
-                "Note any new headache or blurred vision in the questionnaire",
-                "Share the trend with the flight surgeon (MED-1.1)",
-              ]
+              "Repeat the vision check in matched lighting (MED-4.2)",
+              "Note any new headache or blurred vision in the questionnaire",
+              "Share the trend with the flight surgeon (MED-1.1)",
+            ]
         }
       />
     </ModuleShell>

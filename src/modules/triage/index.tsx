@@ -16,6 +16,7 @@ const DELAYS = ["0", "5", "20", "40"] as const
 export default function Triage() {
   const day = useApp((s) => s.day)
   const delay = useApp((s) => s.delay)
+  const setAppDelay = useApp((s) => s.setDelay)
   const { data: ev } = useEvaluation(day)
   const { data: triageData } = useTriage(delay)
   const { data: sbarData } = useSBAR(delay)
@@ -49,9 +50,21 @@ export default function Triage() {
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-[52px] font-light leading-[1.02] tracking-[-0.03em] md:text-[72px]"><span className="block text-ink-2">Delay-Aware Triage</span>& Earth Hand-off</h1>
-      <Card className="flex flex-col gap-5 p-5 md:p-6">
+      <Card className="flex flex-col gap-5 p-4 md:p-5">
         <div className="grid items-center gap-5 md:grid-cols-[minmax(0,360px)_1fr]">
-          <div><div className="label mb-2">One-way light delay, minutes</div><Segmented label="Communication delay" value={String(delay) as typeof DELAYS[number]} options={DELAYS} onChange={(v) => setDelay.mutate(Number(v) as 0 | 5 | 20 | 40)} /></div>
+          <div>
+            <div className="label mb-2">One-way light delay, minutes</div>
+            <Segmented
+              label="Communication delay"
+              value={String(delay) as typeof DELAYS[number]}
+              options={DELAYS}
+              onChange={(v) => {
+                const dVal = Number(v) as 0 | 5 | 20 | 40
+                setAppDelay(dVal)
+                setDelay.mutate(dVal)
+              }}
+            />
+          </div>
           <div>
             <div className="relative h-14" role="img" aria-label={`Signal travel: ${delay} minutes one way, ${rtt} minutes round trip`}>
               <div className="absolute left-4 right-4 top-1/2 h-px bg-border" />

@@ -207,6 +207,22 @@ export const DEMO_MOOD: MoodEntry[] = Array.from({ length: 14 }, (_, i) => ({
 
 export const DEMO_TRIAGE: TriageItem[] = [
   {
+    alertId: "alert-002",
+    title: "Cabin CO2 nudging upper safe band",
+    level: "observe",
+    lane: "act",
+    canWaitMinutes: 240,
+    reason: "Scrubber swap within 4 h recommended.",
+  },
+  {
+    alertId: "alert-003",
+    title: "EVA suit pressure delta check",
+    level: "warning",
+    lane: "act",
+    canWaitMinutes: 60,
+    reason: "Immediate leak check required before pre-breathe routine.",
+  },
+  {
     alertId: "alert-001",
     title: "HRV trending downward - early fatigue signal",
     level: "observe",
@@ -215,12 +231,28 @@ export const DEMO_TRIAGE: TriageItem[] = [
     reason: "Non-urgent; monitor next cycle. Defer EVA if persists.",
   },
   {
-    alertId: "alert-002",
-    title: "Cabin CO2 nudging upper safe band",
-    level: "observe",
-    lane: "act",
-    canWaitMinutes: 240,
-    reason: "Scrubber swap within 4 h recommended.",
+    alertId: "alert-004",
+    title: "Skin temperature micro-drift (+0.4°C)",
+    level: "normal",
+    lane: "monitor",
+    canWaitMinutes: 1440,
+    reason: "Circadian adaptation phase. Re-evaluate at mission day 45.",
+  },
+  {
+    alertId: "alert-005",
+    title: "Weekly SANS visual acuity trend report",
+    level: "normal",
+    lane: "earth",
+    canWaitMinutes: 2880,
+    reason: "Routine Earth hand-off. Non-urgent flight surgeon review.",
+  },
+  {
+    alertId: "alert-006",
+    title: "Cumulative radiation dose ledger update",
+    level: "normal",
+    lane: "earth",
+    canWaitMinutes: 4320,
+    reason: "Include in 30-day GCR mission summary for ground control.",
   },
 ]
 
