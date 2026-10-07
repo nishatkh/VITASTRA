@@ -1,9 +1,11 @@
 <div align="center">
 
-# 🚀 VITASTRA
+# VITASTRA
 ### Astronaut Health Intelligence
 
 **Offline-first · AI-guided decision support · Real-time mission health monitoring**
+
+NASA International Space Apps Challenge 2026 · Team **[TEAM NAME]**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20App-6366f1?style=for-the-badge&logo=vercel)](https://github.com/nishatkh/VITASTRA)
 [![Tech Stack](https://img.shields.io/badge/React%2019-TypeScript-3178c6?style=for-the-badge&logo=typescript)](https://github.com/nishatkh/VITASTRA)
@@ -13,7 +15,7 @@
 
 ---
 
-## 🎯 What is VITASTRA?
+## What is VITASTRA?
 
 **VITASTRA** is a mission-critical health intelligence platform designed for deep-space astronauts. It combines real-time physiological monitoring, AI-guided triage, and offline-first architecture to keep crews safe when communication delays make remote consultation impossible.
 
@@ -21,26 +23,136 @@
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 | Feature | Description |
 |---------|-------------|
-| 🫀 **Heart & Circulation** | Real-time ECG, HRV trends, arrhythmia detection |
-| 🦴 **Bone & Muscle** | Countermeasure tracking, treadmill outage logging, risk curves |
-| 🧠 **Cognitive & Balance** | CUSUM-based drift detection, cognitive load assessment |
-| 👁️ **Vision & Fluid Shift** | ICP proxy monitoring, VIIP risk scoring |
-| ☢️ **Radiation Monitor** | NASA DONKI integration, shelter checklists, cumulative dose |
-| 🧬 **Immune Stress** | Biomarker trends, stress-immune correlation |
-| 🌍 **Environment** | CO₂, O₂, pressure, humidity — all in one view |
-| 😔 **Isolation & Mood** | Psychological health tracking with Coach guidance |
-| 🤖 **AI Health Coach** | Procedure-cited recommendations with delay-aware scheduling |
-| 🔔 **4-Level Alert System** | WATCH → ADVISORY → CAUTION → EMERGENCY triage lanes |
-| 📋 **SBAR Export** | Clinical handoff reports ready to transmit |
-| 📡 **Offline-First PWA** | Full functionality with zero connectivity via IndexedDB + Service Worker |
+| **Heart & Circulation** | Real-time ECG, HRV trends, arrhythmia detection |
+| **Bone & Muscle** | Countermeasure tracking, treadmill outage logging, risk curves |
+| **Cognitive & Balance** | CUSUM-based drift detection, cognitive load assessment |
+| **Vision & Fluid Shift** | ICP proxy monitoring, VIIP risk scoring |
+| **Radiation Monitor** | NASA DONKI integration, shelter checklists, cumulative dose |
+| **Immune Stress** | Biomarker trends, stress-immune correlation |
+| **Environment** | CO₂, O₂, pressure, humidity — all in one view |
+| **Isolation & Mood** | Psychological health tracking with Coach guidance |
+| **AI Health Coach** | Procedure-cited recommendations with delay-aware scheduling |
+| **4-Level Alert System** | WATCH → ADVISORY → CAUTION → EMERGENCY triage lanes |
+| **SBAR Export** | Clinical handoff reports ready to transmit |
+| **Offline-First PWA** | Full functionality with zero connectivity via IndexedDB + Service Worker |
 
 ---
 
-## 🏗️ Architecture
+## Screenshots
+
+<!--
+HOW TO ADD YOUR SCREENSHOTS
+1. Take a screenshot of each screen (16:10 works best, about 1600 x 1000 px).
+2. Save it as PNG in docs/screenshots/ using the SAME file name as the placeholder
+   (for example heart.png). It replaces the placeholder box automatically.
+3. No need to edit this README. Commit and push.
+To add a new box, copy one <td> block below and change the file name and the captions.
+-->
+
+<div align="center">
+
+<img src="docs/screenshots/home.png" alt="Home overview screen" width="92%">
+
+**Home (Overview)** — status, live vitals, and the Gather, Evaluate, Act strip
+
+</div>
+
+<br>
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/heart.png" alt="Heart and Circulation" width="100%"><br>
+      <b>Heart & Circulation</b><br>
+      <sub>ECG, HRV trend and baseline band</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/checks.png" alt="Silent-Signal Scheduler" width="100%"><br>
+      <b>Silent-Signal Scheduler</b><br>
+      <sub>Scheduled checks and slow drift detection</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/body-twin.png" alt="Body Twin" width="100%"><br>
+      <b>Body Twin</b><br>
+      <sub>Expected vs actual heart rate, with the gap</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/alerts.png" alt="Alerts and Why drawer" width="100%"><br>
+      <b>Alerts & "Why am I seeing this?"</b><br>
+      <sub>Grouped alerts with signals and confidence</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/hazard-map.png" alt="Hazard-to-Outcome Map" width="100%"><br>
+      <b>Hazard-to-Outcome Map</b><br>
+      <sub>Five hazards linked to five health outcomes</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/radiation.png" alt="Radiation Monitor" width="100%"><br>
+      <b>Radiation Monitor</b><br>
+      <sub>Dose meter, space-weather events, shelter checklist</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/environment.png" alt="Closed Environment" width="100%"><br>
+      <b>Closed Environment</b><br>
+      <sub>CO₂, O₂, pressure and humidity</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/triage.png" alt="Triage and Earth Link" width="100%"><br>
+      <b>Triage & Earth Link</b><br>
+      <sub>Delay-aware lanes and SBAR hand-off</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/coach.png" alt="Health Coach" width="100%"><br>
+      <b>Health Coach</b><br>
+      <sub>Cited steps, with "Insufficient information, escalate" when unsure</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/baseline.png" alt="Personal Baseline" width="100%"><br>
+      <b>Personal Baseline</b><br>
+      <sub>Compared with the astronaut's own normal</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/data-sources.png" alt="Data Sources" width="100%"><br>
+      <b>Data Sources</b><br>
+      <sub>Where every number comes from</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/privacy.png" alt="Privacy and Audit Chain" width="100%"><br>
+      <b>Privacy & Audit Chain</b><br>
+      <sub>Privacy tiers and a tamper-evident log</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/dark-theme.png" alt="Dark theme" width="100%"><br>
+      <b>Dark Theme</b><br>
+      <sub>For low-light cabins and recording screens</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <img src="docs/screenshots/mobile.png" alt="Mobile view" width="100%"><br>
+      <b>Mobile View</b><br>
+      <sub>Glove-friendly layout on a phone</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## Architecture
 
 ```
 vitastra/
@@ -62,7 +174,7 @@ vitastra/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -82,7 +194,7 @@ python scripts/fetch_nasa_data.py
 
 ---
 
-## 🎬 3-Minute Judge Demo
+## 3-Minute Judge Demo
 
 Open the **Demo Controls** panel (bottom-right corner → *More → Demo Controls*), press **Auto-play**, or step through manually:
 
@@ -98,26 +210,26 @@ Open the **Demo Controls** panel (bottom-right corner → *More → Demo Control
 
 ---
 
-## 🧩 Design Principles
+## Design Principles
 
-### 📡 Offline-First
+### Offline-First
 All data persists in **IndexedDB** via a custom `persist.ts` layer. A Workbox service worker pre-caches every asset. The app works identically with zero connectivity.
 
-### 🛡️ Decision Support, Not Diagnosis
+### Decision Support, Not Diagnosis
 Every alert includes a **"Why am I seeing this?"** drawer with source citations. The `AdviceFooter` component is present on every recommendation screen.
 
-### 🔬 Data Honesty
+### Data Honesty
 `SourceChip` components label every data point as `SYNTHETIC | NASA-DONKI | SEEDED`. No data is presented without provenance.
 
-### ⏱️ Delay-Aware
+### Delay-Aware
 Triage lanes account for Earth communication delay (configurable 0–24 min). Coach scheduling adjusts countermeasure windows accordingly.
 
-### 🔐 Privacy by Design
+### Privacy by Design
 Tiered privacy controls, audit chain with cryptographic hashing (`lib/hash.ts`), and local-only storage — no data leaves the device.
 
 ---
 
-## 📊 Coverage Checklist (24 Design Goals)
+## Coverage Checklist (24 Design Goals)
 
 | # | Goal | Files |
 |---|------|-------|
@@ -148,7 +260,7 @@ Tiered privacy controls, audit chain with cryptographic hashing (`lib/hash.ts`),
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -166,16 +278,28 @@ Tiered privacy controls, audit chain with cryptographic hashing (`lib/hash.ts`),
 
 ---
 
-## 📄 Data Sources
+## Data Sources
 
 All physiological data is **synthetic** (seeded PRNG — deterministic, reproducible, shareable).  
 Radiation and solar event labels reference **NASA RadLab** and **NASA DONKI** APIs.
 
 ---
 
-## 👤 Author
+## Team
 
-**Nishat Khan** · [@nishatkh](https://github.com/nishatkh)
+**Team name:** [TEAM NAME]  
+**Team leader:** Sadiya Islam Sujana
+
+Six students from Bangladesh, building for the NASA International Space Apps Challenge 2026.
+
+| # | Member |
+|---|--------|
+| 1 | **Sadiya Islam Sujana** (Team Leader) |
+| 2 | **MD. Nahidur Rahman Khan Nishat** |
+| 3 | **Ibrahim Bin Sultan** |
+| 4 | **Jayed Alam** |
+| 5 | **Md Solayman Hossain Shawon** |
+| 6 | **Nafisa Tabassum Nusrat** |
 
 ---
 
@@ -184,4 +308,3 @@ Radiation and solar event labels reference **NASA RadLab** and **NASA DONKI** AP
 *"Gather, evaluate, act — because in space, the next doctor is 20 minutes away."*
 
 </div>
-
