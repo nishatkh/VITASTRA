@@ -137,9 +137,6 @@ python scripts/fetch_nasa_data.py
 
 ## Design Principles
 
-### Offline-First
-All data persists in **IndexedDB** via a custom `persist.ts` layer. A Workbox service worker pre-caches every asset. The app works identically with zero connectivity.
-
 ### Decision Support, Not Diagnosis
 Every alert includes a **"Why am I seeing this?"** drawer with source citations. The `AdviceFooter` component is present on every recommendation screen.
 
