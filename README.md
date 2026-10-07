@@ -244,8 +244,4 @@ Six students from Bangladesh, building for the NASA International Space Apps Cha
 
 ---
 
-<div align="center">
 
-*"Gather, evaluate, act — because in space, the next doctor is 20 minutes away."*
-
-</div>
