@@ -5,7 +5,7 @@
 
 **Offline-first · AI-guided decision support · Real-time mission health monitoring**
 
-NASA International Space Apps Challenge 2026 · Team **Zero Gravity Minds**
+NASA International Space Apps Challenge 2026 · Team:**Zero Gravity Minds**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20App-6366f1?style=for-the-badge&logo=vercel)](https://github.com/nishatkh/VITASTRA)
 [![Tech Stack](https://img.shields.io/badge/React%2019-TypeScript-3178c6?style=for-the-badge&logo=typescript)](https://github.com/nishatkh/VITASTRA)
