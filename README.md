@@ -48,14 +48,15 @@ NASA International Space Apps Challenge 2026 · Team **[TEAM NAME]**
 HOW TO ADD YOUR SCREENSHOTS
 1. Take a screenshot of each screen (16:10 works best, about 1600 x 1000 px).
 2. Save it as PNG in docs/screenshots/ using the SAME file name as the placeholder
-   (for example heart.png). It replaces the placeholder box automatically.
+   (home.png, heart.png, body-twin.png, alerts.png, coach.png).
+   It replaces the placeholder box automatically.
 3. No need to edit this README. Commit and push.
 To add a new box, copy one <td> block below and change the file name and the captions.
 -->
 
 <div align="center">
 
-<img src="docs/screenshots/home.png" alt="Home overview screen" width="92%">
+<img src="https://i.postimg.cc/852J4xjF/Screenshot-2026-10-07-at-11-50-53-AM.png" alt="Home overview screen" width="92%">
 
 **Home (Overview)** — status, live vitals, and the Gather, Evaluate, Act strip
 
@@ -66,86 +67,26 @@ To add a new box, copy one <td> block below and change the file name and the cap
 <table>
   <tr>
     <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/heart.png" alt="Heart and Circulation" width="100%"><br>
+      <img src="https://i.postimg.cc/52sXTXXX/Screenshot-2026-10-07-at-11-51-08-AM.png" alt="Heart and Circulation" width="100%"><br>
       <b>Heart & Circulation</b><br>
       <sub>ECG, HRV trend and baseline band</sub>
     </td>
     <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/checks.png" alt="Silent-Signal Scheduler" width="100%"><br>
-      <b>Silent-Signal Scheduler</b><br>
-      <sub>Scheduled checks and slow drift detection</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/body-twin.png" alt="Body Twin" width="100%"><br>
+      <img src="https://i.postimg.cc/MKDHfnbT/Screenshot-2026-10-07-at-11-57-08-AM.png" alt="Body Twin" width="100%"><br>
       <b>Body Twin</b><br>
       <sub>Expected vs actual heart rate, with the gap</sub>
     </td>
+  </tr>
+  <tr>
     <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/alerts.png" alt="Alerts and Why drawer" width="100%"><br>
+      <img src="https://i.postimg.cc/J0QrXFJ8/Screenshot-2026-10-07-at-11-57-46-AM.png" alt="Alerts and Why drawer" width="100%"><br>
       <b>Alerts & "Why am I seeing this?"</b><br>
       <sub>Grouped alerts with signals and confidence</sub>
     </td>
-  </tr>
-  <tr>
     <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/hazard-map.png" alt="Hazard-to-Outcome Map" width="100%"><br>
-      <b>Hazard-to-Outcome Map</b><br>
-      <sub>Five hazards linked to five health outcomes</sub>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/radiation.png" alt="Radiation Monitor" width="100%"><br>
-      <b>Radiation Monitor</b><br>
-      <sub>Dose meter, space-weather events, shelter checklist</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/environment.png" alt="Closed Environment" width="100%"><br>
-      <b>Closed Environment</b><br>
-      <sub>CO₂, O₂, pressure and humidity</sub>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/triage.png" alt="Triage and Earth Link" width="100%"><br>
-      <b>Triage & Earth Link</b><br>
-      <sub>Delay-aware lanes and SBAR hand-off</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/coach.png" alt="Health Coach" width="100%"><br>
+      <img src="https://i.postimg.cc/6qBwBhP1/Screenshot-2026-10-07-at-11-58-26-AM.png" alt="Health Coach" width="100%"><br>
       <b>Health Coach</b><br>
       <sub>Cited steps, with "Insufficient information, escalate" when unsure</sub>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/baseline.png" alt="Personal Baseline" width="100%"><br>
-      <b>Personal Baseline</b><br>
-      <sub>Compared with the astronaut's own normal</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/data-sources.png" alt="Data Sources" width="100%"><br>
-      <b>Data Sources</b><br>
-      <sub>Where every number comes from</sub>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/privacy.png" alt="Privacy and Audit Chain" width="100%"><br>
-      <b>Privacy & Audit Chain</b><br>
-      <sub>Privacy tiers and a tamper-evident log</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/dark-theme.png" alt="Dark theme" width="100%"><br>
-      <b>Dark Theme</b><br>
-      <sub>For low-light cabins and recording screens</sub>
-    </td>
-    <td width="50%" align="center" valign="top">
-      <img src="docs/screenshots/mobile.png" alt="Mobile view" width="100%"><br>
-      <b>Mobile View</b><br>
-      <sub>Glove-friendly layout on a phone</sub>
     </td>
   </tr>
 </table>
