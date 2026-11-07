@@ -1,0 +1,238 @@
+{
+  "hazards": [
+    {
+      "id": "H1",
+      "name": "Space Radiation",
+      "nasaCode": "RAD",
+      "description": "Galactic Cosmic Radiation (GCR), Solar Particle Events (SPE), and secondary neutrons penetrating spacecraft shielding.",
+      "operationalImpact": "Cumulative carcinogenic risk, central nervous system alterations, acute radiation syndromes during solar proton events."
+    },
+    {
+      "id": "H2",
+      "name": "Isolation & Confinement",
+      "nasaCode": "ISO",
+      "description": "Prolonged psychological confinement, small living volumes, lack of circadian natural light, and sensory monotony.",
+      "operationalImpact": "Sleep disturbances, mood alteration, cognitive friction, interpersonal conflict, circadian phase misalignment."
+    },
+    {
+      "id": "H3",
+      "name": "Distance from Earth",
+      "nasaCode": "DST",
+      "description": "Increasing one-way communication latency (up to 24+ minutes for Mars), lack of real-time telemedicine, impossible emergency evacuation.",
+      "operationalImpact": "Requires complete crew autonomy in clinical triage, medical decision-making, surgical procedures, and resource management."
+    },
+    {
+      "id": "H4",
+      "name": "Altered Gravity Fields",
+      "nasaCode": "GRAV",
+      "description": "Weightlessness (0g), hypergravity during ascent/entry, and partial gravity (0.38g Mars, 0.16g Moon).",
+      "operationalImpact": "Cephalad fluid shift, Spaceflight-Associated Neuro-ocular Syndrome (SANS), bone demineralization, muscle atrophy, vestibular disorientation."
+    },
+    {
+      "id": "H5",
+      "name": "Hostile / Closed Environments",
+      "nasaCode": "ENV",
+      "description": "Hermetically sealed spacecraft cabin, elevated carbon dioxide (CO2), trace volatile contaminants, acoustic noise, microbial biome accumulation.",
+      "operationalImpact": "Hypercapnia headaches, respiratory mucosal irritation, immune hypersensitivity, ECLSS filter saturation, toxic particulate inhalation."
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "O1",
+      "name": "Cardiovascular Health",
+      "domain": "Physiology",
+      "description": "Vascular remodeling, reduced stroke volume, cardiac muscle atrophy, and post-flight orthostatic intolerance."
+    },
+    {
+      "id": "O2",
+      "name": "Immune Function",
+      "domain": "Immunology",
+      "description": "T-cell function suppression, altered cytokine secretion, latent viral reactivation (EBV, VZV), and wound healing delays."
+    },
+    {
+      "id": "O3",
+      "name": "Bone & Muscle Integrity",
+      "domain": "Musculoskeletal",
+      "description": "Cancellous bone mineral density decline (1.0-1.5%/month), muscle atrophy, tendon stiffness loss, and hypercalciuria nephrolithiasis risk."
+    },
+    {
+      "id": "O4",
+      "name": "Vision & SANS",
+      "domain": "Neuro-Ophthalmology",
+      "description": "Spaceflight-Associated Neuro-ocular Syndrome: optic disc edema, globe flattening, choroidal folds, and hyperopic refractive shifts."
+    },
+    {
+      "id": "O5",
+      "name": "Cognitive Performance",
+      "domain": "Behavioral Health",
+      "description": "Executive function preservation, fine motor reaction speed, dual-task attentional reserve, and spatial orientation."
+    },
+    {
+      "id": "O6",
+      "name": "Sleep Architecture",
+      "domain": "Circadian",
+      "description": "Sleep fragmentation, reduction of slow-wave and REM sleep stages, circadian desynchrony, and daytime fatigue."
+    },
+    {
+      "id": "O7",
+      "name": "Behavioral & Psychological Health",
+      "domain": "Psychology",
+      "description": "Mood stability, stress resilience, coping strategies in extreme confinement, and mission morale."
+    },
+    {
+      "id": "O8",
+      "name": "Radiation Exposure & Tissue Dose",
+      "domain": "Radiobiology",
+      "description": "Cumulative absorbed dose, effective dose equivalent (mSv), acute tissue micro-lesions, and career toxicity limits."
+    },
+    {
+      "id": "O9",
+      "name": "General Physiological Adaptations",
+      "domain": "Systemic",
+      "description": "Core body temperature elevation ('space fever'), metabolic shifts, red blood cell mass reduction ('space anemia')."
+    }
+  ],
+  "connections": [
+    {
+      "id": "C-H1-O8",
+      "from": "H1",
+      "to": "O8",
+      "hazard": "Space Radiation",
+      "outcome": "Radiation Exposure & Tissue Dose",
+      "healthImpact": "Direct cellular DNA double-strand breaks, reactive oxygen species generation, acute lymphoid tissue suppression, and cumulative cancer risk.",
+      "measurements": ["Personal active dosimeters (mSv/day)", "RadLab Liulin-5 absorbed dose (mGy)", "Blood chromosome aberration assays", "Solar particle event proton flux"],
+      "scientificEvidence": "Extensive empirical measurements across Gemini, Apollo, Skylab, ISS, and BioSentinel missions. Career dose limits established under NASA-STD-3001.",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Human Research Program — Space Radiation Risk Book",
+      "sourceUrl": "https://www.nasa.gov/hrp/hazards/",
+      "suggestedAction": "Continuous dosimeter logging; verify shelter readiness if DONKI reports SPE with proton flux >10 pfu at >10 MeV."
+    },
+    {
+      "id": "C-H4-O4",
+      "from": "H4",
+      "to": "O4",
+      "hazard": "Altered Gravity",
+      "outcome": "Vision & SANS",
+      "healthImpact": "Cephalad fluid shift removes hydrostatic pressure gradients, causing chronically elevated venous pressure at the head, engorged optic sheath, papilledema, and hyperopic shift.",
+      "measurements": ["Optical Coherence Tomography (OCT) retinal nerve layer thickness", "Near and distance visual acuity (logMAR)", "Intraocular pressure (IOP)", "Optic nerve sheath diameter"],
+      "scientificEvidence": "Documented in >60% of long-duration ISS crewmembers. NASA SANS research clinical protocols (HRP SANS Evidence Book).",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA HRP — Risk of SANS / Human System Risks",
+      "sourceUrl": "https://www.nasa.gov/hhp/human-system-risks/",
+      "suggestedAction": "Weekly Snellen/LogMAR visual acuity tests; monthly OCT scans; avoid prolonged head-down postures; use lower body negative pressure (LBNP) if prescribed."
+    },
+    {
+      "id": "C-H4-O3",
+      "from": "H4",
+      "to": "O3",
+      "hazard": "Altered Gravity",
+      "outcome": "Bone & Muscle Integrity",
+      "healthImpact": "Removal of mechanical gravitational loading uncouples osteoblast-osteoclast activity, leading to progressive bone resorption (~1%/month) and postural slow-twitch muscle fiber atrophy.",
+      "measurements": ["ARED mechanical load delivered (kg/reps)", "T2 treadmill ground reaction force", "Urine and serum N-telopeptide / calcium", "Pre/postflight dual-energy X-ray absorptiometry (DXA)"],
+      "scientificEvidence": "Longitudinal ISS cohort studies comparing pre-ARED vs post-ARED implementation. Demonstrates mechanical strain preserves cortical architecture.",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Human Research Program — Bone Risk Evidence Report",
+      "sourceUrl": "https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/",
+      "suggestedAction": "Mandatory 2.0-2.5 h/day countermeasure protocol (ARED heavy resistance + CEVIS/T2 aerobic); monitor weekly delivered mechanical load."
+    },
+    {
+      "id": "C-H4-O1",
+      "from": "H4",
+      "to": "O1",
+      "hazard": "Altered Gravity",
+      "outcome": "Cardiovascular Health",
+      "healthImpact": "Initial central hypervolemia triggers renal fluid excretion, reducing plasma volume by 10-15%. Prolonged reduction in cardiac workload causes left ventricular mass reduction and baroreflex resetting.",
+      "measurements": ["Resting heart rate & ECG rhythm", "Heart Rate Variability (rMSSD)", "Post-exercise Heart Rate Recovery (HRR)", "Continuous blood pressure"],
+      "scientificEvidence": "Consistently documented in spaceflight and bed rest head-down tilt (HDBR) terrestrial analogs across decades.",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Cardiovascular Laboratory / Human System Risks",
+      "sourceUrl": "https://www.nasa.gov/hhp/human-system-risks/",
+      "suggestedAction": "Wearable continuous HRV and resting HR monitoring; fluid loading protocol with electrolyte tablets prior to landing/re-entry."
+    },
+    {
+      "id": "C-H2-O6",
+      "from": "H2",
+      "to": "O6",
+      "hazard": "Isolation & Confinement",
+      "outcome": "Sleep Architecture",
+      "healthImpact": "Lack of natural 24h solar cycle (ISS experiences 16 sunrises/day), acoustic cabin noise, and confinement induce sleep latency elongation and sleep fragmentation.",
+      "measurements": ["Actigraphy sleep efficiency (%)", "Total sleep duration (hours)", "Rest-activity circadian rhythm index", "Sleep onset latency (min)"],
+      "scientificEvidence": "NASA actigraphy and PSG sleep studies on ISS demonstrating average nightly sleep of ~6.0-6.2 hours vs planned 8.0 hours.",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Behavioral Health & Performance / ISS Lighting Protocols",
+      "sourceUrl": "https://www.nasa.gov/hrp/hazards/",
+      "suggestedAction": "Dynamic Solid-State Light Assemblies (SSLA) tuned to blue-depleted warm light 90 min before sleep; strict 8-hour protected sleep schedule."
+    },
+    {
+      "id": "C-H2-O2",
+      "from": "H2",
+      "to": "O2",
+      "hazard": "Isolation & Confinement",
+      "outcome": "Immune Function",
+      "healthImpact": "Chronic psychological confinement and elevated glucocorticoids (cortisol) downregulate cellular immunity, leading to subclinical reactivation of latent herpesviruses.",
+      "measurements": ["Salivary cortisol circadian profile", "Salivary secretory IgA (sIgA)", "Saliva qPCR for EBV and VZV DNA copies", "Plasma IL-6, TNF-alpha, IFN-gamma"],
+      "scientificEvidence": "Artemis II saliva biomarker research protocols and ISS crew immunology studies by Crucian et al. (NASA JSC).",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Immunology & Virology / Artemis II Saliva Study",
+      "sourceUrl": "https://www.nasa.gov/reference/immune-biomarkers/",
+      "suggestedAction": "Scheduled non-invasive saliva sampling (scheduled -> collected -> stored at -80°C); correlate viral titers with psychological stress indices."
+    },
+    {
+      "id": "C-H5-O5",
+      "from": "H5",
+      "to": "O5",
+      "hazard": "Hostile / Closed Environments",
+      "outcome": "Cognitive Performance",
+      "healthImpact": "Elevated cabin carbon dioxide (CO2 > 3,500-4,000 ppm) combined with poor localized air mixing can cause subtle cerebral vasodilation, headache, and transient executive function fatigue.",
+      "measurements": ["Ambient cabin CO2 partial pressure (ppm / mmHg)", "Psychomotor Vigilance Test (PVT) reaction time (ms)", "Cognitive battery accuracy score", "Subjective headache questionnaire"],
+      "scientificEvidence": "NASA ECLSS clinical reports and controlled environmental human chamber studies (Law et al., NASA Technical Reports).",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA ECLSS Environmental Standards (NASA-STD-3001)",
+      "sourceUrl": "https://www.nasa.gov/hhp/human-system-risks/",
+      "suggestedAction": "Daily PVT reaction test; cross-check cognitive drift against environmental scrubber status; maintain cabin CO2 < 3.0 mmHg."
+    },
+    {
+      "id": "C-H3-O5",
+      "from": "H3",
+      "to": "O5",
+      "hazard": "Distance from Earth",
+      "outcome": "Cognitive Performance",
+      "healthImpact": "Communication delay (up to 20-40 min roundtrip for Mars) removes real-time Earth guidance during complex emergencies, multiplying cognitive workload and task saturation.",
+      "measurements": ["Cognitive workload index", "NASA Task Load Index (TLX)", "Decision-making latency in simulated anomalies", "Autonomous procedure completion rate"],
+      "scientificEvidence": "NASA human analog missions (HERA, NEEMO, CHAPEA) simulating communication delays up to 22 minutes.",
+      "evidenceStrength": "Emerging research",
+      "source": "NASA Behavioral Health and Performance / Exploration Medical Capability",
+      "sourceUrl": "https://www.nasa.gov/hrp/hazards/",
+      "suggestedAction": "Delay-aware decision support (VITASTRA Triage); automated step-by-step checklists; verify local procedure execution without ground confirmation."
+    },
+    {
+      "id": "C-H5-O9",
+      "from": "H5",
+      "to": "O9",
+      "hazard": "Hostile / Closed Environments",
+      "outcome": "General Physiological Adaptations",
+      "healthImpact": "Closed spacecraft atmosphere with altered convective cooling and thermal regulation dynamics causes resting core body temperature elevation (~1.0°C higher, termed 'space fever').",
+      "measurements": ["Circadian core body temperature (Double Sensor)", "Skin temperature drift (°C)", "Cabin ambient temperature & humidity", "Sweat rate & hydration balance"],
+      "scientificEvidence": "Thermo-miniature sensor research on ISS (Stahn et al., Scientific Reports / ESA/NASA study).",
+      "evidenceStrength": "Established evidence",
+      "source": "NASA Space Station Cell Studies / Thermo-regulation",
+      "sourceUrl": "https://www.nasa.gov/missions/station/iss-research/space-station-cell-studies/",
+      "suggestedAction": "Continuous non-invasive skin/core temperature tracking; differentiate thermoregulatory reset from infectious fever using baseline comparisons."
+    },
+    {
+      "id": "C-H1-O5",
+      "from": "H1",
+      "to": "O5",
+      "hazard": "Space Radiation",
+      "outcome": "Cognitive Performance",
+      "healthImpact": "High-Z and high-energy (HZE) particles in Galactic Cosmic Rays may disrupt hippocampal neurogenesis, synaptic dendritic spines, and neuro-inflammation pathways.",
+      "measurements": ["Spatial memory tests", "Executive attention task batteries", "Biomarkers of neuronal injury (Neurofilament light chain)", "Cumulative radiation exposure"],
+      "scientificEvidence": "Brookhaven National Laboratory NASA Space Radiation Laboratory (NSRL) rodent studies and emerging human neural organoid payloads (PMC11631337).",
+      "evidenceStrength": "Experimental evidence",
+      "source": "NASA Space Radiation Laboratory / Nature Communications",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/",
+      "suggestedAction": "Quarterly deep-cognitive battery; monitor cumulative radiation dose; never attribute single cognitive dip to radiation without multi-factor analysis."
+    }
+  ]
+}
+

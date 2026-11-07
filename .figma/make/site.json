@@ -1,0 +1,11 @@
+{
+  "title": "VITASTRA — Astronaut Health Intelligence",
+  "description": "Offline-first astronaut health monitoring platform. Tracks vital signs, radiation, environment, and cognitive metrics with AI-guided decision support for space missions.",
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": true,
+    "ignoreReducedMotion": false
+  }
+}

@@ -1,0 +1,97 @@
+[
+  {
+    "flrID": "2024-05-14T16:51:00-FLR-001",
+    "beginTime": "2024-05-14T16:51:00Z",
+    "peakTime": "2024-05-14T17:05:00Z",
+    "endTime": "2024-05-14T17:15:00Z",
+    "classType": "X8.7",
+    "sourceLocation": "S18W89",
+    "activeRegionNum": 13664,
+    "instruments": [
+      { "displayName": "GOES-16 EXIS XRS" }
+    ],
+    "linkedEvents": [
+      { "activityID": "2024-05-14T17:24:00-CME-001" }
+    ],
+    "note": "Largest solar flare of Solar Cycle 25 to date. Erupted from Active Region 3664 on the solar limb. Associated with rapid proton flux enhancement and coronal mass ejection.",
+    "source": "NASA DONKI / NOAA Space Weather Prediction Center",
+    "catalogUrl": "https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/FLR/2024-05-14T16:51:00-FLR-001",
+    "operationalGuidance": "Radiation shelter protocol recommended for interplanetary crews. For LEO / ISS, monitor South Atlantic Anomaly passes and high-latitude orbital geomagnetically induced proton flux."
+  },
+  {
+    "flrID": "2024-05-11T01:10:00-FLR-001",
+    "beginTime": "2024-05-11T01:10:00Z",
+    "peakTime": "2024-05-11T01:23:00Z",
+    "endTime": "2024-05-11T01:39:00Z",
+    "classType": "X5.8",
+    "sourceLocation": "S18W02",
+    "activeRegionNum": 13664,
+    "instruments": [
+      { "displayName": "GOES-16 EXIS XRS" }
+    ],
+    "linkedEvents": [
+      { "activityID": "2024-05-11T01:36:00-CME-001" },
+      { "activityID": "2024-05-11T02:00:00-GST-001" }
+    ],
+    "note": "Major Earth-directed X-class flare occurring during the peak of the G5 Extreme Geomagnetic Storm. Extensive radio blackout (R3) across the Pacific region.",
+    "source": "NASA DONKI / NOAA Space Weather Prediction Center",
+    "catalogUrl": "https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/FLR/2024-05-11T01:10:00-FLR-001",
+    "operationalGuidance": "G5 Extreme storm conditions. High-voltage power grid and satellite communication precautions active. Astronauts in LEO advised to sleep in shielded central modules (Node 2 / Zvezda)."
+  },
+  {
+    "flrID": "2024-05-10T06:27:00-FLR-001",
+    "beginTime": "2024-05-10T06:27:00Z",
+    "peakTime": "2024-05-10T06:54:00Z",
+    "endTime": "2024-05-10T07:06:00Z",
+    "classType": "X3.98",
+    "sourceLocation": "S18E06",
+    "activeRegionNum": 13664,
+    "instruments": [
+      { "displayName": "GOES-16 EXIS XRS" }
+    ],
+    "linkedEvents": [
+      { "activityID": "2024-05-10T07:12:00-CME-001" }
+    ],
+    "note": "Powerful flare producing fast halo coronal mass ejection (>1200 km/s) that merged with preceding CMEs into a 'cannibal' CME structure triggering global G5 geomagnetic conditions.",
+    "source": "NASA DONKI / SOHO LASCO",
+    "catalogUrl": "https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/FLR/2024-05-10T06:27:00-FLR-001",
+    "operationalGuidance": "Fast CME transit time (~28 hours to Earth). Extravehicular Activities (EVAs) suspended; verify crew dosimeter badge readings before and after SAA passes."
+  },
+  {
+    "flrID": "2024-05-09T08:50:00-FLR-001",
+    "beginTime": "2024-05-09T08:50:00Z",
+    "peakTime": "2024-05-09T09:13:00Z",
+    "endTime": "2024-05-09T09:22:00Z",
+    "classType": "X2.25",
+    "sourceLocation": "S18E21",
+    "activeRegionNum": 13664,
+    "instruments": [
+      { "displayName": "GOES-16 EXIS XRS" }
+    ],
+    "linkedEvents": [
+      { "activityID": "2024-05-09T09:30:00-CME-001" }
+    ],
+    "note": "Early eruptive flare from the precursor phase of the May 2024 storm sequence. Marked the onset of elevated energetic electron and proton fluxes at GEO and LEO altitudes.",
+    "source": "NASA DONKI / SDO AIA",
+    "catalogUrl": "https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/FLR/2024-05-09T08:50:00-FLR-001",
+    "operationalGuidance": "Initial advisory issued to flight control team. Telemetry checks on external robotic arms and solar array drive mechanisms."
+  },
+  {
+    "flrID": "2024-05-08T21:40:00-FLR-001",
+    "beginTime": "2024-05-08T21:40:00Z",
+    "peakTime": "2024-05-08T21:58:00Z",
+    "endTime": "2024-05-08T22:10:00Z",
+    "classType": "X1.0",
+    "sourceLocation": "S18E34",
+    "activeRegionNum": 13664,
+    "instruments": [
+      { "displayName": "GOES-16 EXIS XRS" }
+    ],
+    "linkedEvents": [],
+    "note": "Opening X-class flare initiating the active storm period. High-frequency communication degradation observed on dayside Earth.",
+    "source": "NASA DONKI / NOAA SWPC",
+    "catalogUrl": "https://kauai.ccmc.gsfc.nasa.gov/DONKI/view/FLR/2024-05-08T21:40:00-FLR-001",
+    "operationalGuidance": "Standard space-weather monitoring advisory. Maintain normal flight operations while tracking Active Region 3664 rotation toward central meridian."
+  }
+]
+
