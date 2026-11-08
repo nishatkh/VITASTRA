@@ -87,7 +87,7 @@ export default function Radiation() {
         {/* Progress against limit */}
         <div className="h-2.5 overflow-hidden rounded-full bg-border" role="progressbar" aria-valuenow={Math.round((careerDose?.pct ?? 0.17) * 100)}>
           <div
-            className="h-full rounded-full bg-ink transition-all duration-500"
+            className="h-full rounded-full liquid-glass-dark transition-all duration-500"
             style={{ width: `${Math.min(100, (careerDose?.pct ?? 0.17) * 100)}%` }}
           />
         </div>
@@ -97,7 +97,7 @@ export default function Radiation() {
             Current mission cumulative: <strong>{ev?.dose?.cumulative.toFixed(1) ?? "20.6"} mSv</strong>. Absorbed physical dose about{" "}
             <strong>{((ev?.dose?.cumulative ?? 20.6) / ASSUMED_Q).toFixed(1)} mGy</strong>.
           </p>
-          <div className="rounded-2xl bg-raised p-3 text-[12.5px] space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-3 text-[12.5px] space-y-1">
             <div className="font-semibold text-ink">Scientific Dosimetry Disclosure:</div>
             <p>
               Space detectors (Liulin-5, REM) measure physical absorbed dose in milligrays (mGy). Calculating biological effective dose in millisieverts (mSv) requires an assumed quality factor (Q = {ASSUMED_Q.toFixed(1)}), representing biological relative effectiveness across heavy ion (HZE) and proton spectra.
@@ -143,7 +143,7 @@ export default function Radiation() {
           <button
             onClick={loadDonki}
             disabled={loadingDonki}
-            className="inline-flex items-center gap-1.5 rounded-full bg-raised px-3.5 py-1 text-[12px] font-medium text-ink hover:bg-border transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-3.5 py-1 text-[12px] font-medium text-ink hover:bg-border transition-colors disabled:opacity-50"
           >
             <RefreshCw className={`size-3.5 ${loadingDonki ? "animate-spin" : ""}`} />
             {loadingDonki ? "Querying..." : "Refresh DONKI API"}
@@ -151,7 +151,7 @@ export default function Radiation() {
         </div>
 
         {donkiData && (
-          <div className="rounded-2xl bg-raised p-3.5 text-[13px] text-label space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 text-[13px] text-label space-y-1">
             <div className="flex items-center gap-2 font-semibold text-ink">
               <span className={`size-2 rounded-full ${
                 donkiData.sourceMode === "live_nasa_api" ? "bg-signal" : "bg-accent"
@@ -164,7 +164,7 @@ export default function Radiation() {
 
         {/* Top Space Weather Event Details */}
         {topSolarEvent && (
-          <div className="rounded-2xl border border-border p-4 space-y-3 bg-surface">
+          <div className="rounded-2xl border border-border p-4 space-y-3 liquid-glass-clear">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="rounded-full bg-signal/15 px-3 py-0.5 text-[12px] font-semibold text-signal">
                 Flare Class: {topSolarEvent.classType}
@@ -181,7 +181,7 @@ export default function Radiation() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-raised p-3 text-[12.5px] text-label space-y-1">
+            <div className="rounded-xl liquid-glass-clear p-3 text-[12.5px] text-label space-y-1">
               <div className="font-semibold text-ink">Flight Operational Guidance:</div>
               <p>{topSolarEvent.operationalGuidance}</p>
             </div>
@@ -210,8 +210,8 @@ export default function Radiation() {
             onClick={() => setActiveDrill(!activeDrill)}
             className={`rounded-full px-4 py-1.5 text-[12.5px] font-semibold transition-colors ${
               activeDrill
-                ? "bg-warning text-canvas"
-                : "bg-raised text-ink hover:bg-border"
+                ? "bg-warning text-white"
+                : "liquid-glass-clear text-ink hover:bg-border"
             }`}
           >
             {activeDrill ? "Stop Solar Flare Drill" : "Initiate Solar Storm Drill"}
@@ -221,7 +221,7 @@ export default function Radiation() {
 
       {/* Shelter Now Checklist (Active during SPE or Drill) */}
       {spe && (
-        <section className="card p-5 border-2 border-warning space-y-4" aria-label="Shelter now checklist">
+        <section className="liquid-glass-primary glass-hover p-5 border-2 border-warning space-y-4" aria-label="Shelter now checklist">
           <div className="flex items-center justify-between border-b border-border pb-3">
             <div>
               <div className="flex items-center gap-2">
@@ -240,7 +240,7 @@ export default function Radiation() {
           <ul className="space-y-2.5">
             {SHELTER_STEPS.map((step, idx) => (
               <li key={step}>
-                <label className="flex min-h-[58px] cursor-pointer items-center gap-4 rounded-2xl bg-raised px-4 text-[15px] font-medium text-ink shadow-xs hover:bg-border transition-colors">
+                <label className="flex min-h-[58px] cursor-pointer items-center gap-4 rounded-2xl liquid-glass-clear px-4 text-[15px] font-medium text-ink shadow-xs hover:bg-border transition-colors">
                   <input
                     type="checkbox"
                     checked={shelterTicks[idx]}
@@ -261,3 +261,7 @@ export default function Radiation() {
     </ModuleShell>
   )
 }
+
+
+
+

@@ -202,13 +202,13 @@ export default function Bone() {
           <div className="flex gap-2">
             <button
               onClick={() => setShowOutageModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
             >
               <Wrench className="size-3.5" /> Log Machine Outage
             </button>
             <button
               onClick={() => setShowLogModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-[12.5px] font-medium text-canvas hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-1.5 rounded-full bg-cyan-600 px-4 py-1.5 text-[12.5px] font-medium text-white hover:opacity-90 transition-opacity"
             >
               <Plus className="size-3.5" /> Log Session
             </button>
@@ -242,7 +242,7 @@ export default function Bone() {
             </div>
           </div>
         ) : (
-          <div className="rounded-2xl bg-raised p-4 flex items-center gap-3 text-[13.5px] text-label">
+          <div className="rounded-2xl liquid-glass-clear p-4 flex items-center gap-3 text-[13.5px] text-label">
             <CheckCircle2 className="size-5 text-signal shrink-0" />
             <span>All primary countermeasure devices (ARED, T2 Treadmill, CEVIS Cycle) are fully operational.</span>
           </div>
@@ -258,7 +258,7 @@ export default function Bone() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-[14.5px] text-ink">{l.device}</span>
-                  <span className="text-[11.5px] rounded-full bg-raised px-2.5 py-0.5 text-label font-mono">
+                  <span className="text-[11.5px] rounded-full liquid-glass-clear px-2.5 py-0.5 text-label font-mono">
                     Day {l.day}
                   </span>
                   {l.machineDegraded && (
@@ -288,7 +288,7 @@ export default function Bone() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-nav/60 backdrop-blur-xs">
           <form
             onSubmit={handleAddLog}
-            className="w-full max-w-md rounded-[32px] bg-surface p-6 shadow-2xl border border-border space-y-4"
+            className="w-full max-w-md rounded-[32px] liquid-glass-clear p-6 shadow-2xl border border-border space-y-4"
           >
             <h3 className="text-[18px] font-semibold text-ink">Log Exercise Countermeasure</h3>
 
@@ -297,7 +297,7 @@ export default function Bone() {
               <select
                 value={dev}
                 onChange={(e) => setDev(e.target.value as any)}
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
               >
                 <option value="ARED">ARED (Advanced Resistive Exercise Device)</option>
                 <option value="T2 treadmill">T2 Treadmill (Vibration Isolation)</option>
@@ -314,7 +314,7 @@ export default function Bone() {
                   max={180}
                   value={dur}
                   onChange={(e) => setDur(Number(e.target.value))}
-                  className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                  className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
                 />
               </div>
               <div>
@@ -325,7 +325,7 @@ export default function Bone() {
                   max={300}
                   value={load}
                   onChange={(e) => setLoad(Number(e.target.value))}
-                  className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                  className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
                 />
               </div>
             </div>
@@ -337,7 +337,7 @@ export default function Bone() {
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="RPE, mechanical feedback, cable tension notes..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-[13.5px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-[13.5px] text-ink"
               />
             </div>
 
@@ -351,7 +351,7 @@ export default function Bone() {
               </button>
               <button
                 type="submit"
-                className="rounded-full bg-ink px-5 py-2 text-[13px] font-semibold text-canvas"
+                className="rounded-full liquid-glass-dark px-5 py-2 text-[13px] font-semibold text-white"
               >
                 Save Session
               </button>
@@ -365,7 +365,7 @@ export default function Bone() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-nav/60 backdrop-blur-xs">
           <form
             onSubmit={handleAddOutage}
-            className="w-full max-w-md rounded-[32px] bg-surface p-6 shadow-2xl border border-border space-y-4"
+            className="w-full max-w-md rounded-[32px] liquid-glass-clear p-6 shadow-2xl border border-border space-y-4"
           >
             <h3 className="text-[18px] font-semibold text-ink">Record Equipment Outage</h3>
 
@@ -374,7 +374,7 @@ export default function Bone() {
               <select
                 value={outageMachine}
                 onChange={(e) => setOutageMachine(e.target.value)}
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
               >
                 <option value="ARED">ARED (Advanced Resistive Exercise Device)</option>
                 <option value="T2 treadmill">T2 Treadmill</option>
@@ -390,7 +390,7 @@ export default function Bone() {
                 max={30}
                 value={outageDays}
                 onChange={(e) => setOutageDays(Number(e.target.value))}
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
               />
             </div>
 
@@ -404,7 +404,7 @@ export default function Bone() {
               </button>
               <button
                 type="submit"
-                className="rounded-full bg-warning px-5 py-2 text-[13px] font-semibold text-canvas"
+                className="rounded-full bg-warning px-5 py-2 text-[13px] font-semibold text-white"
               >
                 Log Outage
               </button>
@@ -415,3 +415,6 @@ export default function Bone() {
     </ModuleShell>
   )
 }
+
+
+

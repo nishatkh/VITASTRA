@@ -40,7 +40,7 @@ export default function Validation() {
       <p className="max-w-2xl text-[16px] leading-snug text-label">Synthetic crews run through the same detectors. Each crew has its own baseline, noise and event onset. All numbers below come from this simulation, not from real astronauts.</p>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,380px)_1fr]">
         <Card className="flex flex-col gap-5 p-5">
-          <div><div className="label mb-2">Scenario</div><div role="radiogroup" aria-label="Scenario" className="flex flex-col gap-2">{SCENARIOS.map((s) => <button key={s.id} role="radio" aria-checked={scn === s.id} onClick={() => setScn(s.id)} className={`min-h-11 rounded-full px-4 text-left text-[14px] font-semibold ${scn === s.id ? "bg-ink text-canvas" : "bg-raised shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}>{s.label}</button>)}</div></div>
+          <div><div className="label mb-2">Scenario</div><div role="radiogroup" aria-label="Scenario" className="flex flex-col gap-2">{SCENARIOS.map((s) => <button key={s.id} role="radio" aria-checked={scn === s.id} onClick={() => setScn(s.id)} className={`min-h-11 rounded-full px-4 text-left text-[14px] font-semibold ${scn === s.id ? "liquid-glass-dark text-white" : "liquid-glass-clear shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}>{s.label}</button>)}</div></div>
           <div><div className="label mb-2">Speed</div><Segmented label="Simulation speed" value={speed} options={["1x", "5x", "25x"] as const} onChange={setSpeed} /></div>
           <div><div className="label mb-2">Crew size</div><Segmented label="Crew size" value={size} options={SIZES} onChange={setSize} /></div>
           <div className="flex items-center gap-4">
@@ -60,7 +60,7 @@ export default function Validation() {
             <thead><tr className="border-b border-border text-[12.5px] text-label"><th scope="col" className="py-2 pr-3 font-semibold">Method</th><th scope="col" className="px-2 font-semibold">Median days to detect</th><th scope="col" className="px-2 font-semibold">Missed events, %</th><th scope="col" className="px-2 font-semibold">False alarms per crew-month</th><th scope="col" className="px-2 font-semibold">Alerts per 100 h</th></tr></thead>
             <tbody>
               {(rows ?? METHODS.map((m) => ({ method: m, detectionDays: NaN, falseAlarmsPerCrewMonth: NaN, alertsPer100h: NaN, grouped: false }))).map((r, k) => (
-                <tr key={r.method} className={`border-b border-border tabular-nums ${k === 3 ? "bg-ink text-canvas" : ""}`}>
+                <tr key={r.method} className={`border-b border-border tabular-nums ${k === 3 ? "liquid-glass-dark text-white" : ""}`}>
                   <th scope="row" className="rounded-l-2xl py-3.5 pl-3 pr-3 font-semibold">{r.method}</th>
                   <td className="px-2">{rows ? fmt(r.detectionDays, 0) : "-"}</td><td className="px-2">{rows ? "0" : "-"}</td><td className="px-2">{rows ? fmt(r.falseAlarmsPerCrewMonth, 2) : "-"}</td><td className="rounded-r-2xl px-2">{rows ? fmt(r.alertsPer100h, 2) : "-"}</td>
                 </tr>
@@ -73,3 +73,5 @@ export default function Validation() {
     </div>
   )
 }
+
+

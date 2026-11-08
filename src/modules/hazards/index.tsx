@@ -90,11 +90,10 @@ export default function Hazards() {
             <button
               key={st}
               onClick={() => setStrengthFilter(st)}
-              className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
-                strengthFilter === st
-                  ? "bg-ink text-canvas"
-                  : "bg-raised text-label hover:text-ink"
-              }`}
+              className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${strengthFilter === st
+                  ? "liquid-glass-dark text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
+                }`}
             >
               {st}
             </button>
@@ -134,28 +133,24 @@ export default function Hazards() {
                   setSelectedHazard(isSelected ? null : h.id)
                   setSelectedOutcome(null)
                 }}
-                className={`flex flex-col text-left rounded-[22px] p-4 transition-all duration-200 border ${
-                  isSelected
-                    ? "bg-ink text-canvas border-ink shadow-md"
-                    : "bg-surface text-ink border-border hover:border-border-strong hover:bg-raised/60"
-                }`}
+                className={`flex flex-col text-left rounded-[22px] p-4 transition-all duration-200 border ${isSelected
+                    ? "liquid-glass-dark text-white border-cyan-400/30 shadow-md"
+                    : "liquid-glass-clear text-ink border-border hover:border-border-strong hover:liquid-glass-clear/60"
+                  }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`text-[11px] font-mono font-semibold tracking-wider ${
-                    isSelected ? "text-canvas/70" : "text-label"
-                  }`}>
+                  <span className={`text-[11px] font-mono font-semibold tracking-wider ${isSelected ? "text-white/70" : "text-label"
+                    }`}>
                     {h.nasaCode} · HAZARD {h.id}
                   </span>
-                  <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-medium ${
-                    isSelected ? "bg-canvas/20 text-canvas" : "bg-raised text-label"
-                  }`}>
+                  <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-medium ${isSelected ? "bg-white/10 text-white" : "liquid-glass-clear text-label"
+                    }`}>
                     {activeConnCount} links
                   </span>
                 </div>
                 <div className="mt-1 text-[16px] font-semibold tracking-tight">{h.name}</div>
-                <div className={`mt-1 text-[12px] line-clamp-2 leading-snug ${
-                  isSelected ? "text-canvas/80" : "text-label"
-                }`}>
+                <div className={`mt-1 text-[12px] line-clamp-2 leading-snug ${isSelected ? "text-white/80" : "text-label"
+                  }`}>
                   {h.description}
                 </div>
               </button>
@@ -184,17 +179,15 @@ export default function Hazards() {
                   onClick={() => {
                     setSelectedOutcome(isSelected ? null : o.id)
                   }}
-                  className={`flex flex-col text-left rounded-2xl p-3 border transition-all text-[13px] ${
-                    isSelected
-                      ? "bg-accent text-canvas border-accent shadow-sm"
+                  className={`flex flex-col text-left rounded-2xl p-3 border transition-all text-[13px] ${isSelected
+                      ? "bg-cyan-600 text-white border-cyan-600 shadow-sm"
                       : hasConnectionToHazard
-                      ? "bg-surface border-border hover:bg-raised/70 text-ink"
-                      : "bg-surface/50 border-border/50 text-label/60 opacity-60"
-                  }`}
+                        ? "liquid-glass-clear border-border hover:liquid-glass-clear/70 text-ink"
+                        : "liquid-glass-clear/50 border-border/50 text-label/60 opacity-60"
+                    }`}
                 >
-                  <span className={`text-[10px] uppercase font-mono font-medium ${
-                    isSelected ? "text-canvas/80" : "text-label"
-                  }`}>
+                  <span className={`text-[10px] uppercase font-mono font-medium ${isSelected ? "text-white/80" : "text-label"
+                    }`}>
                     {o.domain}
                   </span>
                   <span className="font-semibold leading-tight mt-0.5">{o.name}</span>
@@ -209,16 +202,15 @@ export default function Hazards() {
               <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border pb-4">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-raised px-2.5 py-0.5 text-[11px] font-mono font-medium text-label">
+                    <span className="rounded-full liquid-glass-clear px-2.5 py-0.5 text-[11px] font-mono font-medium text-label">
                       {activeConnection.hazard} → {activeConnection.outcome}
                     </span>
-                    <span className={`rounded-full px-2.5 py-0.5 text-[11.5px] font-semibold ${
-                      activeConnection.evidenceStrength === "Established evidence"
+                    <span className={`rounded-full px-2.5 py-0.5 text-[11.5px] font-semibold ${activeConnection.evidenceStrength === "Established evidence"
                         ? "bg-signal/15 text-signal"
                         : activeConnection.evidenceStrength === "Emerging research"
-                        ? "bg-accent/15 text-accent"
-                        : "bg-warning/15 text-warning"
-                    }`}>
+                          ? "bg-accent/15 text-accent"
+                          : "bg-warning/15 text-warning"
+                      }`}>
                       {activeConnection.evidenceStrength}
                     </span>
                   </div>
@@ -232,7 +224,7 @@ export default function Hazards() {
 
               {/* Specific Sections */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[13.5px]">
-                <div className="rounded-2xl bg-raised p-4 space-y-2">
+                <div className="rounded-2xl liquid-glass-clear p-4 space-y-2">
                   <div className="label !text-[11px] text-ink font-bold">Key Telemetry & Measurements</div>
                   <ul className="space-y-1 text-label list-disc pl-4">
                     {activeConnection.measurements.map((m) => (
@@ -241,7 +233,7 @@ export default function Hazards() {
                   </ul>
                 </div>
 
-                <div className="rounded-2xl bg-raised p-4 space-y-2">
+                <div className="rounded-2xl liquid-glass-clear p-4 space-y-2">
                   <div className="label !text-[11px] text-ink font-bold">Suggested Monitoring Action</div>
                   <p className="text-label leading-relaxed font-medium">
                     {activeConnection.suggestedAction}
@@ -276,11 +268,10 @@ export default function Hazards() {
                       <button
                         key={c.id}
                         onClick={() => setActiveConnectionId(c.id)}
-                        className={`rounded-full px-3 py-1 text-[12px] transition-colors ${
-                          activeConnection.id === c.id
-                            ? "bg-accent text-canvas font-semibold"
-                            : "bg-raised text-label hover:text-ink"
-                        }`}
+                        className={`rounded-full px-3 py-1 text-[12px] transition-colors ${activeConnection.id === c.id
+                            ? "bg-cyan-600 text-white font-semibold"
+                            : "liquid-glass-clear text-label hover:text-ink"
+                          }`}
                       >
                         {c.hazard} → {c.outcome}
                       </button>
@@ -295,3 +286,6 @@ export default function Hazards() {
     </div>
   )
 }
+
+
+

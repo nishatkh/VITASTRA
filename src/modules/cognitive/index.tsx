@@ -40,7 +40,7 @@ export const FitCard = ({
       <ul className="flex flex-col gap-1.5 text-[14px] leading-snug">
         {f.reasons.map((r) => (
           <li key={r} className="flex gap-2">
-            <span className="mt-2 size-1 shrink-0 rounded-full bg-ink" />
+            <span className="mt-2 size-1 shrink-0 rounded-full liquid-glass-dark" />
             {r}
           </li>
         ))}
@@ -95,11 +95,11 @@ export default function Cognitive() {
         </p>
       </Card>
       <FitCard reaction={reaction} sway={sway} sleepZ={ev.z.sleep} label={f.verdict} />
-      <section className="card p-5">
+      <section className="liquid-glass-primary glass-hover p-5">
         <div className="label mb-1">Reaction time vs your baseline</div>
         {ev ? <BaselineChart metric="reaction" day={day} /> : <EmptyChart title="No baseline data" />}
       </section>
-      <section className="card p-5">
+      <section className="liquid-glass-primary glass-hover p-5">
         <div className="label mb-1">Balance sway vs your baseline</div>
         {ev ? <BaselineChart metric="balance" day={day} /> : <EmptyChart title="No baseline data" />}
       </section>
@@ -121,3 +121,4 @@ export default function Cognitive() {
     </ModuleShell>
   )
 }
+

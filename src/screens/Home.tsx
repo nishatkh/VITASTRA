@@ -53,7 +53,7 @@ const MONTH_DATA = [
 function MonthCard({ d }: { d: typeof MONTH_DATA[0] }) {
   const barPct = Math.min(100, (d.stress / 60) * 100)
   return (
-    <div className="card flex flex-col gap-3 p-4">
+    <div className="liquid-glass-primary glass-hover flex flex-col gap-3 p-4">
       <span className="label font-semibold text-ink">{d.month}</span>
       <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12.5px]">
         <div className="flex flex-col">
@@ -77,8 +77,8 @@ function MonthCard({ d }: { d: typeof MONTH_DATA[0] }) {
             <span className="text-ink-3">Stress index</span>
             <span className="font-semibold tabular-nums">{d.stress}</span>
           </div>
-          <span className="mt-1 h-1 overflow-hidden rounded-full bg-border">
-            <span className="block h-full rounded-full bg-ink" style={{ width: `${barPct}%` }} />
+          <span className="mt-1 h-1 overflow-hidden rounded-full bg-border/40">
+            <span className="block h-full rounded-full liquid-glass-dark" style={{ width: `${barPct}%` }} />
           </span>
         </div>
         <div className="col-span-2 flex flex-col">
@@ -158,7 +158,7 @@ export default function Home() {
       <div className="grid items-start gap-5 pb-4 lg:grid-cols-12">
         <div className="col-span-full flex flex-wrap items-center gap-2">
           <ConnectionPill />
-          <span className="inline-flex min-h-9 items-center rounded-full bg-raised px-3.5 text-[13px] shadow-[0_2px_8px_rgba(0,0,0,.06)]">
+          <span className="inline-flex min-h-9 items-center rounded-full liquid-glass-clear px-3.5 text-[13px] shadow-[0_2px_8px_rgba(0,0,0,.06)]">
             Mission day {day + 1}
           </span>
           <SourceChip kind="synthetic" />
@@ -180,7 +180,7 @@ export default function Home() {
       {/* header pills */}
       <div className="col-span-full flex flex-wrap items-center gap-2">
         <ConnectionPill />
-        <span className="inline-flex min-h-9 items-center rounded-full bg-raised px-3.5 text-[13px] shadow-[0_2px_8px_rgba(0,0,0,.06)]">
+        <span className="inline-flex min-h-9 items-center rounded-full liquid-glass-clear px-3.5 text-[13px] shadow-[0_2px_8px_rgba(0,0,0,.06)]">
           Mission day {ev ? ev.day + 1 : 1}
         </span>
         <SourceChip kind="synthetic" />
@@ -193,7 +193,7 @@ export default function Home() {
       </div>
 
       {/* ── Live Heart Rate ── */}
-      <section className="card p-5 col-span-full lg:col-span-6 flex flex-col justify-between" aria-label="Heart rate">
+      <section className="liquid-glass-primary glass-hover p-5 col-span-full lg:col-span-6 flex flex-col justify-between" aria-label="Heart rate">
         <div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -225,7 +225,7 @@ export default function Home() {
 
       {/* ── 4 Mini Stat Cards (2x2 Grid) ── */}
       <div className="col-span-full lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-        <Link to="/alerts" className="card flex flex-col justify-between p-4.5 hover:border-ink/20 transition-colors">
+        <Link to="/alerts" className="liquid-glass-primary glass-hover flex flex-col justify-between p-4.5 hover:border-border-strong transition-colors">
           <div>
             <span className="label block mb-2">Overall status</span>
             <AlertBadge level={ev?.overall ?? "normal"} />
@@ -237,7 +237,7 @@ export default function Home() {
           </span>
         </Link>
 
-        <Link to="/radiation" className="card flex flex-col justify-between p-4.5 hover:border-ink/20 transition-colors">
+        <Link to="/radiation" className="liquid-glass-primary glass-hover flex flex-col justify-between p-4.5 hover:border-border-strong transition-colors">
           <div>
             <span className="label flex items-center gap-1.5 mb-2">
               <Radiation size={15} strokeWidth={1.6} />Radiation
@@ -248,15 +248,15 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-3">
-            <span className="h-1.5 overflow-hidden rounded-full bg-border block" role="progressbar"
+            <span className="h-1.5 overflow-hidden rounded-full bg-border/40 block" role="progressbar"
               aria-label="Career dose" aria-valuenow={Math.round((liveRad / CAREER_LIMIT) * 100)}>
-              <span className="block h-full rounded-full bg-ink transition-all duration-1000"
+              <span className="block h-full rounded-full liquid-glass-dark transition-all duration-1000"
                 style={{ width: `${(liveRad / CAREER_LIMIT) * 100}%` }} />
             </span>
           </div>
         </Link>
 
-        <Link to="/env" className="card flex flex-col justify-between p-4.5 hover:border-ink/20 transition-colors">
+        <Link to="/env" className="liquid-glass-primary glass-hover flex flex-col justify-between p-4.5 hover:border-border-strong transition-colors">
           <div>
             <span className="label flex items-center gap-1.5 mb-1.5">
               <Wind size={15} strokeWidth={1.6} />Cabin CO2
@@ -271,7 +271,7 @@ export default function Home() {
           </div>
         </Link>
 
-        <Link to="/checks" className="card flex flex-col justify-between p-4.5 hover:border-ink/20 transition-colors">
+        <Link to="/checks" className="liquid-glass-primary glass-hover flex flex-col justify-between p-4.5 hover:border-border-strong transition-colors">
           <div>
             <span className="label flex items-center gap-1.5 mb-2">
               <CalendarClock size={15} strokeWidth={1.6} />Next check
@@ -311,7 +311,7 @@ export default function Home() {
         </div>
         <div className="col-span-full"><AlertCounter /></div>
         {alerts.length === 0 ? (
-          <div className="card flex items-center gap-3 p-5">
+          <div className="liquid-glass-primary flex items-center gap-3 p-5">
             <ShieldCheck size={22} strokeWidth={1.5} />
             <p className="text-[15px] leading-snug">
               No alerts. All signals are inside your own baseline. Status: {levelLabel("normal")}.
@@ -326,3 +326,7 @@ export default function Home() {
     </div>
   )
 }
+
+
+
+

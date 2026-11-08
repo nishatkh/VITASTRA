@@ -130,7 +130,7 @@ export default function Inspiration4() {
       </div>
 
       {/* Mandatory Scientific Honesty Banner */}
-      <section className="col-span-full rounded-[24px] border-2 border-accent/40 bg-accent/5 p-4 sm:p-5 shadow-xs">
+      <section className="col-span-full rounded-[24px] liquid-glass-clear border border-accent/30 p-4 sm:p-5 shadow-xs">
         <div className="flex items-start gap-3.5">
           <Info className="mt-0.5 size-6 shrink-0 text-accent" />
           <div className="space-y-1">
@@ -158,7 +158,7 @@ export default function Inspiration4() {
                 id="crew-select"
                 value={selectedCrew}
                 onChange={(e) => setSelectedCrew(e.target.value)}
-                className="w-full appearance-none rounded-2xl border border-border bg-raised px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
+                className="w-full appearance-none rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
               >
                 {CREWS.map((c) => (
                   <option key={c} value={c}>
@@ -183,7 +183,7 @@ export default function Inspiration4() {
                   setSelectedPanel(e.target.value)
                   setSelectedMarker("") // Reset to trigger auto-select
                 }}
-                className="w-full appearance-none rounded-2xl border border-border bg-raised px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
+                className="w-full appearance-none rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
               >
                 {PANELS.map((p) => (
                   <option key={p} value={p}>
@@ -205,7 +205,7 @@ export default function Inspiration4() {
                 id="marker-select"
                 value={currentMarker}
                 onChange={(e) => setSelectedMarker(e.target.value)}
-                className="w-full appearance-none rounded-2xl border border-border bg-raised px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
+                className="w-full appearance-none rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] font-medium text-ink shadow-xs focus:border-accent focus:outline-none"
               >
                 {availableMarkers.map((m) => (
                   <option key={m} value={m}>
@@ -223,31 +223,28 @@ export default function Inspiration4() {
           <div className="flex gap-2">
             <button
               onClick={() => setActiveTab("timeseries")}
-              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${
-                activeTab === "timeseries"
-                  ? "bg-accent text-canvas"
-                  : "bg-raised text-label hover:text-ink"
-              }`}
+              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${activeTab === "timeseries"
+                  ? "bg-cyan-600 text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
+                }`}
             >
               Time-Series Trajectory
             </button>
             <button
               onClick={() => setActiveTab("table")}
-              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${
-                activeTab === "table"
-                  ? "bg-accent text-canvas"
-                  : "bg-raised text-label hover:text-ink"
-              }`}
+              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${activeTab === "table"
+                  ? "bg-cyan-600 text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
+                }`}
             >
               Submitted Data Table ({markerRecords.length})
             </button>
             <button
               onClick={() => setActiveTab("baseline")}
-              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${
-                activeTab === "baseline"
-                  ? "bg-accent text-canvas"
-                  : "bg-raised text-label hover:text-ink"
-              }`}
+              className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${activeTab === "baseline"
+                  ? "bg-cyan-600 text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
+                }`}
             >
               Preflight Baseline Audit
             </button>
@@ -304,7 +301,7 @@ export default function Inspiration4() {
                     if (!active || !payload?.length) return null
                     const d = payload[0].payload
                     return (
-                      <div className="rounded-2xl border border-border bg-nav p-3 text-[13px] text-on-nav shadow-xl">
+                      <div className="rounded-2xl border border-border liquid-glass-dark p-3 text-[13px] text-on-nav shadow-xl">
                         <div className="font-semibold">{d.timepoint} (Day {d.days})</div>
                         <div className="mt-1">
                           Observed: <span className="font-bold">{d.value !== null ? d.value : "Missing"}</span> {d.unit}
@@ -386,7 +383,7 @@ export default function Inspiration4() {
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-[12px] text-label border-t border-border pt-3">
             <div className="flex flex-wrap items-center gap-4">
               <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-ink" /> Observed Lab Measurement
+                <span className="size-2.5 rounded-full liquid-glass-dark" /> Observed Lab Measurement
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="h-2 w-4 rounded-xs bg-accent/20 border border-accent/40" /> Individual Preflight Baseline (±1.5 SD)
@@ -418,7 +415,7 @@ export default function Inspiration4() {
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-[13.5px]">
-              <thead className="bg-raised text-[12px] font-semibold text-label uppercase tracking-wider">
+              <thead className="liquid-glass-clear text-[12px] font-semibold text-label uppercase tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Timepoint</th>
                   <th className="py-3 px-4">Days from Launch</th>
@@ -431,7 +428,7 @@ export default function Inspiration4() {
               </thead>
               <tbody className="divide-y divide-border">
                 {markerRecords.map((r, i) => (
-                  <tr key={i} className="hover:bg-raised/50 transition-colors">
+                  <tr key={i} className="hover:liquid-glass-clear/50 transition-colors">
                     <td className="py-3 px-4 font-semibold text-ink">{r.timepoint}</td>
                     <td className="py-3 px-4 tabular-nums text-label">
                       {r.days_from_launch !== null ? (r.days_from_launch > 0 ? `+${r.days_from_launch}` : r.days_from_launch) : "—"}
@@ -457,11 +454,10 @@ export default function Inspiration4() {
                       )}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium ${
-                        r.data_quality_status === "valid"
+                      <span className={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium ${r.data_quality_status === "valid"
                           ? "bg-signal/10 text-signal"
                           : "bg-warning/15 text-warning"
-                      }`}>
+                        }`}>
                         {r.data_quality_status}
                       </span>
                     </td>
@@ -484,19 +480,19 @@ export default function Inspiration4() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="rounded-2xl bg-raised p-4">
+            <div className="rounded-2xl liquid-glass-clear p-4">
               <div className="text-[12px] text-label">Preflight Mean (L-92, L-44, L-3)</div>
               <div className="mt-1 text-[26px] font-semibold tabular-nums text-ink">
                 {baselineInfo?.mean !== null ? `${baselineInfo?.mean} ${baselineInfo?.unit}` : "N/A"}
               </div>
             </div>
-            <div className="rounded-2xl bg-raised p-4">
+            <div className="rounded-2xl liquid-glass-clear p-4">
               <div className="text-[12px] text-label">Sample Standard Deviation (s)</div>
               <div className="mt-1 text-[26px] font-semibold tabular-nums text-ink">
                 {baselineInfo?.sd !== null ? `± ${baselineInfo?.sd} ${baselineInfo?.unit}` : "N/A"}
               </div>
             </div>
-            <div className="rounded-2xl bg-raised p-4">
+            <div className="rounded-2xl liquid-glass-clear p-4">
               <div className="text-[12px] text-label">Preflight Observations Used</div>
               <div className="mt-1 text-[26px] font-semibold tabular-nums text-ink">
                 {baselineInfo?.n ?? 0} <span className="text-[14px] font-normal text-label">samples</span>
@@ -504,7 +500,7 @@ export default function Inspiration4() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border p-4 text-[13.5px] leading-relaxed text-label space-y-2">
+          <div className="rounded-2xl liquid-glass-clear p-4 text-[13.5px] leading-relaxed text-label space-y-2">
             <div className="font-semibold text-ink">Statistical Preflight Methodology:</div>
             <p>
               Preflight baselines are established strictly using pre-launch measurements (L-92, L-44, L-3). In accordance with NASA biomedical data standards, a minimum of <strong>two valid preflight observations</strong> is required to compute dispersion (standard deviation) and calculate postflight z-scores. Changing laboratory reference ranges between preflight and postflight are not treated as personalized baselines.
@@ -561,3 +557,6 @@ export default function Inspiration4() {
     </Screen>
   )
 }
+
+
+

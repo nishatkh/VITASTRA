@@ -113,15 +113,15 @@ export default function Privacy() {
           {res.map((e: AuditLogEntry & { ok: boolean }) => (
             <li
               key={e.id}
-              className={`rounded-2xl p-3 text-[13px] ${e.ok ? "bg-raised" : "bg-ink text-canvas"}`}
+              className={`rounded-2xl p-3 text-[13px] ${e.ok ? "liquid-glass-clear" : "liquid-glass-dark text-white"}`}
             >
               <div className="flex justify-between gap-2">
                 <b>{e.actor}</b>
-                <span className={e.ok ? "text-label" : "text-canvas/70"}>{e.ts}</span>
+                <span className={e.ok ? "text-label" : "text-white/70"}>{e.ts}</span>
               </div>
               <div>{e.action}</div>
               <code
-                className={`mt-1 block truncate text-[11px] ${e.ok ? "text-label" : "text-canvas/70"}`}
+                className={`mt-1 block truncate text-[11px] ${e.ok ? "text-label" : "text-white/70"}`}
               >
                 {e.prevHash.slice(0, 8)} → {e.hash.slice(0, 12)}
               </code>
@@ -138,3 +138,5 @@ export default function Privacy() {
     </Screen>
   )
 }
+
+

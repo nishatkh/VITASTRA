@@ -8,6 +8,7 @@ export interface UIState {
   gloveMode: boolean
   reducedMotion: boolean
   role: Role
+  astronautId: string
   delay: 0 | 5 | 20 | 40
   day: number
   tamperedId: number | null
@@ -21,6 +22,7 @@ export interface UIState {
   setGloveMode: (v: boolean) => void
   setReducedMotion: (v: boolean) => void
   setRole: (r: Role) => void
+  setAstronautId: (id: string) => void
   setDelay: (d: 0 | 5 | 20 | 40) => void
   setDay: (d: number) => void
   setTamperedId: (id: number | null) => void
@@ -53,19 +55,21 @@ export const useApp = create<UIState>()(
       gloveMode: false,
       reducedMotion: false,
       role: "Astronaut",
+      astronautId: "AX-07",
       delay: 0,
       day: 0,
       tamperedId: null,
       coachPrompt: "",
       tiers: DEFAULT_TIERS,
       flags: DEFAULT_FLAGS,
-      queue: () => {},
-      audit_: (_actor: Role, _action: string) => {},
+      queue: () => { },
+      audit_: (_actor: Role, _action: string) => { },
       setTheme: (theme) => set({ theme }),
       setTextSize: (textSize) => set({ textSize }),
       setGloveMode: (gloveMode) => set({ gloveMode }),
       setReducedMotion: (reducedMotion) => set({ reducedMotion }),
       setRole: (role) => set({ role }),
+      setAstronautId: (astronautId) => set({ astronautId }),
       setDelay: (delay) => set({ delay }),
       setDay: (day) => set({ day }),
       setTamperedId: (tamperedId) => set({ tamperedId }),
@@ -82,6 +86,7 @@ export const useApp = create<UIState>()(
         gloveMode: s.gloveMode,
         reducedMotion: s.reducedMotion,
         role: s.role,
+        astronautId: s.astronautId,
         delay: s.delay,
         day: s.day,
         tamperedId: s.tamperedId,

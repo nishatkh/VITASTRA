@@ -15,7 +15,7 @@ export function Card({
 } & HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={`${dark ? "bg-nav text-on-nav" : "card"} ${className}`}
+      className={`${dark ? "liquid-glass-dark" : "liquid-glass-primary glass-hover"} ${className}`}
       {...p}
     >
       {children}
@@ -41,7 +41,7 @@ export function IconBtn({
   className?: string
 }) {
   const cls = `icon-btn shrink-0 ${
-    dark ? "bg-inset text-on-nav" : "text-ink"
+    dark ? "liquid-glass-dark !text-white" : "text-ink"
   } ${className}`
   const st = { width: size, height: size }
   const inner = (
@@ -80,13 +80,13 @@ export function SourceChip({
   label?: string
 }) {
   return kind === "synthetic" ? (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-border px-2.5 py-1 text-[11px] font-medium text-label">
-      <span className="size-1.5 rounded-full border border-ink-3" />
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-cyan-400/30 bg-cyan-950/40 backdrop-blur-sm px-3 py-1 text-[11px] font-medium text-ink-2">
+      <span className="size-1.5 rounded-full bg-cyan-400" />
       {label ?? "Synthetic"}
     </span>
   ) : (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[11px] font-medium text-canvas">
-      <span className="size-1.5 rounded-full bg-canvas" />
+    <span className="inline-flex items-center gap-1.5 rounded-full liquid-glass-dark text-white border border-cyan-400/30 px-3 py-1 text-[11px] font-medium shadow-xs">
+      <span className="size-1.5 rounded-full bg-cyan-300 animate-pulse" />
       {label ?? "NASA OSDR / RadLab / DONKI"}
     </span>
   )
@@ -105,7 +105,7 @@ export function Glossary({
       <button
         onClick={() => setO(!o)}
         aria-expanded={o}
-        className="inline-flex min-h-6 items-center gap-1 underline decoration-dotted underline-offset-4"
+        className="inline-flex min-h-6 items-center gap-1 underline decoration-dotted underline-offset-4 text-ink hover:text-charcoal"
       >
         {term}
         <Info size={13} strokeWidth={1.6} aria-hidden />
@@ -113,7 +113,7 @@ export function Glossary({
       {o && (
         <span
           role="note"
-          className="absolute left-0 top-full z-20 mt-2 block w-64 rounded-2xl bg-ink p-3 text-[13px] font-normal normal-case leading-snug tracking-normal text-canvas shadow-xl"
+          className="absolute left-0 top-full z-30 mt-2 block w-72 liquid-glass-dark p-3.5 text-[12.5px] font-normal leading-relaxed text-silver-white shadow-xl"
         >
           {children}
         </span>
@@ -164,27 +164,35 @@ export function Segmented<T extends string>({
     <div
       role="radiogroup"
       aria-label={label}
-      className={`flex rounded-full p-1 ${dark ? "bg-inset" : "bg-border"}`}
+      className={`flex rounded-full p-1 border ${
+        dark
+          ? "bg-black/40 border-cyan-400/20"
+          : "liquid-glass-clear border-cyan-400/20 shadow-xs"
+      }`}
     >
-      {options.map((o) => (
-        <button
-          key={o}
-          role="radio"
-          aria-checked={o === value}
-          onClick={() => onChange(o)}
-          className={`min-h-11 flex-1 rounded-full px-2 text-[13px] font-semibold transition-colors ${
-            o === value
-              ? dark
-                ? "bg-raised text-ink"
-                : "bg-ink text-canvas"
-              : dark
-                ? "text-on-nav/70"
-                : "text-label"
-          }`}
-        >
-          {o}
-        </button>
-      ))}
+      {options.map((o) => {
+        const isSelected = o === value
+        return (
+          <button
+            key={o}
+            role="radio"
+            aria-checked={isSelected}
+            onClick={() => onChange(o)}
+            className={`min-h-9 flex-1 rounded-full px-3 text-[12.5px] font-medium transition-all ${
+              isSelected
+                ? dark
+                  ? "bg-cyan-500/30 text-white border border-cyan-400/40 font-semibold shadow-xs"
+                  : "liquid-glass-dark text-white font-semibold shadow-sm"
+                : dark
+                  ? "text-silver-white/70 hover:text-white"
+                  : "text-ink-2 hover:text-ink"
+            }`}
+          >
+            {o}
+          </button>
+        )
+      })}
     </div>
   )
 }
+

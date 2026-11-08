@@ -21,7 +21,7 @@ function Bars({ values, hatch }: { values: number[]; hatch?: boolean }) {
       {values.map((v, i) => (
         <span
           key={i}
-          className={`flex-1 rounded-t-full ${hatch ? "hatch" : "bg-ink"}`}
+          className={`flex-1 rounded-t-full ${hatch ? "hatch" : "liquid-glass-dark"}`}
           style={{
             height: `${Math.max(12, ((v - min) / (max - min || 1)) * 100)}%`,
           }}
@@ -57,19 +57,19 @@ export function MissionTimeline() {
             (I, i) => (
               <span
                 key={i}
-                className="flex size-12 items-center justify-center rounded-full bg-ink text-canvas shadow-[0_8px_16px_rgba(0,0,0,.25)]"
+                className="flex size-12 items-center justify-center rounded-full liquid-glass-dark text-cyan-300 border border-cyan-400/30 shadow-[0_8px_16px_rgba(0,0,0,.35)]"
                 aria-hidden
               >
-                <I size={19} strokeWidth={1.3} />
+                <I size={19} strokeWidth={1.8} />
               </span>
             ),
           )}
           <Link
             to="/checks"
             aria-label="Add a check"
-            className="flex size-12 items-center justify-center rounded-full bg-ink text-canvas"
+            className="flex size-12 items-center justify-center rounded-full liquid-glass-dark text-cyan-300 border border-cyan-400/30 hover:border-cyan-400/60 shadow-xs"
           >
-            <Plus size={20} strokeWidth={1.4} />
+            <Plus size={20} strokeWidth={1.8} />
           </Link>
         </div>
       </div>
@@ -79,7 +79,7 @@ export function MissionTimeline() {
           return (
             <div key={m} className="relative border-l border-border pl-5">
               <span
-                className="absolute -left-[5px] top-0 size-2.5 rounded-full bg-ink"
+                className="absolute -left-[5px] top-0 size-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#35BDE6]"
                 aria-hidden
               />
               <h3 className="mb-3 text-[22px] font-light tracking-[-0.03em]">
@@ -87,28 +87,28 @@ export function MissionTimeline() {
               </h3>
               <div className="mb-4 flex flex-wrap gap-2">
                 {list.length === 0 && (
-                  <span className="rounded-full bg-border px-4 py-2 text-[13px] text-label">
+                  <span className="rounded-full bg-border/40 px-4 py-2 text-[13px] text-label">
                     No checks scheduled
                   </span>
                 )}
                 {list.map((c, i) => {
                   const I = ICONS[i % 4]
                   return (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-2 rounded-full bg-raised px-4 py-2 text-[13px] capitalize shadow-[0_6px_14px_rgba(0,0,0,.10)]"
-                    >
-                      <I size={15} strokeWidth={1.3} aria-hidden />
+                      <span
+                        key={i}
+                        className="inline-flex items-center gap-2 rounded-full liquid-glass-clear px-4 py-2 text-[13px] capitalize shadow-[0_6px_14px_rgba(0,0,0,.10)]"
+                      >
+                      <I size={15} strokeWidth={1.8} className="text-cyan-400" aria-hidden />
                       {c.type}
                       <span className="text-label">day {c.due + 1}</span>
                     </span>
                   )
                 })}
               </div>
-              <div className="card p-5">
+              <div className="liquid-glass-primary p-5">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-[14px]">Heart rate, last hour</span>
-                  <span className="rounded-full bg-ink px-3 py-1 text-[12px] tabular-nums text-canvas">
+                  <span className="rounded-full liquid-glass-dark px-3 py-1 text-[12px] tabular-nums text-white border border-cyan-400/30">
                     {Math.round(ev.nowS.hr)} bpm
                   </span>
                 </div>
@@ -121,3 +121,5 @@ export function MissionTimeline() {
     </section>
   )
 }
+
+

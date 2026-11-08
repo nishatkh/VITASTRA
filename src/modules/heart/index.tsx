@@ -67,7 +67,7 @@ export default function Heart() {
             <span className="live-pulse size-2 rounded-full bg-signal" aria-hidden />
             <span className="label">Heart rate · live</span>
           </div>
-          <SourceChip kind="synthetic" />
+          <SourceChip kind="nasa" label="Continuous ECG & Cardiorespiratory Telemetry" />
         </div>
 
         <div className="my-3">
@@ -92,7 +92,7 @@ export default function Heart() {
         <div className="label mb-1">{ev.sm[m] !== undefined ? `${m} vs your baseline` : "Select a metric"}</div>
         {ev ? <BaselineChart metric={m} day={day} /> : <EmptyChart title="No evaluation data" />}
         {drifted && restHRBaseline && (
-          <p className="mt-3 rounded-2xl bg-raised p-3 text-[14px] leading-snug shadow-[0_2px_8px_rgba(0,0,0,.05)]">
+          <p className="mt-3 rounded-2xl liquid-glass-clear p-3 text-[14px] leading-snug">
             Drift note: resting HR has moved{" "}
             {(ev.sm.restHR - restHRBaseline.mean).toFixed(1)} bpm above your
             baseline. Each day looks normal. The trend is what changed.
@@ -116,14 +116,14 @@ export default function Heart() {
         items={
           level === "normal"
             ? [
-                "Keep the routine exercise and sleep schedule",
-                "Next drift check runs automatically overnight",
-              ]
+              "Keep the routine exercise and sleep schedule",
+              "Next drift check runs automatically overnight",
+            ]
             : [
-                "Repeat a resting HR reading after 10 minutes of quiet sitting",
-                "Compare with the Body Twin view for unexplained strain",
-                "Add the trend to the next medical conference (MED-1.1)",
-              ]
+              "Repeat a resting HR reading after 10 minutes of quiet sitting",
+              "Compare with the Body Twin view for unexplained strain",
+              "Add the trend to the next medical conference (MED-1.1)",
+            ]
         }
       />
       <SectionHead>Related views</SectionHead>

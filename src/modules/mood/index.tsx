@@ -40,7 +40,7 @@ export default function Mood() {
     <ModuleShell title={["Isolation", "& Mood"]}>
       <Card className="p-5">
         <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3 py-1.5 text-[12px] font-semibold text-canvas">
+          <span className="inline-flex items-center gap-1.5 rounded-full liquid-glass-dark px-3 py-1.5 text-[12px] font-semibold text-white">
             <Lock size={13} /> Private · {tier}
           </span>
           <SourceChip kind="synthetic" />
@@ -52,7 +52,7 @@ export default function Mood() {
             ["Social contact", `${e.social}/10`],
             ["Sleep start", `${hh}:${String(mm).padStart(2, "0")}`],
           ].map(([l, v]) => (
-            <div key={l} className="rounded-2xl bg-raised py-3 shadow-[0_2px_8px_rgba(0,0,0,.05)]">
+            <div key={l} className="rounded-2xl liquid-glass-clear py-3 shadow-[0_2px_8px_rgba(0,0,0,.05)]">
               <div className="text-[18px] font-semibold tabular-nums">{v}</div>
               <div className="text-label">{l}</div>
             </div>
@@ -60,7 +60,7 @@ export default function Mood() {
         </div>
         <p className="mt-3 text-[13px] text-label">Active {e.activeMin} min today. Shared only if you choose it. <Link to="/privacy" className="font-semibold underline">Privacy tiers</Link></p>
       </Card>
-      <section className="card p-5">
+      <section className="liquid-glass-primary glass-hover p-5">
         <div className="label mb-1">Mood trend vs your baseline · private</div>
         {ev ? <BaselineChart metric="mood" day={day} /> : <EmptyChart title="No baseline data" />}
       </section>
@@ -85,3 +85,6 @@ export default function Mood() {
     </ModuleShell>
   )
 }
+
+
+

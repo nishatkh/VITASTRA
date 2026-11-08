@@ -161,7 +161,7 @@ export function BaselineChart({
       </ResponsiveContainer>
       <div className="mt-1 flex items-center gap-4 px-2 text-[11.5px] text-label">
         <span className="flex items-center gap-1.5">
-          <i className="h-0.5 w-4 bg-ink" />
+          <i className="h-0.5 w-4 liquid-glass-dark" />
           {m.label}
         </span>
         <span className="flex items-center gap-1.5">
@@ -175,3 +175,4 @@ export function BaselineChart({
     </div>
   )
 }
+

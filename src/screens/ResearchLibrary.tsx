@@ -84,7 +84,7 @@ export default function ResearchLibrary() {
       </div>
 
       {/* Overview & Scientific Disclaimer Banner */}
-      <section className="col-span-full rounded-[24px] border border-border bg-raised p-4 sm:p-5 shadow-xs">
+      <section className="col-span-full rounded-[24px] border border-border liquid-glass-clear p-4 sm:p-5 shadow-xs">
         <div className="flex items-start gap-3.5">
           <BookOpen className="mt-0.5 size-6 shrink-0 text-ink" />
           <div className="space-y-1">
@@ -109,7 +109,7 @@ export default function ResearchLibrary() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search organoids, cardiac models, cytokines, etc..."
-              className="w-full rounded-2xl border border-border bg-surface pl-10 pr-4 py-2.5 text-[14px] text-ink placeholder:text-label focus:border-accent focus:outline-none"
+              className="w-full rounded-2xl border border-border liquid-glass-clear pl-10 pr-4 py-2.5 text-[14px] text-ink placeholder:text-label focus:border-accent focus:outline-none"
             />
           </div>
 
@@ -118,7 +118,7 @@ export default function ResearchLibrary() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full appearance-none rounded-2xl border border-border bg-surface px-4 py-2.5 text-[14px] font-medium text-ink focus:border-accent focus:outline-none"
+              className="w-full appearance-none rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] font-medium text-ink focus:border-accent focus:outline-none"
             >
               {CATEGORIES.map((c) => (
                 <option key={c} value={c}>
@@ -133,7 +133,7 @@ export default function ResearchLibrary() {
             <select
               value={selectedClassification}
               onChange={(e) => setSelectedClassification(e.target.value)}
-              className="w-full appearance-none rounded-2xl border border-border bg-surface px-4 py-2.5 text-[14px] font-medium text-ink focus:border-accent focus:outline-none"
+              className="w-full appearance-none rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] font-medium text-ink focus:border-accent focus:outline-none"
             >
               {CLASSIFICATIONS.map((cl) => (
                 <option key={cl} value={cl}>
@@ -166,7 +166,7 @@ export default function ResearchLibrary() {
         {filteredEntries.map((entry) => (
           <div
             key={entry.id}
-            className="flex flex-col justify-between rounded-[28px] border border-border bg-surface p-5 shadow-xs hover:border-accent/40 transition-all duration-200"
+            className="flex flex-col justify-between rounded-[28px] border border-border liquid-glass-clear p-5 shadow-xs hover:border-accent/40 transition-all duration-200"
           >
             <div className="space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -194,7 +194,7 @@ export default function ResearchLibrary() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-raised p-3 text-[13px] text-label space-y-1">
+              <div className="rounded-xl liquid-glass-clear p-3 text-[13px] text-label space-y-1">
                 <div>
                   <strong className="text-ink font-medium">Model:</strong> {entry.biologicalModel}
                 </div>
@@ -210,7 +210,7 @@ export default function ResearchLibrary() {
               </span>
               <button
                 onClick={() => setActiveModalEntry(entry)}
-                className="inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-1.5 text-[13px] font-medium text-ink hover:bg-border transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-4 py-1.5 text-[13px] font-medium text-ink hover:bg-border transition-colors"
               >
                 Inspect Study
               </button>
@@ -224,12 +224,12 @@ export default function ResearchLibrary() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-nav/60 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 liquid-glass-dark"
         >
-          <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-[32px] bg-surface p-6 shadow-2xl border border-border space-y-5">
+          <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto rounded-[32px] liquid-glass-clear p-6 shadow-2xl border border-border space-y-5">
             <button
               onClick={() => setActiveModalEntry(null)}
-              className="absolute right-5 top-5 rounded-full p-2 text-label hover:bg-raised hover:text-ink transition-colors"
+              className="absolute right-5 top-5 rounded-full p-2 text-label hover:liquid-glass-clear hover:text-ink transition-colors"
               aria-label="Close modal"
             >
               <X className="size-5" />
@@ -254,7 +254,7 @@ export default function ResearchLibrary() {
             </div>
 
             <div className="space-y-3.5 text-[14px] leading-relaxed">
-              <div className="rounded-2xl bg-raised p-4 space-y-1">
+              <div className="rounded-2xl liquid-glass-clear p-4 space-y-1">
                 <div className="label !text-[11px]">Biological Model & Assay</div>
                 <div className="font-semibold text-ink">{activeModalEntry.biologicalModel}</div>
                 <div className="text-[13px] text-label">{activeModalEntry.experimentContext}</div>
@@ -284,7 +284,7 @@ export default function ResearchLibrary() {
                 href={activeModalEntry.sourceLink}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-[13.5px] font-medium text-canvas hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-1.5 rounded-full bg-cyan-600 px-5 py-2.5 text-[13.5px] font-medium text-white hover:opacity-90 transition-opacity"
               >
                 Access Source Literature
                 <ExternalLink className="size-4" />
@@ -302,4 +302,6 @@ export default function ResearchLibrary() {
     </Screen>
   )
 }
+
+
 

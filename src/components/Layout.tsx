@@ -42,13 +42,13 @@ export function ConnectionPill({ dark }: { dark?: boolean }) {
       aria-label={`Connection: ${cfg.text}`}
       className={`inline-flex min-h-9 items-center gap-2 rounded-full px-3.5 text-[13px] font-semibold ${
         inv
-          ? "bg-ink text-canvas"
+          ? "liquid-glass-dark text-white border border-white/20 shadow-xs"
           : dark
-            ? "bg-inset text-on-nav"
-            : "bg-accent text-canvas shadow-[0_2px_8px_rgba(30,58,95,.25)]"
+            ? "bg-inset text-on-nav border border-white/10"
+            : "liquid-glass-clear text-ink-2 border border-cyan-400/30 shadow-xs"
       }`}
     >
-      <cfg.Icon size={15} strokeWidth={1.8} aria-hidden />
+      <cfg.Icon size={15} strokeWidth={1.8} className={inv ? "text-amber-400" : "text-emerald-400"} aria-hidden />
       {cfg.text}
     </span>
   )
@@ -58,7 +58,7 @@ export function OfflineBanner() {
   const { state, queue } = useConnection()
   if (state !== "offline") return null
   return (
-    <div className="bg-nav text-on-nav flex items-center gap-3 rounded-[22px] p-4">
+    <div className="liquid-glass-dark flex items-center gap-3 rounded-[22px] p-4 shadow-xl border border-white/15">
       <CloudUpload size={22} strokeWidth={1.5} aria-hidden />
       <div className="text-[13px] leading-snug">
         <div className="font-semibold">
@@ -129,7 +129,7 @@ export function StatusRow({
     ],
   }
   return (
-    <div className="card flex flex-col gap-4 p-5">
+    <div className="liquid-glass-primary glass-hover flex flex-col gap-4 p-5">
       <div className="flex items-center justify-between gap-2">
         <AlertBadge level={level} text={title} />
         <SourceChip
@@ -150,7 +150,7 @@ export function ProcChip({ code }: { code: string }) {
     <>
       <button
         onClick={() => setO(true)}
-        className="mx-0.5 inline-flex min-h-7 items-center rounded-full bg-ink px-2.5 align-baseline text-[12px] font-semibold text-canvas"
+        className="mx-0.5 inline-flex min-h-7 items-center rounded-full liquid-glass-dark px-2.5 align-baseline text-[12px] font-semibold text-white border border-cyan-400/30 shadow-xs hover:border-cyan-400/60 transition-colors"
       >
         {code}
       </button>
@@ -180,7 +180,7 @@ export function Steps({ items }: { items: string[] }) {
             key={i}
             className="flex items-start gap-3 text-[15px] leading-snug"
           >
-            <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink text-[12px] font-semibold text-canvas">
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-full liquid-glass-dark text-[12px] font-semibold text-white border border-cyan-400/30 shadow-xs">
               {i + 1}
             </span>
             <span className="pt-0.5">
@@ -196,7 +196,7 @@ export function Steps({ items }: { items: string[] }) {
 
 export function NextActions({ items }: { items: string[] }) {
   return (
-    <div className="card p-5">
+    <div className="liquid-glass-primary p-5">
       <div className="label mb-3">Suggested next actions</div>
       <Steps items={items} />
     </div>
@@ -208,3 +208,4 @@ export function useModuleAlert(id: string) {
   return alerts?.find((a) => a.id === id)
 }
 export { SectionHead, useApp }
+

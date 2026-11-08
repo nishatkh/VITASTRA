@@ -178,7 +178,7 @@ export default function Immune() {
           </div>
           <button
             onClick={() => setShowLogModal(true)}
-            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-1.5 text-[13px] font-medium text-canvas hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-1.5 rounded-full bg-cyan-600 px-4 py-1.5 text-[13px] font-medium text-white hover:opacity-90 transition-opacity"
           >
             <Plus className="size-4" /> Schedule New Sample
           </button>
@@ -197,10 +197,10 @@ export default function Immune() {
                   <div
                     className={`flex-1 rounded-xl py-2 px-2.5 text-center text-[12px] font-semibold transition-all ${
                       isCurrent
-                        ? "bg-ink text-canvas shadow-xs"
+                        ? "liquid-glass-dark text-white shadow-xs"
                         : isPast
                         ? "bg-signal/20 text-signal border border-signal/30"
-                        : "bg-raised text-label/60"
+                        : "liquid-glass-clear text-label/60"
                     }`}
                   >
                     {stage}
@@ -215,7 +215,7 @@ export default function Immune() {
         </div>
 
         {/* Selected Sample Information & Actions */}
-        <div className="rounded-2xl bg-raised p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
+        <div className="rounded-2xl liquid-glass-clear p-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
           <div>
             <span className="text-label text-[11px] uppercase">Storage Status</span>
             <div className="font-medium text-ink flex items-center gap-1.5 mt-0.5">
@@ -235,7 +235,7 @@ export default function Immune() {
             {activeSample.stage !== "Reviewed" ? (
               <button
                 onClick={() => advanceStage(activeSample.id)}
-                className="rounded-full bg-ink px-4 py-1.5 text-[12.5px] font-medium text-canvas hover:bg-border-strong transition-colors"
+                className="rounded-full liquid-glass-dark px-4 py-1.5 text-[12.5px] font-medium text-white hover:bg-border-strong transition-colors"
               >
                 Advance to: {STAGE_ORDER[STAGE_ORDER.indexOf(activeSample.stage) + 1]}
               </button>
@@ -256,7 +256,7 @@ export default function Immune() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13.5px]">
-              <div className="rounded-xl border border-border p-3.5 bg-surface space-y-1">
+              <div className="rounded-xl border border-border p-3.5 liquid-glass-clear space-y-1">
                 <div className="flex justify-between items-baseline">
                   <span className="text-label font-medium">Salivary Cortisol</span>
                   <span className="font-semibold text-ink tabular-nums">
@@ -266,7 +266,7 @@ export default function Immune() {
                 <div className="text-[12px] text-label">{activeSample.biomarkers.salivaryCortisol?.baselineRef}</div>
               </div>
 
-              <div className="rounded-xl border border-border p-3.5 bg-surface space-y-1">
+              <div className="rounded-xl border border-border p-3.5 liquid-glass-clear space-y-1">
                 <div className="flex justify-between items-baseline">
                   <span className="text-label font-medium">Secretory IgA (sIgA)</span>
                   <span className="font-semibold text-ink tabular-nums">
@@ -276,7 +276,7 @@ export default function Immune() {
                 <div className="text-[12px] text-label">{activeSample.biomarkers.sIgA?.baselineRef}</div>
               </div>
 
-              <div className="rounded-xl border border-border p-3.5 bg-surface space-y-1">
+              <div className="rounded-xl border border-border p-3.5 liquid-glass-clear space-y-1">
                 <div className="flex justify-between items-baseline">
                   <span className="text-label font-medium">VZV Latent DNA Copies</span>
                   <span className="font-semibold text-signal tabular-nums">
@@ -286,7 +286,7 @@ export default function Immune() {
                 <div className="text-[12px] text-label">{activeSample.biomarkers.vzvDnaCopies?.baselineRef}</div>
               </div>
 
-              <div className="rounded-xl border border-border p-3.5 bg-surface space-y-1">
+              <div className="rounded-xl border border-border p-3.5 liquid-glass-clear space-y-1">
                 <div className="flex justify-between items-baseline">
                   <span className="text-label font-medium">EBV Latent DNA Copies</span>
                   <span className="font-semibold text-signal tabular-nums">
@@ -319,7 +319,7 @@ export default function Immune() {
               key={s.id}
               onClick={() => setSelectedSampleId(s.id)}
               className={`py-3 px-3 rounded-xl flex items-center justify-between cursor-pointer transition-colors ${
-                s.id === activeSample.id ? "bg-raised" : "hover:bg-raised/50"
+                s.id === activeSample.id ? "liquid-glass-clear" : "hover:liquid-glass-clear/50"
               }`}
             >
               <div className="space-y-0.5">
@@ -350,7 +350,7 @@ export default function Immune() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-nav/60 backdrop-blur-xs">
           <form
             onSubmit={handleCreateSample}
-            className="w-full max-w-md rounded-[32px] bg-surface p-6 shadow-2xl border border-border space-y-4"
+            className="w-full max-w-md rounded-[32px] liquid-glass-clear p-6 shadow-2xl border border-border space-y-4"
           >
             <h3 className="text-[18px] font-semibold text-ink">Schedule New Immune Sample</h3>
 
@@ -359,7 +359,7 @@ export default function Immune() {
               <select
                 value={newType}
                 onChange={(e) => setNewType(e.target.value as any)}
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
               >
                 <option value="Saliva (passive drool)">Saliva (passive drool - Cryovial)</option>
                 <option value="Saliva (synthetic swab)">Saliva (Salivette synthetic swab)</option>
@@ -375,7 +375,7 @@ export default function Immune() {
                 max={183}
                 value={newDay}
                 onChange={(e) => setNewDay(Number(e.target.value))}
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-[14px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-[14px] text-ink"
               />
             </div>
 
@@ -386,7 +386,7 @@ export default function Immune() {
                 value={newNotes}
                 onChange={(e) => setNewNotes(e.target.value)}
                 placeholder="e.g. Pre-sleep saliva collection following EVA prep..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-[13.5px] text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-[13.5px] text-ink"
               />
             </div>
 
@@ -400,7 +400,7 @@ export default function Immune() {
               </button>
               <button
                 type="submit"
-                className="rounded-full bg-ink px-5 py-2 text-[13px] font-semibold text-canvas hover:bg-border-strong"
+                className="rounded-full liquid-glass-dark px-5 py-2 text-[13px] font-semibold text-white hover:bg-border-strong"
               >
                 Schedule Sample
               </button>
@@ -411,3 +411,6 @@ export default function Immune() {
     </ModuleShell>
   )
 }
+
+
+

@@ -43,7 +43,7 @@ export default function Sources() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* OSD-569 */}
-          <div className="rounded-[28px] border border-border bg-surface p-5 shadow-xs space-y-3.5">
+          <div className="rounded-[28px] border border-border liquid-glass-clear p-5 shadow-xs space-y-3.5">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="rounded-full bg-signal/15 px-3 py-0.5 text-[11.5px] font-semibold text-signal">
@@ -61,7 +61,7 @@ export default function Sources() {
               Complete Blood Count (CBC) including White Blood Cells, Hemoglobin, Hematocrit, and Platelets across 4 anonymized participants (C001–C004) at timepoints L-92, L-44, L-3, R+1, R+45, R+82, and R+194.
             </p>
 
-            <div className="rounded-xl bg-raised p-3 text-[12px] text-label space-y-1 font-mono">
+            <div className="rounded-xl liquid-glass-clear p-3 text-[12px] text-label space-y-1 font-mono">
               <div>Source File: LSDS-7_Complete_Blood_Count_CBC.upload_SUBMITTED.csv</div>
               <div>Benchmark Check: C001 WBC at L-92 = 5.4 Thousand/uL (Verified)</div>
             </div>
@@ -80,7 +80,7 @@ export default function Sources() {
           </div>
 
           {/* OSD-575 */}
-          <div className="rounded-[28px] border border-border bg-surface p-5 shadow-xs space-y-3.5">
+          <div className="rounded-[28px] border border-border liquid-glass-clear p-5 shadow-xs space-y-3.5">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="rounded-full bg-signal/15 px-3 py-0.5 text-[11.5px] font-semibold text-signal">
@@ -98,7 +98,7 @@ export default function Sources() {
               Comprehensive Metabolic Panel (CMP) via Quest Diagnostics and multiplex immune/cardiovascular cytokine profiles via Eve Technologies. Includes Glucose, Electrolytes, BUN, and 50+ inflammatory markers.
             </p>
 
-            <div className="rounded-xl bg-raised p-3 text-[12px] text-label space-y-1 font-mono">
+            <div className="rounded-xl liquid-glass-clear p-3 text-[12px] text-label space-y-1 font-mono">
               <div>Source Files: LSDS-8_CMP, LSDS-8_Immune, LSDS-8_Cardiovascular</div>
               <div>Benchmark Check: C001 Glucose at L-92 = 83 mg/dL (Verified)</div>
             </div>
@@ -117,7 +117,7 @@ export default function Sources() {
           </div>
 
           {/* NASA DONKI */}
-          <div className="rounded-[28px] border border-border bg-surface p-5 shadow-xs space-y-3.5">
+          <div className="rounded-[28px] border border-border liquid-glass-clear p-5 shadow-xs space-y-3.5">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="rounded-full bg-signal/15 px-3 py-0.5 text-[11.5px] font-semibold text-signal">
@@ -135,7 +135,7 @@ export default function Sources() {
               Database Of Notifications, Knowledge, Information (DONKI) tracked by NASA Space Radiation Analysis Group (SRAG) and NOAA SWPC. Integrates solar flares (FLR), coronal mass ejections (CME), and geomagnetic storms (GST).
             </p>
 
-            <div className="rounded-xl bg-raised p-3 text-[12px] text-label space-y-1 font-mono">
+            <div className="rounded-xl liquid-glass-clear p-3 text-[12px] text-label space-y-1 font-mono">
               <div>Instruments: GOES-16 EXIS XRS, SOHO LASCO, SDO AIA</div>
               <div>Historical Sequence: May 2024 Solar Superstorm (AR3664)</div>
             </div>
@@ -154,7 +154,7 @@ export default function Sources() {
           </div>
 
           {/* NASA RadLab & EDA */}
-          <div className="rounded-[28px] border border-border bg-surface p-5 shadow-xs space-y-3.5">
+          <div className="rounded-[28px] border border-border liquid-glass-clear p-5 shadow-xs space-y-3.5">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="rounded-full bg-signal/15 px-3 py-0.5 text-[11.5px] font-semibold text-signal">
@@ -172,7 +172,7 @@ export default function Sources() {
               Environmental radiation physics telemetry from ISS detectors (Liulin-5, REM) and Environmental Data Application (EDA) cabin ECLSS variables (CO2, pressure, temperature, oxygen partial pressure).
             </p>
 
-            <div className="rounded-xl bg-raised p-3 text-[12px] text-label space-y-1 font-mono">
+            <div className="rounded-xl liquid-glass-clear p-3 text-[12px] text-label space-y-1 font-mono">
               <div>RadLab Absorbed Dose: 0.25 - 0.55 mGy/day LEO baseline</div>
               <div>Quality Factor Q = 2.0 (Biological Effectiveness Assumption)</div>
             </div>
@@ -199,13 +199,13 @@ export default function Sources() {
             <div className="label">Repeatable Pipeline Architecture</div>
             <h4 className="text-[18px] font-semibold text-ink">Local Data Architecture</h4>
           </div>
-          <span className="rounded-full bg-raised px-3 py-1 font-mono text-[12px] text-label">
+          <span className="rounded-full liquid-glass-clear px-3 py-1 font-mono text-[12px] text-label">
             v1.0.0
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
-          <div className="rounded-2xl bg-raised p-3.5 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-1">
             <div className="flex items-center gap-1.5 font-semibold text-ink">
               <HardDrive className="size-4" />
               data/raw/
@@ -215,7 +215,7 @@ export default function Sources() {
             </p>
           </div>
 
-          <div className="rounded-2xl bg-raised p-3.5 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-1">
             <div className="flex items-center gap-1.5 font-semibold text-ink">
               <Database className="size-4" />
               data/processed/
@@ -225,7 +225,7 @@ export default function Sources() {
             </p>
           </div>
 
-          <div className="rounded-2xl bg-raised p-3.5 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-1">
             <div className="flex items-center gap-1.5 font-semibold text-ink">
               <FileText className="size-4" />
               docs/data-sources.md
@@ -240,7 +240,7 @@ export default function Sources() {
           <div className="font-semibold text-ink">Documented Ingestion Exclusions & Rules:</div>
           <ul className="list-disc pl-4 space-y-1 text-[13px]">
             <li><strong>Race-based eGFR exclusion:</strong> Outdated race-based eGFR equations (African American and Non-African American) are excluded from analysis to conform to modern nephrology standards.</li>
-            <li><strong>Sex-labeled analytes:</strong> Normalized while preserving original raw clinical strings in <code className="bg-raised px-1 py-0.5 rounded text-[11.5px]">raw_analyte</code>. SEX column is omitted from patient-facing screens.</li>
+            <li><strong>Sex-labeled analytes:</strong> Normalized while preserving original raw clinical strings in <code className="liquid-glass-clear px-1 py-0.5 rounded text-[11.5px]">raw_analyte</code>. SEX column is omitted from patient-facing screens.</li>
             <li><strong>Preflight baseline sufficiency:</strong> Minimum 2 valid preflight observations required for standard deviation and z-score calculations. Missing observations remain uncalculated rather than silently fabricated.</li>
           </ul>
         </div>
@@ -248,3 +248,5 @@ export default function Sources() {
     </Screen>
   )
 }
+
+

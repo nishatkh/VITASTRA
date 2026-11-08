@@ -28,7 +28,7 @@ export function SlideToAct({
   return (
     <div
       ref={track}
-      className="relative flex h-16 w-full items-center rounded-full bg-ink p-1 text-canvas"
+      className="relative flex h-16 w-full items-center rounded-full liquid-glass-dark p-1 text-white border border-cyan-400/30"
       role="group"
       aria-label={label}
     >
@@ -67,7 +67,7 @@ export function SlideToAct({
           }
         }}
         aria-label={`${label}. Drag right or press Enter to confirm.`}
-        className="relative z-10 flex size-14 shrink-0 cursor-grab touch-none items-center justify-center rounded-full bg-signal text-canvas shadow-[0_0_18px_var(--signal-soft)] active:cursor-grabbing"
+        className="relative z-10 flex size-14 shrink-0 cursor-grab touch-none items-center justify-center rounded-full bg-cyan-500 text-white shadow-[0_0_18px_rgba(53,189,230,0.5)] active:cursor-grabbing"
       >
         {done ? (
           <Check size={24} strokeWidth={2} />
@@ -78,3 +78,4 @@ export function SlideToAct({
     </div>
   )
 }
+

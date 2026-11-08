@@ -23,7 +23,7 @@ export function WhyButton({
       <button
         onClick={() => setO(true)}
         className={`btn ${
-          dark ? "bg-inset text-on-nav" : "btn-soft"
+          dark ? "liquid-glass-dark !text-white" : "btn-soft"
         } ${className}`}
       >
         <CircleHelp size={18} strokeWidth={1.6} aria-hidden />
@@ -57,9 +57,9 @@ export function WhyDrawer({
             {info.why.map((w, i) => (
               <li
                 key={i}
-                className="flex gap-3 rounded-2xl bg-raised p-3 text-[14.5px] leading-snug shadow-[0_2px_8px_rgba(0,0,0,.05)]"
+                className="flex gap-3 rounded-2xl liquid-glass-clear p-3 text-[14.5px] leading-snug shadow-[0_2px_8px_rgba(0,0,0,.05)]"
               >
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-ink" />
+                <span className="mt-1.5 size-1.5 shrink-0 rounded-full liquid-glass-dark" />
                 {w}
               </li>
             ))}
@@ -153,7 +153,7 @@ export function AlertCard({
 }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className={`${dark ? "bg-nav text-on-nav" : "card"} p-4`}>
+    <div className={`${dark ? "liquid-glass-dark" : "liquid-glass-primary glass-hover"} p-4`}>
       <div className="flex items-start gap-2.5">
         <span className="mt-1">
           <LevelDot level={alert.level} size={12} />
@@ -178,7 +178,7 @@ export function AlertCard({
           <button
             onClick={() => setOpen(!open)}
             aria-expanded={open}
-            className={`btn ${dark ? "bg-inset text-on-nav" : "btn-soft"}`}
+            className={`btn ${dark ? "liquid-glass-dark !text-white" : "btn-soft"}`}
           >
             {alert.grouped.length} grouped signals
             <ChevronDown
@@ -194,7 +194,7 @@ export function AlertCard({
           <ul className="flex flex-col gap-1.5 text-[14px]">
             {alert.grouped.map((g, i) => (
               <li key={i} className="flex gap-2">
-                <span className="mt-2 size-1 shrink-0 rounded-full bg-ink" />
+                <span className="mt-2 size-1 shrink-0 rounded-full liquid-glass-dark" />
                 {g}
               </li>
             ))}
@@ -206,3 +206,6 @@ export function AlertCard({
     </div>
   )
 }
+
+
+

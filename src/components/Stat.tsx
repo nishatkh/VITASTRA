@@ -48,7 +48,7 @@ export function MetricTile({
     <button
       onClick={onClick}
       aria-pressed={selected}
-      className={`card flex min-h-[132px] flex-col items-start gap-2 p-4 text-left transition-shadow ${
+      className={`liquid-glass-primary glass-hover flex min-h-[132px] flex-col items-start gap-2 p-4 text-left transition-shadow ${
         selected ? "ring-2 ring-ink" : ""
       }`}
     >
@@ -69,3 +69,4 @@ export const levelFromCount = (n: number, warn = 3) =>
     : n >= 1
       ? "observe"
       : "normal") as "normal" | "observe" | "warning"
+

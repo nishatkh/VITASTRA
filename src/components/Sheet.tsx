@@ -45,7 +45,7 @@ export function Sheet({
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            className={`absolute overflow-y-auto bg-surface p-6 pb-8 shadow-2xl ${panel}`}
+            className={`absolute overflow-y-auto liquid-glass-clear p-6 pb-8 shadow-2xl ${panel}`}
             initial={from}
             animate={{ x: 0, y: 0 }}
             exit={from}
@@ -72,3 +72,4 @@ export function Sheet({
     root ?? document.body,
   )
 }
+

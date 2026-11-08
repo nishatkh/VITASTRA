@@ -121,7 +121,7 @@ export default function More() {
           <Link
             key={it.to}
             to={it.to}
-            className="card flex min-h-[120px] sm:min-h-[132px] flex-col justify-between p-4 active:scale-[.98]"
+            className="liquid-glass-primary glass-hover flex min-h-[120px] sm:min-h-[132px] flex-col justify-between p-4 active:scale-[.98]"
           >
             <span className="icon-btn size-10 sm:size-11 mb-3 sm:mb-0">
               <it.icon size={18} strokeWidth={1.5} aria-hidden />

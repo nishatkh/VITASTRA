@@ -143,11 +143,10 @@ export default function Baseline() {
                     else if (k === "reaction") setNewObsValue("285")
                     else if (k === "vision") setNewObsValue("0.12")
                   }}
-                  className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium transition-colors ${
-                    metricKey === k
-                      ? "bg-ink text-canvas shadow-xs"
-                      : "bg-raised text-label hover:text-ink"
-                  }`}
+                  className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium transition-colors ${metricKey === k
+                      ? "liquid-glass-dark text-white shadow-xs"
+                      : "liquid-glass-clear text-label hover:text-ink"
+                    }`}
                 >
                   {cfg.label}
                 </button>
@@ -161,28 +160,28 @@ export default function Baseline() {
 
         {/* Statistical Parameters Dashboard */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[13.5px]">
-          <div className="rounded-2xl bg-raised p-3.5 space-y-0.5">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-0.5">
             <span className="text-label text-[11px] uppercase">Baseline Mean</span>
             <div className="text-[22px] font-semibold text-ink tabular-nums">
               {computedStats.mean !== null ? `${computedStats.mean} ${computedStats.unit}` : "N/A"}
             </div>
           </div>
 
-          <div className="rounded-2xl bg-raised p-3.5 space-y-0.5">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-0.5">
             <span className="text-label text-[11px] uppercase">Standard Deviation (s)</span>
             <div className="text-[22px] font-semibold text-ink tabular-nums">
               {computedStats.sd !== null ? `±${computedStats.sd} ${computedStats.unit}` : "N/A"}
             </div>
           </div>
 
-          <div className="rounded-2xl bg-raised p-3.5 space-y-0.5">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-0.5">
             <span className="text-label text-[11px] uppercase">Median</span>
             <div className="text-[22px] font-semibold text-ink tabular-nums">
               {computedStats.median !== null ? `${computedStats.median} ${computedStats.unit}` : "N/A"}
             </div>
           </div>
 
-          <div className="rounded-2xl bg-raised p-3.5 space-y-0.5">
+          <div className="rounded-2xl liquid-glass-clear p-3.5 space-y-0.5">
             <span className="text-label text-[11px] uppercase">Median Abs Dev (MAD)</span>
             <div className="text-[22px] font-semibold text-ink tabular-nums">
               {computedStats.mad !== null ? `±${computedStats.mad} ${computedStats.unit}` : "N/A"}
@@ -207,21 +206,21 @@ export default function Baseline() {
               type="text"
               value={newObsValue}
               onChange={(e) => setNewObsValue(e.target.value)}
-              className="w-full rounded-2xl border border-border bg-surface px-4 py-2.5 text-[14px] text-ink focus:border-accent focus:outline-none"
+              className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2.5 text-[14px] text-ink focus:border-accent focus:outline-none"
             />
           </div>
 
           <div className="flex items-end gap-2">
             <button
               type="submit"
-              className="rounded-2xl bg-ink px-5 py-2.5 text-[13.5px] font-medium text-canvas hover:bg-border-strong transition-colors"
+              className="rounded-2xl liquid-glass-dark px-5 py-2.5 text-[13.5px] font-medium text-white hover:bg-border-strong transition-colors"
             >
               Calculate Z-Score
             </button>
             <button
               type="button"
               onClick={handleAddMeasurement}
-              className="rounded-2xl bg-raised border border-border px-4 py-2.5 text-[13.5px] font-medium text-ink hover:bg-border transition-colors flex items-center gap-1"
+              className="rounded-2xl liquid-glass-clear border border-border px-4 py-2.5 text-[13.5px] font-medium text-ink hover:bg-border transition-colors flex items-center gap-1"
             >
               <Plus className="size-4" /> Add to History
             </button>
@@ -229,13 +228,12 @@ export default function Baseline() {
         </form>
 
         {deviationResult && (
-          <div className={`rounded-2xl p-4 border text-[13.5px] space-y-2 ${
-            deviationResult.classification === "nominal"
+          <div className={`rounded-2xl p-4 border text-[13.5px] space-y-2 ${deviationResult.classification === "nominal"
               ? "bg-signal/10 border-signal/30 text-ink"
               : deviationResult.classification === "mild_statistical_change"
-              ? "bg-accent/10 border-accent/30 text-ink"
-              : "bg-warning/10 border-warning/30 text-ink"
-          }`}>
+                ? "bg-accent/10 border-accent/30 text-ink"
+                : "bg-warning/10 border-warning/30 text-ink"
+            }`}>
             <div className="flex flex-wrap items-center justify-between gap-2">
               <span className="font-semibold flex items-center gap-1.5">
                 {deviationResult.classification === "nominal" ? (
@@ -268,7 +266,7 @@ export default function Baseline() {
           {currentHistory.map((val, idx) => (
             <span
               key={idx}
-              className="rounded-xl bg-raised px-3 py-1.5 font-mono text-[13px] text-ink border border-border"
+              className="rounded-xl liquid-glass-clear px-3 py-1.5 font-mono text-[13px] text-ink border border-border"
             >
               #{idx + 1}: <strong>{val}</strong> {currentCfg.unit}
             </span>
@@ -278,3 +276,6 @@ export default function Baseline() {
     </Screen>
   )
 }
+
+
+

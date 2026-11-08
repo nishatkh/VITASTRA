@@ -10,13 +10,8 @@ export default function Settings() {
   const simOffline = useApp((s) => s.flags.co2Event)
   const toggleOffline = () => useApp.getState().setFlag("co2Event", !useApp.getState().flags.co2Event)
   const [n, setN] = useState(0)
-  const [sw, setSw] = useState("checking")
   useEffect(() => {
     idbCount().then(setN)
-    navigator.serviceWorker
-      ?.getRegistration()
-      .then((r) => setSw(r ? "active" : "not registered in dev")) ??
-      setSw("unsupported")
   }, [])
   return (
     <Screen>
@@ -35,7 +30,7 @@ export default function Settings() {
             aria-label="Simulate offline"
             onClick={toggleOffline}
             className={`h-8 w-14 shrink-0 rounded-full p-1 transition-colors ${
-              simOffline ? "bg-ink" : "bg-black/15"
+              simOffline ? "liquid-glass-dark" : "bg-black/15"
             }`}
           >
             <span
@@ -47,10 +42,6 @@ export default function Settings() {
         </div>
       </Card>
       <Card className="flex flex-col gap-2 p-5 text-[14.5px]">
-        <div className="flex justify-between">
-          <span>Service worker</span>
-          <b>{sw}</b>
-        </div>
         <div className="flex justify-between">
           <span>Local records (IndexedDB)</span>
           <b>{n}</b>

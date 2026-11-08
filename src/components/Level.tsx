@@ -14,7 +14,7 @@ export function LevelDot({ level, size = 12 }: { level: Level; size?: number }) 
     return (
       <span
         aria-hidden
-        className="inline-block shrink-0 rounded-full bg-ink-3"
+        className="inline-block shrink-0 rounded-full liquid-glass-dark-3"
         style={base}
       />
     )
@@ -54,16 +54,16 @@ export function AlertBadge({
 }) {
   const levelStyle = dark
     ? {
-        normal: "bg-white/10 text-white/90 border border-white/20",
-        observe: "bg-white/15 text-white border border-white/30 font-semibold",
-        warning: "bg-amber-500/25 text-amber-300 border border-amber-400/50 font-semibold",
-        critical: "bg-red-500/30 text-red-300 border border-red-400/50 font-semibold",
+        normal: "liquid-glass-clear text-white/90 border border-white/20",
+        observe: "liquid-glass-clear text-white border border-white/30 font-semibold",
+        warning: "liquid-glass-clear text-amber-300 border border-amber-400/50 font-semibold",
+        critical: "liquid-glass-clear text-red-300 border border-red-400/50 font-semibold",
       }[level]
     : {
-        normal: "bg-white text-ink border border-border shadow-xs",
-        observe: "bg-white text-ink border border-ink/30 font-semibold shadow-xs",
-        warning: "bg-white text-amber-900 border border-amber-500/50 font-semibold shadow-xs",
-        critical: "bg-white text-red-700 border border-red-500/50 font-semibold shadow-xs",
+        normal: "liquid-glass-clear text-ink border border-border shadow-xs",
+        observe: "liquid-glass-clear text-ink border border-ink/30 font-semibold shadow-xs",
+        warning: "liquid-glass-clear text-amber-900 border border-amber-500/50 font-semibold shadow-xs",
+        critical: "liquid-glass-clear text-red-700 border border-red-500/50 font-semibold shadow-xs",
       }[level]
 
   return (
@@ -109,7 +109,7 @@ export function ConfidenceBar({
       >
         <div
           className={`h-full rounded-full transition-[width] duration-500 ${
-            dark ? "bg-signal" : "bg-ink"
+            dark ? "bg-signal" : "liquid-glass-dark"
           }`}
           style={{ width: `${pct}%` }}
         />
@@ -117,3 +117,4 @@ export function ConfidenceBar({
     </div>
   )
 }
+

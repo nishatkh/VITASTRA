@@ -197,7 +197,7 @@ export default function Triage() {
           <div>
             <div className="relative h-14" role="img" aria-label={`Signal latency: ${delay} min one way, ${rtt} min round trip`}>
               <div className="absolute left-4 right-4 top-1/2 h-px bg-border" />
-              <div className="absolute left-0 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink text-canvas">
+              <div className="absolute left-0 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full liquid-glass-dark text-white">
                 <Satellite size={16} strokeWidth={1.5} />
               </div>
               <div className="absolute right-0 top-1/2 size-9 -translate-y-1/2 rounded-full bg-gradient-to-br from-border to-ink-3" />
@@ -226,9 +226,8 @@ export default function Triage() {
             <section
               key={ln.id}
               aria-label={ln.title}
-              className={`min-h-40 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between ${
-                ln.id === "act" ? "bg-nav text-on-nav shadow-md" : "bg-raised border border-border"
-              }`}
+              className={`min-h-40 rounded-[28px] p-4 sm:p-5 flex flex-col justify-between ${ln.id === "act" ? "bg-nav text-on-nav shadow-md" : "liquid-glass-clear border border-border"
+                }`}
             >
               <div>
                 <div className="mb-3 flex items-baseline justify-between border-b pb-2 border-border/30">
@@ -240,20 +239,18 @@ export default function Triage() {
 
                 <ul className="flex flex-col gap-2.5">
                   {list.length === 0 && (
-                    <li className={`rounded-2xl border border-dashed px-4 py-5 text-[13px] text-center ${
-                      ln.id === "act" ? "border-on-nav/20 text-on-nav/60" : "border-border text-label"
-                    }`}>
+                    <li className={`rounded-2xl border border-dashed px-4 py-5 text-[13px] text-center ${ln.id === "act" ? "border-on-nav/20 text-on-nav/60" : "border-border text-label"
+                      }`}>
                       No signals currently in this lane
                     </li>
                   )}
                   {list.map((i) => (
                     <li
                       key={i.alertId}
-                      className={`rounded-[20px] p-3.5 transition-all ${
-                        ln.id === "act"
-                          ? "bg-ink text-canvas border border-white/10"
-                          : "bg-surface text-ink border border-border shadow-xs"
-                      }`}
+                      className={`rounded-[20px] p-3.5 transition-all ${ln.id === "act"
+                          ? "liquid-glass-dark text-white border border-white/10"
+                          : "liquid-glass-clear text-ink border border-border shadow-xs"
+                        }`}
                     >
                       <div className="mb-1.5 flex items-center justify-between">
                         <AlertBadge level={i.level} dark={ln.id === "act"} />
@@ -262,9 +259,8 @@ export default function Triage() {
                         </span>
                       </div>
                       <div className="text-[15px] font-semibold leading-tight">{i.title}</div>
-                      <div className={`mt-1 text-[12px] leading-snug ${
-                        ln.id === "act" ? "text-canvas/80" : "text-label"
-                      }`}>
+                      <div className={`mt-1 text-[12px] leading-snug ${ln.id === "act" ? "text-white/80" : "text-label"
+                        }`}>
                         {i.reason}
                       </div>
                     </li>
@@ -295,19 +291,19 @@ export default function Triage() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setShowCreateModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
             >
               <Plus className="size-3.5" /> New SBAR Draft
             </button>
             <button
               onClick={exportPdfNow}
-              className="inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
             >
               <Download className="size-3.5" /> PDF
             </button>
             <button
               onClick={exportJsonNow}
-              className="inline-flex items-center gap-1.5 rounded-full bg-raised px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full liquid-glass-clear px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
             >
               <Download className="size-3.5" /> JSON
             </button>
@@ -315,15 +311,14 @@ export default function Triage() {
         </div>
 
         {/* Transmission & Review Status Strip */}
-        <div className="rounded-2xl bg-raised p-4 flex flex-wrap items-center justify-between gap-3 text-[13px]">
+        <div className="rounded-2xl liquid-glass-clear p-4 flex flex-wrap items-center justify-between gap-3 text-[13px]">
           <div className="flex items-center gap-3">
-            <span className={`inline-flex rounded-full px-3 py-1 text-[12px] font-semibold ${
-              activeReport.status === "Sent" || activeReport.status === "Received" || activeReport.status === "Reviewed"
+            <span className={`inline-flex rounded-full px-3 py-1 text-[12px] font-semibold ${activeReport.status === "Sent" || activeReport.status === "Received" || activeReport.status === "Reviewed"
                 ? "bg-signal/15 text-signal"
                 : activeReport.status === "Transmitting"
-                ? "bg-accent/15 text-accent animate-pulse"
-                : "bg-warning/15 text-warning"
-            }`}>
+                  ? "bg-accent/15 text-accent animate-pulse"
+                  : "bg-warning/15 text-warning"
+              }`}>
               {activeReport.status}
             </span>
             <span className="text-label">
@@ -334,7 +329,7 @@ export default function Triage() {
           {activeReport.status !== "Sent" && activeReport.status !== "Reviewed" && (
             <button
               onClick={() => handleTransmitReport(activeReport.id)}
-              className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[12.5px] font-semibold text-canvas hover:bg-border-strong transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full liquid-glass-dark px-4 py-1.5 text-[12.5px] font-semibold text-white hover:bg-border-strong transition-colors"
             >
               <Send className="size-3.5" /> Transmit to Flight Surgeon
             </button>
@@ -343,22 +338,22 @@ export default function Triage() {
 
         {/* Four SBAR Pillars */}
         <div className="space-y-4 text-[14px] leading-relaxed">
-          <div className="rounded-2xl border border-border p-4 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-4 space-y-1">
             <div className="label !text-accent font-bold">S — Situation</div>
             <p className="text-ink font-medium">{activeReport.situation}</p>
           </div>
 
-          <div className="rounded-2xl border border-border p-4 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-4 space-y-1">
             <div className="label !text-accent font-bold">B — Background</div>
             <p className="text-label">{activeReport.background}</p>
           </div>
 
-          <div className="rounded-2xl border border-border p-4 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-4 space-y-1">
             <div className="label !text-accent font-bold">A — Assessment</div>
             <p className="text-label">{activeReport.assessment}</p>
           </div>
 
-          <div className="rounded-2xl border border-border p-4 space-y-1">
+          <div className="rounded-2xl liquid-glass-clear p-4 space-y-1">
             <div className="label !text-accent font-bold">R — Recommendation / Requested Action</div>
             <p className="text-ink font-medium">{activeReport.recommendation}</p>
           </div>
@@ -366,11 +361,11 @@ export default function Triage() {
 
         {/* Telemetry and Symptoms Summary Box */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]">
-          <div className="rounded-xl bg-raised p-3.5 space-y-1">
+          <div className="rounded-xl liquid-glass-clear p-3.5 space-y-1">
             <div className="font-semibold text-ink">Recorded Telemetry Measurements:</div>
             <div className="text-label">{activeReport.observedMeasurements}</div>
           </div>
-          <div className="rounded-xl bg-raised p-3.5 space-y-1">
+          <div className="rounded-xl liquid-glass-clear p-3.5 space-y-1">
             <div className="font-semibold text-ink">Reported Subjective Symptoms:</div>
             <div className="text-label">{activeReport.symptoms}</div>
           </div>
@@ -382,7 +377,7 @@ export default function Triage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-nav/60 backdrop-blur-xs">
           <form
             onSubmit={handleCreateReport}
-            className="w-full max-w-lg max-h-[90dvh] overflow-y-auto rounded-[32px] bg-surface p-6 shadow-2xl border border-border space-y-4 text-[13.5px]"
+            className="w-full max-w-lg max-h-[90dvh] overflow-y-auto rounded-[32px] liquid-glass-clear p-6 shadow-2xl border border-border space-y-4 text-[13.5px]"
           >
             <h3 className="text-[18px] font-semibold text-ink">Draft Structured Medical Handoff (SBAR)</h3>
 
@@ -394,7 +389,7 @@ export default function Triage() {
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 placeholder="e.g. SANS Visual Acuity Drift Surveillance"
-                className="w-full rounded-2xl border border-border bg-raised px-4 py-2 text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear px-4 py-2 text-ink"
               />
             </div>
 
@@ -406,7 +401,7 @@ export default function Triage() {
                 value={newSit}
                 onChange={(e) => setNewSit(e.target.value)}
                 placeholder="Observed parameter shift..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-ink"
               />
             </div>
 
@@ -417,7 +412,7 @@ export default function Triage() {
                 value={newBack}
                 onChange={(e) => setNewBack(e.target.value)}
                 placeholder="Past 72 hours workload, baseline status..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-ink"
               />
             </div>
 
@@ -428,7 +423,7 @@ export default function Triage() {
                 value={newAssess}
                 onChange={(e) => setNewAssess(e.target.value)}
                 placeholder="Differential interpretation without definitive diagnosis..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-ink"
               />
             </div>
 
@@ -439,7 +434,7 @@ export default function Triage() {
                 value={newRec}
                 onChange={(e) => setNewRec(e.target.value)}
                 placeholder="Next check schedule, countermeasure adjustment..."
-                className="w-full rounded-2xl border border-border bg-raised p-3 text-ink"
+                className="w-full rounded-2xl border border-border liquid-glass-clear p-3 text-ink"
               />
             </div>
 
@@ -453,7 +448,7 @@ export default function Triage() {
               </button>
               <button
                 type="submit"
-                className="rounded-full bg-ink px-5 py-2 font-semibold text-canvas hover:bg-border-strong"
+                className="rounded-full liquid-glass-dark px-5 py-2 font-semibold text-white hover:bg-border-strong"
               >
                 Save SBAR Draft
               </button>
@@ -464,3 +459,6 @@ export default function Triage() {
     </div>
   )
 }
+
+
+

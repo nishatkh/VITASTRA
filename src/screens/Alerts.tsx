@@ -103,8 +103,8 @@ export default function Alerts() {
               onClick={() => setActiveTab(tab)}
               className={`rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
                 activeTab === tab
-                  ? "bg-ink text-canvas shadow-xs"
-                  : "bg-raised text-label hover:text-ink"
+                  ? "liquid-glass-dark text-white shadow-xs"
+                  : "liquid-glass-clear text-label hover:text-ink"
               }`}
             >
               {tab}
@@ -124,7 +124,7 @@ export default function Alerts() {
           return (
             <div
               key={a.id}
-              className={`rounded-[28px] border bg-surface p-5 shadow-xs transition-all ${
+              className={`rounded-[28px] border liquid-glass-clear p-5 shadow-xs transition-all ${
                 a.lifecycleState === "New"
                   ? "border-accent/40 shadow-sm"
                   : a.lifecycleState === "Resolved"
@@ -164,14 +164,14 @@ export default function Alerts() {
                     Grouped Signals:
                   </span>
                   {a.grouped.map((g) => (
-                    <span key={g} className="rounded-full bg-raised px-2.5 py-0.5 text-[11.5px] font-medium text-ink">
+                    <span key={g} className="rounded-full liquid-glass-clear px-2.5 py-0.5 text-[11.5px] font-medium text-ink">
                       {g}
                     </span>
                   ))}
                 </div>
 
                 {/* Evidence List */}
-                <div className="rounded-2xl bg-raised p-4 text-[13px] text-label space-y-1.5 mt-2">
+                <div className="rounded-2xl liquid-glass-clear p-4 text-[13px] text-label space-y-1.5 mt-2">
                   <div className="font-semibold text-ink text-[12.5px] flex items-center gap-1.5">
                     <Layers className="size-3.5 text-accent" /> Why are you seeing this alert?
                   </div>
@@ -189,7 +189,7 @@ export default function Alerts() {
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
                       {a.chain.flat().map((node, i) => (
                         <span key={i} className="flex items-center gap-1">
-                          <span className="rounded-md bg-raised px-2 py-0.5 font-medium text-ink">{node}</span>
+                          <span className="rounded-md liquid-glass-clear px-2 py-0.5 font-medium text-ink">{node}</span>
                           {i < a.chain.flat().length - 1 && <ChevronRight className="size-3 text-label" />}
                         </span>
                       ))}
@@ -220,7 +220,7 @@ export default function Alerts() {
                   {a.lifecycleState === "New" && (
                     <button
                       onClick={() => handleStateChange(a.id, "Acknowledged")}
-                      className="rounded-full bg-raised px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
+                      className="rounded-full liquid-glass-clear px-4 py-1.5 text-[12.5px] font-medium text-ink hover:bg-border transition-colors"
                     >
                       Acknowledge Alert
                     </button>
@@ -228,7 +228,7 @@ export default function Alerts() {
                   {a.lifecycleState !== "Resolved" && (
                     <button
                       onClick={() => handleStateChange(a.id, "Resolved")}
-                      className="rounded-full bg-ink px-4 py-1.5 text-[12.5px] font-medium text-canvas hover:bg-border-strong transition-colors"
+                      className="rounded-full liquid-glass-dark px-4 py-1.5 text-[12.5px] font-medium text-white hover:bg-border-strong transition-colors"
                     >
                       Mark Resolved
                     </button>
@@ -259,7 +259,7 @@ export default function Alerts() {
           {(["normal", "observe", "warning", "critical"] as const).map((l) => {
             const item = LEVEL_DETAILS[l]
             return (
-              <div key={l} className="rounded-xl bg-raised p-3 space-y-1">
+              <div key={l} className="rounded-xl liquid-glass-clear p-3 space-y-1">
                 <div className="flex items-center gap-2">
                   <LevelDot level={l} size={14} />
                   <span className="font-semibold text-[13px] text-ink">{levelLabel(l)}</span>
@@ -274,3 +274,6 @@ export default function Alerts() {
     </Screen>
   )
 }
+
+
+

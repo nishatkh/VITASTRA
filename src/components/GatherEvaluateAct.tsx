@@ -31,8 +31,8 @@ export function GatherEvaluateAct() {
           <span
             className={`flex size-9 shrink-0 items-center justify-center rounded-full ${
               i === active
-                ? "bg-ink text-white"
-                : "bg-white text-label shadow-[0_2px_8px_rgba(0,0,0,.06)]"
+                ? "liquid-glass-dark text-white"
+                : "liquid-glass-clear text-label shadow-xs"
             }`}
           >
             <s.icon size={16} strokeWidth={1.6} aria-hidden />
@@ -48,10 +48,11 @@ export function GatherEvaluateAct() {
             <span className="block truncate text-label">{s.sub}</span>
           </span>
           {i < 2 && (
-            <span className="h-px min-w-2 flex-1 bg-black/15" aria-hidden />
+            <span className="h-px min-w-2 flex-1 bg-white/15" aria-hidden />
           )}
         </li>
       ))}
     </ol>
   )
 }
+

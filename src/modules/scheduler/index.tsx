@@ -201,7 +201,7 @@ export default function Scheduler() {
         </p>
 
         {/* Scientific Rule Alert */}
-        <div className="rounded-2xl border border-border bg-raised p-4 text-[13px] text-label space-y-1">
+        <div className="rounded-2xl border border-border liquid-glass-clear p-4 text-[13px] text-label space-y-1">
           <div className="font-semibold text-ink flex items-center gap-1.5">
             <Info className="size-4 text-accent" />
             Surveillance Principle:
@@ -247,8 +247,8 @@ export default function Scheduler() {
               onClick={() => setFilterCategory(cat)}
               className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
                 filterCategory === cat
-                  ? "bg-ink text-canvas"
-                  : "bg-raised text-label hover:text-ink"
+                  ? "liquid-glass-dark text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
               }`}
             >
               {cat}
@@ -268,16 +268,16 @@ export default function Scheduler() {
               key={chk.id}
               className={`rounded-[24px] border p-4 sm:p-5 transition-all ${
                 chk.completed
-                  ? "border-signal/30 bg-surface shadow-xs"
+                  ? "border-signal/30 liquid-glass-clear shadow-xs"
                   : isOverdue
                   ? "border-warning/40 bg-warning/5"
-                  : "border-border bg-surface hover:border-border-strong"
+                  : "border-border liquid-glass-clear hover:border-border-strong"
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                 <div className="flex items-start gap-3.5">
                   <span className={`p-2.5 rounded-2xl shrink-0 ${
-                    chk.completed ? "bg-signal/15 text-signal" : "bg-raised text-ink"
+                    chk.completed ? "bg-signal/15 text-signal" : "liquid-glass-clear text-ink"
                   }`}>
                     <Icon className="size-5" />
                   </span>
@@ -325,8 +325,8 @@ export default function Scheduler() {
                     onClick={() => toggleComplete(chk.id)}
                     className={`rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
                       chk.completed
-                        ? "bg-raised text-label hover:text-ink"
-                        : "bg-ink text-canvas hover:bg-border-strong"
+                        ? "liquid-glass-clear text-label hover:text-ink"
+                        : "liquid-glass-dark text-white hover:bg-border-strong"
                     }`}
                   >
                     {chk.completed ? "Mark Incomplete" : "Record Assessment"}
@@ -349,3 +349,6 @@ export default function Scheduler() {
     </ModuleShell>
   )
 }
+
+
+

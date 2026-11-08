@@ -74,7 +74,7 @@ export default function Environment() {
       </Card>
       <div className="grid grid-cols-3 gap-3">
         {tiles.map(([l, v, u]) => (
-          <div key={l} className="card p-3.5">
+          <div key={l} className="liquid-glass-primary glass-hover p-3.5">
             <div className="label !text-[11px]">{l}</div>
             <div className="mt-1 text-[22px] font-semibold tabular-nums tracking-[-0.03em]">
               {v}
@@ -82,7 +82,7 @@ export default function Environment() {
             </div>
           </div>
         ))}
-        <Link to="/radiation" className="card flex flex-col justify-between p-3.5">
+        <Link to="/radiation" className="liquid-glass-primary glass-hover flex flex-col justify-between p-3.5">
           <Radiation size={18} strokeWidth={1.5} />
           <span className="text-[13px] font-semibold">Radiation</span>
         </Link>
@@ -96,10 +96,10 @@ export default function Environment() {
           ].map(([t, rows, on]) => (
             <div
               key={t as string}
-              className={`rounded-[22px] p-4 ${on ? "bg-ink text-canvas" : "bg-raised shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}
+              className={`rounded-[22px] p-4 ${on ? "liquid-glass-dark text-white" : "liquid-glass-clear shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}
             >
               <div className="text-[14px] font-semibold">{t as string}</div>
-              <div className={`mb-2 text-[11.5px] ${on ? "text-canvas/60" : "text-label"}`}>
+              <div className={`mb-2 text-[11.5px] ${on ? "text-white/60" : "text-label"}`}>
                 {on ? "Yes" : "No change"}
               </div>
               <ul className="flex flex-col gap-1.5 text-[12.5px] leading-snug">
@@ -135,3 +135,6 @@ export default function Environment() {
     </ModuleShell>
   )
 }
+
+
+

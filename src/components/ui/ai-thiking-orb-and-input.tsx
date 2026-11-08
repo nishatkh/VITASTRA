@@ -3,11 +3,11 @@ import "../../index.css";
 
 /* ───────────────────────────── copy ───────────────────────────── */
 const COPY = {
-  placeholder: "Ask anything…",
-  labels: ["Thinking", "Searching", "Analyzing", "Composing"],
-  done: "Done",
-  answerTitle: "Answer",
-  answerBody: "The answer goes here",
+  placeholder: "Ask about heart rate, SANS, cabin CO2, radiation, checks…",
+  labels: ["Analyzing Telemetry", "Cross-referencing NASA OSDR", "Evaluating Baseline", "Formulating Guidance"],
+  done: "Analysis Verified",
+  answerTitle: "Clinical Guidance",
+  answerBody: "Telemetry analysis complete.",
   reset: "New question",
   send: "Send",
 };
@@ -22,12 +22,12 @@ export interface MorphOrbProps {
 }
 
 /* ─────────────────────────── geometry ─────────────────────────── */
-const PILL_H = 60, BALL_SMALL = 60, ORB_D = 132, ORB_R = 66, CANVAS = 220;
-const CARD_H = 220;
-const FLY_D = 138;
-const pillW = () => Math.min(560, (typeof window !== "undefined" ? window.innerWidth : 600) - 32);
-const cardW = () => Math.min(520, (typeof window !== "undefined" ? window.innerWidth : 600) - 32);
-const homeDy = () => 0; // pill centered in stage
+const PILL_H = 54, BALL_SMALL = 54, ORB_D = 128, ORB_R = 64, CANVAS = 220;
+const CARD_H = 150;
+const FLY_D = 132;
+const pillW = () => Math.min(540, (typeof window !== "undefined" ? window.innerWidth : 600) - 36);
+const cardW = () => Math.min(520, (typeof window !== "undefined" ? window.innerWidth : 600) - 36);
+const homeDy = () => 65;
 
 /* ───────────────────────── math + easing ───────────────────────── */
 type Ease = (t: number) => number;
@@ -974,7 +974,17 @@ export default function MorphOrb(props: MorphOrbProps) {
           <div className="mo-card" aria-hidden="true" />
           <div className="mo-ring" aria-hidden="true" />
 
-          <form className="mo-input" ref={formRef} onSubmit={onFormSubmit} autoComplete="off">
+          <form
+            className="mo-input"
+            ref={formRef}
+            onSubmit={onFormSubmit}
+            autoComplete="off"
+            onClick={(e) => {
+              if ((e.target as HTMLElement).tagName !== "BUTTON" && !((e.target as HTMLElement).closest("button"))) {
+                inputRef.current?.focus();
+              }
+            }}
+          >
             <svg className="mo-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M10 3.5l1.7 4.8 4.8 1.7-4.8 1.7L10 16.5l-1.7-4.8L3.5 10l4.8-1.7L10 3.5z" />
               <path d="M18 14.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8z" />

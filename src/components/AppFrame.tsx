@@ -1,25 +1,19 @@
 import { useState, useRef, useCallback, useEffect, type ReactNode } from "react"
 import { NavLink, useLocation, useNavigate } from "react-router"
 import {
-  X,
-  Orbit,
-  House,
-  HeartPulse,
   CalendarCheck,
-  Wind,
-  MessageCircle,
-  LayoutGrid,
   SlidersHorizontal,
   ClipboardList,
   Dumbbell,
   FlaskConical,
-  GripHorizontal,
 } from "lucide-react"
 import { SheetRootCtx } from "./Sheet"
-import { ConnectionPill, OfflineBanner } from "./Layout"
+import { OfflineBanner } from "./Layout"
 import { useEvaluation } from "../api/hooks"
 import { useApp } from "../store/useApp"
 import { levelLabel } from "./Level"
+import { LiquidNavbar, NimbusIcons, type LiquidNavItem } from "./ui/liquid-glass-navbar"
+import { ShaderBackground } from "./ui/test"
 
 const astronaut = { id: "AX-07", name: "Cdr. Ines Varga", initials: "IV", role: "Flight Engineer", mission: "Expedition 74", crew: "Crew of 4" }
 const checks = [
@@ -32,12 +26,30 @@ const sessions = [] as any[]
 const N = 183
 
 const TABS = [
-  { to: "/", label: "Home", icon: House },
-  { to: "/body", label: "Body", icon: HeartPulse },
-  { to: "/checks", label: "Checks", icon: CalendarCheck },
-  { to: "/env", label: "Environment", icon: Wind },
-  { to: "/coach", label: "Coach", icon: MessageCircle },
-  { to: "/more", label: "More", icon: LayoutGrid },
+  { to: "/", label: "Home" },
+  { to: "/body", label: "Body" },
+  { to: "/checks", label: "Checks" },
+  { to: "/env", label: "Environment" },
+  { to: "/coach", label: "Coach" },
+  { to: "/more", label: "More" },
+]
+
+const MORE_ICON = (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="3" y="3" width="7" height="7" rx="1.5" />
+    <rect x="14" y="3" width="7" height="7" rx="1.5" />
+    <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    <rect x="14" y="14" width="7" height="7" rx="1.5" />
+  </svg>
+)
+
+const LIQUID_ITEMS: LiquidNavItem[] = [
+  { label: "Home", href: "/", icon: NimbusIcons.home, fx: "glow" },
+  { label: "Body", href: "/body", icon: NimbusIcons.drop, fx: "drop" },
+  { label: "Checks", href: "/checks", icon: NimbusIcons.globe, fx: "spin" },
+  { label: "Environment", href: "/env", icon: NimbusIcons.plane, fx: "plane" },
+  { label: "Coach", href: "/coach", icon: NimbusIcons.user, fx: "wave" },
+  { label: "More", href: "/more", icon: MORE_ICON, fx: "pop" },
 ]
 const tabFor = (p: string) => {
   if (p === "/") return "/"
@@ -51,16 +63,6 @@ const tabFor = (p: string) => {
   if (["/env", "/radiation"].some((x) => p.startsWith(x))) return "/env"
   if (p.startsWith("/coach")) return "/coach"
   return "/more"
-}
-const TITLES: Record<string, string> = {
-  "/": "Overview",
-  "/body": "Body",
-  "/checks": "Checks",
-  "/env": "Environment",
-  "/coach": "Coach",
-  "/more": "Mission",
-  "/inspiration4": "Inspiration4",
-  "/research": "Research",
 }
 
 const PILLS = [
@@ -116,8 +118,8 @@ function ScrollablePills() {
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     >
-      <span className="icon-btn size-12 shrink-0 pointer-events-none" aria-hidden>
-        <SlidersHorizontal size={18} strokeWidth={1.4} />
+      <span className="icon-btn size-12 shrink-0 pointer-events-none text-cyan-400" aria-hidden>
+        <SlidersHorizontal size={18} strokeWidth={2} />
       </span>
       {PILLS.map((p) => (
         <NavLink
@@ -127,10 +129,10 @@ function ScrollablePills() {
             if (isDragging) e.preventDefault()
           }}
           className={({ isActive }) =>
-            `inline-flex min-h-11 shrink-0 items-center rounded-full px-5 text-[13.5px] font-medium transition-colors ${
+            `inline-flex min-h-9 shrink-0 items-center rounded-full px-4 text-[12px] font-medium transition-colors ${
               isActive
-                ? "bg-accent text-canvas shadow-[0_6px_14px_rgba(30,58,95,.3)]"
-                : "bg-border text-ink/80 hover:bg-border-strong"
+                ? "liquid-glass-dark text-white border border-cyan-400/40 shadow-[0_4px_16px_rgba(53,189,230,0.3)] font-semibold"
+                : "liquid-glass-clear text-ink-2 hover:text-ink hover:border-cyan-400/30"
             }`
           }
         >
@@ -163,9 +165,9 @@ function PatientStrip() {
       aria-label="Astronaut summary"
       className="mb-6 grid items-center gap-4 sm:gap-5 lg:grid-cols-[320px_1fr]"
     >
-      <div className="flex items-center gap-3 sm:gap-4 rounded-[28px] sm:rounded-[34px] bg-raised p-3 sm:p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.7)]">
+      <div className="liquid-glass-clear glass-edge flex items-center gap-3 sm:gap-4 rounded-[28px] sm:rounded-[34px] p-3 sm:p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.2)]">
         <span
-          className="flex size-[64px] sm:size-[84px] shrink-0 items-center justify-center rounded-[20px] sm:rounded-[28px] bg-nav text-[20px] sm:text-[26px] font-light tracking-wide text-on-nav"
+          className="flex size-[64px] sm:size-[84px] shrink-0 items-center justify-center rounded-[20px] sm:rounded-[28px] liquid-glass-dark text-[20px] sm:text-[26px] font-light tracking-wide text-on-nav"
           aria-hidden
         >
           {astronaut.initials}
@@ -206,93 +208,106 @@ function PatientStrip() {
 
 const MONTHS = ["Mar", "Apr", "May", "Jun", "Jul", "Aug"]
 const monthOf = (d: number) => Math.min(5, Math.floor(d / 30.5))
+
 function TimelineBar() {
   const day = useApp((s) => s.day)
   const setDay = useApp((s) => s.setDay)
   const cur = monthOf(day)
+
   const nodes = [
     {
       icon: ClipboardList,
       label: "checks",
+      color: "text-cyan-400",
       count: (m: number) =>
-        checks.filter((c) => monthOf(c.due) === m && c.type !== "sample")
-          .length,
+        checks.filter((c) => monthOf(c.due) === m && c.type !== "sample").length,
     },
     {
       icon: Dumbbell,
-      label: "exercise sessions with degraded machines",
+      label: "exercise",
+      color: "text-amber-400",
       count: (m: number) =>
-        sessions.filter((s, i) => monthOf(i) === m && s.machineStatus !== "ok")
-          .length,
+        sessions.filter((s, i) => monthOf(i) === m && s.machineStatus !== "ok").length,
     },
     {
       icon: FlaskConical,
       label: "samples",
+      color: "text-emerald-400",
       count: (m: number) =>
-        checks.filter((c) => monthOf(c.due) === m && c.type === "sample")
-          .length,
+        checks.filter((c) => monthOf(c.due) === m && c.type === "sample").length,
     },
   ]
+
   return (
-    <nav
-      aria-label="Mission timeline"
-      className="absolute inset-x-3 bottom-3 z-30 flex items-center gap-1 overflow-x-auto rounded-full bg-raised/95 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,.22)] backdrop-blur lg:inset-x-6"
-    >
-      <div className="flex shrink-0 items-center gap-3 rounded-full bg-nav py-1.5 pl-1.5 pr-5 text-on-nav">
-        <span className="flex size-11 items-center justify-center rounded-full bg-inset text-ink">
-          <CalendarCheck size={19} strokeWidth={1.3} />
-        </span>
-        <span className="leading-tight">
-          <span className="block text-[11px] text-on-nav/60">Mission day</span>
-          <span className="text-[15px] font-medium tabular-nums">
-            {day + 1} / {N}
+    <div className="pointer-events-none absolute inset-x-0 bottom-2.5 z-30 flex justify-center px-2 sm:px-6">
+      <nav
+        aria-label="Mission timeline"
+        className="pointer-events-auto flex items-center gap-1.5 sm:gap-2.5 rounded-full p-1.5 liquid-glass-primary glass-edge shadow-[0_16px_40px_-8px_rgba(16,18,21,0.18)] max-w-full overflow-x-auto scrollbar-none"
+      >
+        {/* Mission Sol capsule */}
+        <div className="flex shrink-0 items-center gap-2 rounded-full liquid-glass-dark py-1 pl-1.5 pr-3 text-on-nav shadow-xs">
+          <span className="flex size-7 sm:size-8 items-center justify-center rounded-full liquid-glass-clear text-ink">
+            <CalendarCheck size={14} strokeWidth={2} className="text-cyan-400" />
           </span>
-        </span>
-      </div>
-      {MONTHS.map((m, i) => {
-        const on = i === cur,
-          future = i > cur
-        return (
-          <div
-            key={m}
-            className={`flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 ${
-              on ? "bg-accent text-canvas" : future ? "text-ink/40" : ""
-            }`}
-          >
-            <button
-              onClick={() => setDay(Math.round(i * 30.5))}
-              aria-label={`Jump to ${m}`}
-              aria-current={on ? "true" : undefined}
-              className={`min-h-11 px-2 text-[12.5px] font-medium ${
-                on ? "text-canvas" : "text-ink/70"
-              }`}
-            >
-              {m}
-            </button>
-            {nodes.map((n) => {
-              const c = n.count(i)
-              return (
-                <button
-                  key={n.label}
-                  onClick={() => setDay(Math.round(i * 30.5 + 12))}
-                  aria-label={`${c} ${n.label} in ${m}`}
-                  className={`relative flex size-10 items-center justify-center rounded-full transition-colors ${
-                    on ? "bg-raised/20 text-ink" : "bg-border text-ink/80 hover:bg-border-strong"
-                  }`}
-                >
-                  <n.icon size={16} strokeWidth={1.3} aria-hidden />
-                  {c > 0 && (
-                    <span className="absolute -right-0.5 -top-1 flex size-[18px] items-center justify-center rounded-full bg-signal text-[10px] font-medium text-canvas">
-                      {c}
-                    </span>
-                  )}
-                </button>
-              )
-            })}
+          <div className="leading-none flex flex-col">
+            <div className="flex items-center gap-1.5">
+              <span className="size-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_6px_#0077A8]" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-on-nav/80">
+                SOL {day + 1}
+              </span>
+            </div>
+            <span className="mt-0.5 text-[11px] font-medium tabular-nums text-white">
+              Day {day + 1} <span className="text-white/40">/ {N}</span>
+            </span>
           </div>
-        )
-      })}
-    </nav>
+        </div>
+
+        {/* Month selector track */}
+        <div className="flex items-center gap-0.5 sm:gap-1 rounded-full p-0.5 bg-black/30 border border-cyan-400/20">
+          {MONTHS.map((m, i) => {
+            const on = i === cur
+            const future = i > cur
+            return (
+              <button
+                key={m}
+                onClick={() => setDay(Math.round(i * 30.5))}
+                aria-label={`Jump to ${m}`}
+                aria-current={on ? "true" : undefined}
+                className={`min-h-7 sm:min-h-8 rounded-full px-2 sm:px-3 text-[11px] sm:text-[12px] font-medium transition-all ${
+                  on
+                    ? "bg-cyan-500/25 text-white border border-cyan-400/40 shadow-[0_2px_12px_rgba(53,189,230,0.3)] font-semibold scale-[1.02]"
+                    : future
+                      ? "text-ink/35 hover:text-ink/60"
+                      : "text-ink/75 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {m}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Telemetry counters for selected month */}
+        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 pl-1 border-l border-white/15">
+          {nodes.map((n) => {
+            const count = n.count(cur)
+            return (
+              <button
+                key={n.label}
+                onClick={() => setDay(Math.round(cur * 30.5 + 12))}
+                title={`${count} ${n.label} in ${MONTHS[cur]}`}
+                className="group relative flex items-center gap-1 min-h-7 sm:min-h-8 rounded-full px-2 sm:px-2.5 liquid-glass-clear text-ink-2 hover:text-ink transition-all hover:border-cyan-400/40 hover:bg-cyan-950/40"
+              >
+                <n.icon size={13} strokeWidth={2} className={`${n.color} shrink-0`} />
+                <span className="text-[11px] font-semibold tabular-nums text-ink">
+                  {count}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      </nav>
+    </div>
   )
 }
 
@@ -301,113 +316,39 @@ export function AppFrame({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const nav = useNavigate()
   const active = tabFor(pathname)
-  const home = pathname === "/"
   return (
-    <div className="min-h-dvh p-1.5 sm:p-3 lg:p-9">
+    <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-[#020C14]">
+      {/* Dynamic 21st.dev Waves WebGL ShaderBackground replacing the white background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <ShaderBackground className="h-full w-full" />
+      </div>
       <div
         ref={setRoot}
-        className="relative mx-auto flex h-[calc(100dvh-0.75rem)] sm:h-[calc(100dvh-1.5rem)] max-w-[1640px] flex-col overflow-hidden rounded-[24px] sm:rounded-[40px] bg-nav p-1.5 sm:p-2.5 shadow-[0_50px_100px_rgba(0,0,0,.35)] lg:h-[calc(100dvh-4.5rem)] lg:rounded-[56px]"
+        className="relative z-10 flex h-[calc(100dvh)] flex-col overflow-hidden"
         style={{ transform: "translateZ(0)" }}
       >
         <SheetRootCtx.Provider value={root}>
-          <header className="shrink-0">
-            {/* Mobile header (hidden on lg+) */}
-            <div className="flex items-center gap-2 rounded-t-[22px] bg-surface px-2 pt-2 pb-2 lg:hidden">
-              <button
-                onClick={() => (home ? undefined : nav("/"))}
-                aria-label={home ? "VITASTRA" : "Back to Overview"}
-                className="flex shrink-0 size-[40px] sm:size-[44px] items-center justify-center rounded-full border-2 border-nav bg-raised shadow-[0_6px_14px_rgba(0,0,0,.15)]"
-              >
-                {home ? (
-                  <Orbit size={18} strokeWidth={1.3} />
-                ) : (
-                  <X size={17} strokeWidth={1.4} />
-                )}
-              </button>
-              <h2 className="min-w-0 flex-1 truncate text-[19px] sm:text-[26px] font-light tracking-[-0.04em]">
-                {TITLES[active]}
-              </h2>
-              <nav
-                aria-label="Primary"
-                className="flex shrink-0 items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-hide max-w-[210px] sm:max-w-none"
-              >
-                {TABS.map((t) => (
-                  <NavLink
-                    key={t.to}
-                    to={t.to}
-                    aria-current={t.to === active ? "page" : undefined}
-                    className={`inline-flex size-[36px] sm:size-[40px] shrink-0 items-center justify-center rounded-full text-[12px] font-medium transition-all ${
-                      t.to === active
-                        ? "bg-accent text-canvas shadow-[0_8px_18px_rgba(30,58,95,.35)]"
-                        : "bg-border text-ink/80"
-                    }`}
-                  >
-                    <t.icon size={16} strokeWidth={1.3} aria-hidden />
-                  </NavLink>
-                ))}
-              </nav>
-            </div>
-
-            {/* Desktop header (hidden below lg) */}
-            <div className="hidden lg:flex lg:h-[76px] lg:items-start lg:justify-between">
-              <div className="flex items-start">
-                <div className="relative flex h-[76px] items-center rounded-tl-[44px] bg-surface pl-[88px] pr-4">
-                  <button
-                    onClick={() => (home ? undefined : nav("/"))}
-                    aria-label={home ? "VITASTRA" : "Back to Overview"}
-                    className="absolute left-2 top-3 flex size-[54px] items-center justify-center rounded-full border-2 border-nav bg-raised shadow-[0_6px_14px_rgba(0,0,0,.15)]"
-                  >
-                    {home ? (
-                      <Orbit size={20} strokeWidth={1.3} />
-                    ) : (
-                      <X size={18} strokeWidth={1.4} />
-                    )}
-                  </button>
-                  <h2 className="text-[40px] font-light tracking-[-0.04em]">
-                    {TITLES[active]}
-                  </h2>
-                </div>
-                <svg width="46" height="76" viewBox="0 0 46 76" aria-hidden className="-ml-px shrink-0">
-                  <path d="M0 0 C30 0 16 76 46 76 L0 76 Z" fill="var(--surface)" />
-                </svg>
-              </div>
-              <div className="flex min-w-0 items-center gap-3 pr-5 pt-4">
-                <nav
-                  aria-label="Primary"
-                  className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-1"
-                >
-                  {TABS.map((t) => (
-                    <NavLink
-                      key={t.to}
-                      to={t.to}
-                      aria-current={t.to === active ? "page" : undefined}
-                      className={`inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-[13.5px] font-medium transition-all ${
-                        t.to === active
-                          ? "bg-accent text-canvas shadow-[0_8px_18px_rgba(30,58,95,.35)]"
-                          : "bg-border text-ink/80 hover:bg-border-strong"
-                      }`}
-                    >
-                      <t.icon size={16} strokeWidth={1.3} aria-hidden />
-                      <span>{t.label}</span>
-                    </NavLink>
-                  ))}
-                </nav>
-                <span className="hidden shrink-0 xl:block">
-                  <ConnectionPill />
-                </span>
-              </div>
+          {/* Floating Upper Liquid Glass Navbar - floating dock mirroring TimelineBar */}
+          <header className="pointer-events-none absolute inset-x-0 top-2.5 sm:top-3 z-40 flex justify-center px-2 sm:px-4">
+            <div className="pointer-events-auto">
+              <LiquidNavbar
+                items={LIQUID_ITEMS}
+                active={TABS.findIndex((t) => t.to === active)}
+                onChange={(index) => nav(TABS[index]?.to ?? "/")}
+                tone="dark"
+                sound={false}
+              />
             </div>
           </header>
-          <div className="relative flex min-h-0 flex-1 flex-col rounded-b-[44px] bg-surface lg:rounded-tr-[44px]">
+          <div className="relative flex min-h-0 flex-1 flex-col">
             <main
               id="scroll"
-              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-28 pt-6 lg:px-10"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-28 pt-18 sm:pt-20 lg:px-10"
             >
               <PatientStrip />
               <OfflineBanner />
               {children}
             </main>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-28 rounded-b-[28px] sm:rounded-b-[44px] bg-gradient-to-t from-surface via-surface/80 to-transparent" />
             <TimelineBar />
           </div>
         </SheetRootCtx.Provider>
@@ -415,3 +356,5 @@ export function AppFrame({ children }: { children: ReactNode }) {
     </div>
   )
 }
+
+

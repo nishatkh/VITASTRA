@@ -53,14 +53,14 @@ export default function Vision() {
           -related signs.
         </p>
       </Card>
-      <section className="card p-5">
+      <section className="liquid-glass-primary glass-hover p-5">
         <div className="label mb-1">Vision check vs your baseline</div>
         {ev ? <BaselineChart metric="vision" day={day} /> : <EmptyChart title="No baseline data" />}
       </section>
       <Card className="flex flex-col gap-3 p-5">
         <div className="text-[18px] font-semibold tracking-[-0.02em]">Headache and vision questionnaire</div>
         {Q.map((q, i) => (
-          <label key={q} className="flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-raised px-4 text-[15px] shadow-[0_2px_8px_rgba(0,0,0,.05)]">
+          <label key={q} className="flex min-h-12 items-center justify-between gap-3 rounded-2xl liquid-glass-clear px-4 text-[15px] shadow-[0_2px_8px_rgba(0,0,0,.05)]">
             {q}
             <input
               type="checkbox"
@@ -77,7 +77,7 @@ export default function Vision() {
           Save answers
         </button>
         {sent && (
-          <div className="rounded-2xl bg-raised p-4 text-[14.5px] leading-snug shadow-[0_2px_8px_rgba(0,0,0,.05)]">
+          <div className="rounded-2xl liquid-glass-clear p-4 text-[14.5px] leading-snug shadow-[0_2px_8px_rgba(0,0,0,.05)]">
             {repeat ? (
               <>
                 <b>Repeat or report.</b> Repeat the near-acuity check tomorrow in matched lighting. If the index is below baseline again, report it.
@@ -117,3 +117,5 @@ export default function Vision() {
     </ModuleShell>
   )
 }
+
+

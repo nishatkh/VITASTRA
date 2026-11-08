@@ -159,19 +159,19 @@ export default function Sensor() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[13px]">
-          <div className="rounded-xl bg-raised p-3">
+          <div className="rounded-xl liquid-glass-clear p-3">
             <span className="text-label text-[11px] uppercase">Verified Records</span>
             <div className="text-[20px] font-semibold text-signal mt-0.5">
               {qualitySummary.validCount}
             </div>
           </div>
-          <div className="rounded-xl bg-raised p-3">
+          <div className="rounded-xl liquid-glass-clear p-3">
             <span className="text-label text-[11px] uppercase">Flagged Quality Issues</span>
             <div className="text-[20px] font-semibold text-warning mt-0.5">
               {qualitySummary.issueCount}
             </div>
           </div>
-          <div className="rounded-xl bg-raised p-3">
+          <div className="rounded-xl liquid-glass-clear p-3">
             <span className="text-label text-[11px] uppercase">Excluded from Baselines</span>
             <div className="text-[20px] font-semibold text-ink mt-0.5">
               {qualitySummary.issueCount}
@@ -195,7 +195,7 @@ export default function Sensor() {
             <select
               value={interactiveParam}
               onChange={(e) => setInteractiveParam(e.target.value)}
-              className="w-full rounded-2xl border border-border bg-surface px-3.5 py-2 text-[13.5px] text-ink"
+              className="w-full rounded-2xl border border-border liquid-glass-clear px-3.5 py-2 text-[13.5px] text-ink"
             >
               <option value="spo2">Blood Oxygen (SpO2 %)</option>
               <option value="heartRate">Heart Rate (bpm)</option>
@@ -212,14 +212,14 @@ export default function Sensor() {
               value={interactiveVal}
               onChange={(e) => setInteractiveVal(e.target.value)}
               placeholder="e.g. 0, 98, 150..."
-              className="w-full rounded-2xl border border-border bg-surface px-3.5 py-2 text-[13.5px] text-ink"
+              className="w-full rounded-2xl border border-border liquid-glass-clear px-3.5 py-2 text-[13.5px] text-ink"
             />
           </div>
 
           <div className="flex items-end">
             <button
               type="submit"
-              className="w-full rounded-2xl bg-ink py-2 text-[13.5px] font-medium text-canvas hover:bg-border-strong transition-colors"
+              className="w-full rounded-2xl liquid-glass-dark py-2 text-[13.5px] font-medium text-white hover:bg-border-strong transition-colors"
             >
               Validate Reading
             </button>
@@ -312,3 +312,6 @@ export default function Sensor() {
     </ModuleShell>
   )
 }
+
+
+

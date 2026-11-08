@@ -58,7 +58,7 @@ export default function Contested() {
           </ResponsiveContainer>
         </div>
         <div className="flex gap-4 px-2 text-[11.5px] text-label">
-          <span className="flex items-center gap-1.5"><i className="h-0.5 w-4 bg-ink" />Your mood</span>
+          <span className="flex items-center gap-1.5"><i className="h-0.5 w-4 liquid-glass-dark" />Your mood</span>
           <span className="flex items-center gap-1.5"><i className="w-4 border-t-2 border-dashed" style={{ borderColor: "var(--ink-3)" }} />Third-quarter dip (published, contested)</span>
         </div>
       </Card>
