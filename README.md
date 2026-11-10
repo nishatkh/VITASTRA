@@ -333,10 +333,10 @@ Developed for the **NASA International Space Apps Challenge 2026**.
 | # | Member | Role |
 |---|---|---|
 | 1 | **Sadiya Islam Sujana** | Team Leader |
-| 2 | **MD. Nahidur Rahman Khan Nishat** | Developer |
+| 2 | **MD. Nahidur Rahman Khan Nishat** | Software Developer & Researcher |
 | 3 | **Ibrahim Bin Sultan** | Developer |
-| 4 | **Jayed Alam** | Developer |
-| 5 | **Md Solayman Hossain Shawon** | Developer |
+| 4 | **Jayed Alam** | Video Editor & Motion Designer |
+| 5 | **Md Solayman Hossain Shawon** | Security Researcher |
 | 6 | **Nafisa Tabassum Nusrat** | Developer |
 
 ---
