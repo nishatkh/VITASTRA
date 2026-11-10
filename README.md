@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/icon-logo.jpeg" alt="VITASTRA Logo" width="96" height="96" style="border-radius:20px;" />
+<img src="https://i.postimg.cc/wxN8W5t4/Whats-App-Image-2026-11-08-at-10-36-37-PM-Photoroom.png" alt="VITASTRA Logo" width="96" height="96" style="border-radius:20px;" />
 
 # VITASTRA
 ### Astronaut Health Intelligence Platform
