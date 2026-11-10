@@ -68,12 +68,12 @@ export default function Environment() {
   ]
   return (
     <ModuleShell title={["Closed", "Environment"]}>
-      <Card className="p-5">
-        <div className="flex items-center justify-between">
+      <Card className="p-4 sm:p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="label">Cabin CO2</span>
           <SourceChip kind="nasa" label="OSDR environment" />
         </div>
-        <div className="my-3">
+        <div className="my-2 sm:my-3">
           <DotNum value={e.co2} unit="ppm" size={84} />
         </div>
         {hist.length > 0 ? (
@@ -86,34 +86,35 @@ export default function Environment() {
           <EmptyChart title="No CO2 history" description="Environmental data will appear when connected to a backend." />
         )}
       </Card>
-      {/* Live env readings — equal tiles: 6-in-a-line on desktop, symmetric grid below */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+
+      {/* Live env readings — equal tiles: 6-in-a-line on desktop, responsive wrap below */}
+      <div className="col-span-full grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {tiles.map(([l, v, u]) => (
-          <div key={l} className="liquid-glass-primary glass-hover flex min-w-0 flex-col gap-2 p-3.5">
+          <div key={l} className="liquid-glass-primary glass-hover flex min-w-0 flex-col gap-1.5 sm:gap-2 p-3 sm:p-3.5">
             <div className="label truncate !text-[11px]">{l}</div>
-            <div className="whitespace-nowrap text-[19px] font-semibold tabular-nums leading-none tracking-[-0.03em] text-ink">
+            <div className="whitespace-nowrap text-[17px] sm:text-[19px] font-semibold tabular-nums leading-none tracking-[-0.03em] text-ink">
               {v}
-              <span className="ml-0.5 text-[12px] font-medium text-label">{u}</span>
+              <span className="ml-0.5 text-[11px] sm:text-[12px] font-medium text-label">{u}</span>
             </div>
           </div>
         ))}
         <Link
           to="/radiation"
-          className="liquid-glass-primary glass-hover flex min-w-0 flex-col justify-between gap-2 p-3.5"
+          className="liquid-glass-primary glass-hover flex min-w-0 flex-col justify-between gap-1.5 sm:gap-2 p-3 sm:p-3.5"
         >
           <Radiation size={18} strokeWidth={1.5} className="text-ink" />
-          <span className="text-[13px] font-semibold">Radiation</span>
+          <span className="text-[12px] sm:text-[13px] font-semibold">Radiation</span>
         </Link>
       </div>
 
       {/* Cabin Environment Profile */}
-      <Card className="col-span-2 p-5 space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="label font-semibold text-ink">Full Cabin Environment Profile · 60 days</span>
+      <Card className="col-span-full p-4 sm:p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="label font-semibold text-ink text-[12px] sm:text-[13px]">Full Cabin Environment Profile · 60 days</span>
           <SourceChip kind="nasa" label="ECLSS telemetry" />
         </div>
         {envSeries.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             <AreaTrend
               data={envSeries}
               xKey="d"
@@ -166,30 +167,30 @@ export default function Environment() {
           />
         )}
       </Card>
-      <Card className="p-5">
-        <div className="mb-3 text-[19px] font-semibold tracking-[-0.02em]">Which one changed?</div>
-        <div className="grid grid-cols-2 gap-3">
+      <Card className="col-span-full lg:col-span-1 p-4 sm:p-5">
+        <div className="mb-3 text-[17px] sm:text-[19px] font-semibold tracking-[-0.02em]">Which one changed?</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
           {[
             ["The cabin changed", cabin, (e?.co2 ?? 0) > 4200],
             ["The body changed", body, ev.strain],
           ].map(([t, rows, on]) => (
             <div
               key={t as string}
-              className={`rounded-[22px] p-4 ${on ? "liquid-glass-dark text-white" : "liquid-glass-clear shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}
+              className={`rounded-[18px] sm:rounded-[22px] p-3.5 sm:p-4 ${on ? "liquid-glass-dark text-white" : "liquid-glass-clear shadow-[0_2px_8px_rgba(0,0,0,.05)]"}`}
             >
-              <div className="text-[14px] font-semibold">{t as string}</div>
-              <div className={`mb-2 text-[11.5px] ${on ? "text-white/60" : "text-label"}`}>
+              <div className="text-[13.5px] sm:text-[14px] font-semibold">{t as string}</div>
+              <div className={`mb-2 text-[11px] sm:text-[11.5px] ${on ? "text-white/60" : "text-label"}`}>
                 {on ? "Yes" : "No change"}
               </div>
-              <ul className="flex flex-col gap-1.5 text-[12.5px] leading-snug">
+              <ul className="flex flex-col gap-1.5 text-[12px] sm:text-[12.5px] leading-snug">
                 {(rows as string[]).map((r) => (
-                  <li key={r}>{r}</li>
+                  <li key={r} className="break-words">{r}</li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <p className="mt-3 text-[13.5px] text-label">
+        <p className="mt-3 text-[13px] sm:text-[13.5px] text-label">
           {(e?.co2 ?? 0) > 4200 && ev.strain
             ? "The cabin moved first. The body followed."
             : (e?.co2 ?? 0) > 4200

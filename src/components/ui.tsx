@@ -60,7 +60,7 @@ export function IconBtn({
 
 export function Title({ a, b, dark }: { a: string; b: string; dark?: boolean }) {
   return (
-    <h1 className="col-span-full text-[44px] lg:text-[64px] leading-[1.02] font-light tracking-[-0.035em]">
+    <h1 className="col-span-full text-[34px] sm:text-[44px] lg:text-[64px] leading-[1.02] font-light tracking-[-0.035em] break-words min-w-0">
       <span
         className="block"
         style={{ color: dark ? "var(--on-nav-2)" : "var(--ink-2)" }}

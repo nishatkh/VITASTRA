@@ -73,11 +73,11 @@ export function DotWave({
   return (
     <div
       ref={wrap}
-      className={`w-full ${className}`}
+      className={`w-full overflow-hidden ${className}`}
       role="img"
       aria-label={label}
     >
-      <canvas ref={cv} aria-hidden />
+      <canvas ref={cv} aria-hidden className="max-w-full block" />
     </div>
   )
 }

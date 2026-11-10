@@ -35,23 +35,28 @@ export function DotNum({
     })
     return () => c.stop()
   }, [value, reduce])
+  const fontSize =
+    typeof size === "number" && size > 48
+      ? `clamp(40px, 12vw, ${size}px)`
+      : size
+
   return (
     <span
-      className={`inline-flex items-baseline gap-2 ${className}`}
+      className={`inline-flex flex-wrap items-baseline gap-1.5 sm:gap-2 ${className}`}
       role="text"
       aria-label={`${value.toFixed(dec)} ${unit ?? ""}`}
     >
       <span
         aria-hidden
         className={`dot-num ${dark ? "text-white" : "text-ink"}`}
-        style={{ fontSize: size }}
+        style={{ fontSize }}
       >
         {v.toFixed(dec)}
       </span>
       {unit && (
         <span
           aria-hidden
-          className={`text-[14px] font-medium ${
+          className={`text-[13px] sm:text-[14px] font-medium ${
             dark ? "text-white/60" : "text-label"
           }`}
         >
