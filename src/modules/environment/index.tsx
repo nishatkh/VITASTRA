@@ -86,20 +86,26 @@ export default function Environment() {
           <EmptyChart title="No CO2 history" description="Environmental data will appear when connected to a backend." />
         )}
       </Card>
-      <div className="grid grid-cols-3 gap-3">
-        {tiles.map(([l, v, u]) => (
-          <div key={l} className="liquid-glass-primary glass-hover p-3.5">
-            <div className="label !text-[11px]">{l}</div>
-            <div className="mt-1 text-[22px] font-semibold tabular-nums tracking-[-0.03em]">
-              {v}
-              <span className="ml-0.5 text-[12px] font-medium text-label">{u}</span>
+      {/* Live env readings — all six in one horizontal line (inner scroll on narrow screens) */}
+      <div className="overflow-x-auto" role="list" aria-label="Live cabin environment readings">
+        <div className="flex w-max gap-3 px-0.5 pb-0.5">
+          {tiles.map(([l, v, u]) => (
+            <div key={l} className="liquid-glass-primary glass-hover flex w-32 shrink-0 flex-col gap-1 p-3.5">
+              <div className="label !text-[11px]">{l}</div>
+              <div className="text-[20px] font-semibold tabular-nums leading-none tracking-[-0.03em]">
+                {v}
+                <span className="ml-0.5 text-[12px] font-medium text-label">{u}</span>
+              </div>
             </div>
-          </div>
-        ))}
-        <Link to="/radiation" className="liquid-glass-primary glass-hover flex flex-col justify-between p-3.5">
-          <Radiation size={18} strokeWidth={1.5} />
-          <span className="text-[13px] font-semibold">Radiation</span>
-        </Link>
+          ))}
+          <Link
+            to="/radiation"
+            className="liquid-glass-primary glass-hover flex w-32 shrink-0 flex-col justify-between p-3.5"
+          >
+            <Radiation size={18} strokeWidth={1.5} />
+            <span className="text-[13px] font-semibold">Radiation</span>
+          </Link>
+        </div>
       </div>
 
       {/* Cabin Environment Profile */}
