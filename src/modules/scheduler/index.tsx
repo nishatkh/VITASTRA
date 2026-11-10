@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Link } from "react-router"
 import {
   CalendarCheck,
@@ -14,6 +14,7 @@ import {
   CheckCircle2,
   AlertCircle,
   ChevronRight,
+  ChevronDown,
   Plus,
   Info,
 } from "lucide-react"
@@ -166,6 +167,7 @@ export default function Scheduler() {
   const currentMissionDay = 42
   const [checks, setChecks] = useState<ScheduledCheck[]>(INITIAL_SCHEDULED_CHECKS)
   const [filterCategory, setFilterCategory] = useState<string>("All")
+  const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const toggleComplete = (id: string) => {
     setChecks((prev) =>
@@ -185,6 +187,8 @@ export default function Scheduler() {
   const completedCount = checks.filter((c) => c.completed).length
   const overdueChecks = checks.filter((c) => !c.completed && c.dueDay < currentMissionDay)
   const pendingCount = checks.filter((c) => !c.completed && c.dueDay >= currentMissionDay).length
+  const pendingCheckList = checks.filter((c) => !c.completed && c.dueDay >= currentMissionDay)
+  const nextUp = [...pendingCheckList].sort((a, b) => a.dueDay - b.dueDay)[0] ?? null
 
   // ── Surveillance adherence analytics ──
   const adherenceDonut = [
@@ -212,90 +216,107 @@ export default function Scheduler() {
     ? checks
     : checks.filter((c) => c.category === filterCategory)
 
+  // ── Next-7-days cadence strip ──
+  const cadence = useMemo(() => {
+    return Array.from({ length: 7 }, (_, i) => {
+      const missionDay = currentMissionDay + i
+      const dueToday = checks.filter(
+        (c) => !c.completed && c.dueDay === missionDay,
+      )
+      const overdueHere = checks.filter(
+        (c) => !c.completed && c.dueDay < missionDay,
+      ).length
+      return { missionDay, dueToday, overdueHere, today: i === 0 }
+    })
+  }, [checks])
+
   return (
     <ModuleShell title={["Silent-Signal", "Scheduler"]}>
-      {/* Overview & Rule Banner */}
-      <Card className="p-5 space-y-3">
+      {/* Hero: adherence + filters */}
+      <Card className="p-5 space-y-4">
         <div className="flex items-center justify-between">
           <span className="label font-semibold text-ink">Scheduled Preventive Surveillance</span>
           <SourceChip kind="nasa" label="NASA Flight Medicine" />
         </div>
-        <p className="text-[14px] leading-relaxed text-label">
-          Biological adaptations in microgravity—such as early optic disc swelling (SANS), vestibular sensory recalibration, and latent viral reactivation—develop silently without conscious pain. Scheduled assessments catch subtle drifts before acute clinical failure.
-        </p>
 
-        {/* Scientific Rule Alert */}
-        <div className="rounded-2xl border border-border liquid-glass-clear p-4 text-[13px] text-label space-y-1">
-          <div className="font-semibold text-ink flex items-center gap-1.5">
-            <Info className="size-4 text-accent" />
-            Surveillance Principle:
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] items-start gap-5">
+          <div className="flex items-center gap-4">
+            <DonutGraph
+              segments={adherenceDonut}
+              centerValue={`${Math.round((completedCount / Math.max(1, checks.length)) * 100)}%`}
+              centerLabel="Adherence"
+              size={116}
+              ariaLabel={`Check completion donut: ${completedCount} completed, ${pendingCount} upcoming, ${overdueChecks.length} overdue.`}
+            />
+            <ul className="flex flex-col gap-1 text-[12px] text-label">
+              <li className="flex items-center gap-1.5">
+                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.signal }} />
+                Completed · <span className="font-semibold text-ink">{completedCount}</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.label }} />
+                Upcoming · <span className="font-semibold text-ink">{pendingCount}</span>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.warning }} />
+                Overdue · <span className="font-semibold text-ink">{overdueChecks.length}</span>
+              </li>
+            </ul>
           </div>
-          <p>
-            An overdue check reflects an operational crew scheduling delay, <strong>never an abnormal medical result</strong>. An assessment is recorded only when measurements have actually been executed and verified.
-          </p>
-        </div>
-      </Card>
 
-      {/* Overdue Notification Banner if any */}
-      {overdueChecks.length > 0 && (
-        <div className="rounded-[24px] border border-warning/40 bg-warning/10 p-4 sm:p-5 flex items-start gap-3.5">
-          <AlertCircle className="size-5 text-warning shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <div className="font-semibold text-[15px] text-ink">
-              {overdueChecks.length} Scheduled Assessment Overdue
-            </div>
-            <p className="text-[13px] text-label leading-relaxed">
-              {overdueChecks.map((o) => o.title).join(", ")}. Please reschedule or complete these checks when mission workload allows.
+          <div className="space-y-3">
+            {nextUp && (
+              <div className="flex items-center gap-2 rounded-2xl liquid-glass-clear px-3.5 py-2.5 text-[12.5px]">
+                <Clock className="size-4 shrink-0 text-signal" />
+                <span className="text-label">Next up:</span>
+                <span className="font-semibold text-ink truncate">{nextUp.title}</span>
+                <span className="ml-auto shrink-0 rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal">
+                  Day {nextUp.dueDay}
+                </span>
+              </div>
+            )}
+            <p className="text-[12.5px] leading-snug text-label">
+              Silent signals develop without pain — sensors and scheduled checks, not symptoms, drive this cadence.
+              An overdue assessment is an <strong className="text-ink">operational scheduling delay, never an abnormal medical result</strong>.
             </p>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-label mr-1">Filter</span>
+              {["All", "Vision & SANS", "Reaction Time", "Balance & Posture", "Immune Saliva"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilterCategory(cat)}
+                  className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
+                    filterCategory === cat
+                      ? "liquid-glass-dark text-white"
+                      : "liquid-glass-clear text-label hover:text-ink"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      )}
 
-      {/* Completion Metric Strip */}
-      <Card className="p-5 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <div className="label">Surveillance Adherence Rate</div>
-          <div className="text-[26px] font-semibold text-ink tabular-nums">
-            {completedCount} of {checks.length} Completed{" "}
-            <span className="text-[15px] font-normal text-label">
-              ({Math.round((completedCount / checks.length) * 100)}%)
+        {overdueChecks.length > 0 && (
+          <div className="flex items-center gap-2 rounded-2xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-[12.5px]">
+            <AlertCircle className="size-4 shrink-0 text-warning" />
+            <span className="text-label">
+              <strong className="text-warning">{overdueChecks.length} overdue</strong> — reschedule when mission
+              workload allows: {overdueChecks.map((o) => o.title.split(" (")[0]).join(", ")}.
             </span>
           </div>
-        </div>
-
-        {/* Filter Pills */}
-        <div className="flex flex-wrap gap-1.5">
-          {["All", "Vision & SANS", "Reaction Time", "Balance & Posture", "Immune Saliva"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilterCategory(cat)}
-              className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
-                filterCategory === cat
-                  ? "liquid-glass-dark text-white"
-                  : "liquid-glass-clear text-label hover:text-ink"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        )}
       </Card>
 
-      {/* Surveillance Adherence Analytics */}
+      {/* Coverage Analytics */}
       <Card className="p-5 space-y-4">
         <div className="flex items-center justify-between">
-          <span className="label font-semibold text-ink">Surveillance Coverage Analytics</span>
+          <span className="label font-semibold text-ink">Coverage Analytics</span>
           <SourceChip kind="synthetic" />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-5">
-          <DonutGraph
-            segments={adherenceDonut}
-            centerValue={`${Math.round((completedCount / Math.max(1, checks.length)) * 100)}%`}
-            centerLabel="Adherence"
-            ariaLabel={`Check completion donut: ${completedCount} completed, ${pendingCount} upcoming, ${overdueChecks.length} overdue.`}
-          />
-
           <ul className="flex flex-col gap-2">
             {categoryStats.map((c) => (
               <li key={c.name} className="flex items-center gap-3 text-[12.5px]">
@@ -313,111 +334,181 @@ export default function Scheduler() {
 
           <GaugeGraph
             value={completedCount / Math.max(1, checks.length)}
-            label="Current cycle coverage"
-            size={128}
+            label="Cycle coverage"
+            size={132}
             ariaLabel={`Overall surveillance coverage gauge: ${Math.round((completedCount / Math.max(1, checks.length)) * 100)} percent of scheduled checks completed this cycle.`}
           />
         </div>
 
         <p className="text-[12px] leading-snug text-label">
-          Amber segments are overdue assessments — an operational scheduling gap, not a medical finding. Daily checks
-          weigh most in the coverage score since a missed cadence window breaks the trend continuity the baseline
+          Coverage is weighted toward daily checks — a missed cadence window breaks the trend continuity the baseline
           engine depends on.
         </p>
       </Card>
 
-      {/* Assessment Checks Grid */}
-      <div className="space-y-3">
+      {/* Cadence Strip — next 7 days */}
+      <Card className="p-5 space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Check Cadence · Next 7 Days</span>
+          <span className="text-[11px] uppercase tracking-wider text-label">Day {currentMissionDay} → {currentMissionDay + 6}</span>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1.5">
+          {cadence.map((c) => {
+            const due = c.dueToday.length
+            const carried = Math.max(0, c.overdueHere)
+            return (
+              <div
+                key={c.missionDay}
+                className={`flex flex-col items-center gap-1.5 rounded-2xl py-2.5 ${
+                  c.today ? "liquid-glass-dark text-white border border-cyan-400/30" : "liquid-glass-clear"
+                }`}
+              >
+                <span className={`label !text-[10px] ${!c.today ? "!text-label" : "!text-white/80"}`}>
+                  {c.today ? "Today" : `D${c.missionDay}`}
+                </span>
+                <span className="flex h-3.5 items-center justify-center">
+                  {due > 0 ? (
+                    <span className="flex gap-0.5">
+                      {c.dueToday.slice(0, 3).map((d) => (
+                        <i
+                          key={d.id}
+                          className="size-2 rounded-full"
+                          style={{ background: CHART_COLORS.signal }}
+                        />
+                      ))}
+                    </span>
+                  ) : (
+                    <i className="size-2 rounded-full bg-border" />
+                  )}
+                </span>
+                <span className={`text-[11px] font-semibold tabular-nums ${c.today ? "text-white" : "text-ink"}`}>
+                  {due || carried > 0 ? `${due + Math.min(carried, 2)}` : "—"}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+        <p className="text-[11.5px] text-label">
+          Cyan dots mark checks landing on that day; the number includes overdue items still carried. Open a day by
+          recording the assessment below.
+        </p>
+      </Card>
+
+      {/* Consolidated Assessment Registry */}
+      <Card className="col-span-full p-5 space-y-1">
+        <div className="flex items-center justify-between pb-2">
+          <span className="label font-semibold text-ink">
+            Assessment Registry {filterCategory !== "All" ? `· ${filterCategory}` : ""}
+          </span>
+          <span className="text-[11.5px] tabular-nums text-label">
+            {displayedChecks.length} of {checks.length} shown
+          </span>
+        </div>
+
         {displayedChecks.map((chk) => {
           const Icon = chk.icon
           const isOverdue = !chk.completed && chk.dueDay < currentMissionDay
+          const isOpen = expandedId === chk.id
+          const daysAway = chk.dueDay - currentMissionDay
 
           return (
-            <div
-              key={chk.id}
-              className={`rounded-[24px] border p-4 sm:p-5 transition-all ${
-                chk.completed
-                  ? "border-signal/30 liquid-glass-clear shadow-xs"
-                  : isOverdue
-                  ? "border-warning/40 bg-warning/5"
-                  : "border-border liquid-glass-clear hover:border-border-strong"
-              }`}
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                <div className="flex items-start gap-3.5">
-                  <span className={`p-2.5 rounded-2xl shrink-0 ${
-                    chk.completed ? "bg-signal/15 text-signal" : "liquid-glass-clear text-ink"
-                  }`}>
-                    <Icon className="size-5" />
+            <div key={chk.id} className="border-t border-border py-3 first:border-0 first:pt-0">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
+                <button
+                  onClick={() => setExpandedId(isOpen ? null : chk.id)}
+                  aria-expanded={isOpen}
+                  className="flex min-w-0 flex-1 items-center gap-3 rounded-xl text-left"
+                >
+                  <span
+                    aria-hidden
+                    className={`flex size-9 shrink-0 items-center justify-center rounded-2xl ${
+                      chk.completed
+                        ? "bg-signal/15 text-signal"
+                        : isOverdue
+                        ? "bg-warning/15 text-warning"
+                        : "liquid-glass-clear text-ink"
+                    }`}
+                  >
+                    <Icon className="size-4.5" strokeWidth={1.6} />
                   </span>
 
-                  <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11.5px] uppercase font-mono font-semibold text-label">
-                        {chk.category} · {chk.recurrence}
-                      </span>
-                      {chk.completed ? (
-                        <span className="rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal flex items-center gap-1">
-                          <CheckCircle2 className="size-3" /> Completed
-                        </span>
-                      ) : isOverdue ? (
-                        <span className="rounded-full bg-warning/20 px-2.5 py-0.5 text-[11px] font-semibold text-warning flex items-center gap-1">
-                          <Clock className="size-3" /> Overdue (Day {chk.dueDay})
-                        </span>
-                      ) : (
-                        <span className="rounded-full bg-border px-2.5 py-0.5 text-[11px] font-medium text-label">
-                          Due Day {chk.dueDay}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-[16px] sm:text-[17px] font-semibold text-ink leading-snug">
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[14.5px] font-semibold text-ink">
                       {chk.title}
-                    </h3>
+                    </span>
+                    <span className="block truncate text-[11.5px] text-label">
+                      {chk.category} · {chk.recurrence} · Day {chk.dueDay}
+                    </span>
+                  </span>
 
-                    <p className="text-[13px] text-label leading-relaxed">
-                      {chk.relevanceRationale}
-                    </p>
+                  <ChevronDown
+                    size={16}
+                    className={`shrink-0 text-label transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    aria-hidden
+                  />
+                </button>
 
-                    {chk.lastCompletedDate && (
-                      <div className="text-[12px] text-label pt-1 flex flex-wrap gap-3">
-                        <span><strong>Last result:</strong> {chk.lastResult}</span>
-                        <span><strong>Status:</strong> {chk.baselineComparison}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <div className="flex shrink-0 items-center justify-between gap-2 sm:justify-end">
+                  {chk.completed ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal">
+                      <CheckCircle2 className="size-3" /> Done
+                    </span>
+                  ) : isOverdue ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-warning/20 px-2.5 py-0.5 text-[11px] font-semibold text-warning">
+                      <Clock className="size-3" /> Overdue
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-border px-2.5 py-0.5 text-[11px] font-medium text-ink">
+                      +{daysAway}d
+                    </span>
+                  )}
 
-                {/* Actions */}
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-2 shrink-0 pt-2 sm:pt-0 border-t sm:border-0 border-border">
                   <button
                     onClick={() => toggleComplete(chk.id)}
-                    className={`rounded-full px-4 py-1.5 text-[12.5px] font-medium transition-colors ${
+                    className={`rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-colors ${
                       chk.completed
                         ? "liquid-glass-clear text-label hover:text-ink"
                         : "liquid-glass-dark text-white hover:bg-border-strong"
                     }`}
                   >
-                    {chk.completed ? "Mark Incomplete" : "Record Assessment"}
+                    {chk.completed ? "Mark Incomplete" : "Record"}
                   </button>
 
                   {chk.route && (
                     <Link
                       to={chk.route}
-                      className="text-[12px] text-accent font-medium hover:underline flex items-center gap-0.5"
+                      className="flex items-center gap-0.5 rounded-full px-2 py-1 text-[12px] font-medium text-accent hover:underline"
+                      aria-label={`Open module for ${chk.title}`}
                     >
-                      Open Module <ChevronRight className="size-3" />
+                      Module <ChevronRight className="size-3" aria-hidden />
                     </Link>
                   )}
                 </div>
               </div>
+
+              {isOpen && (
+                <div className="mt-2.5 grid gap-3 rounded-2xl liquid-glass-clear p-3.5 text-[12.5px] leading-relaxed text-label sm:grid-cols-2">
+                  <p className="sm:col-span-2">
+                    <Info className="mr-1 inline size-3.5 text-accent" aria-hidden />
+                    <strong className="text-ink">Why this check:</strong> {chk.relevanceRationale}
+                  </p>
+                  {chk.lastCompletedDate && (
+                    <>
+                      <p>
+                        <strong className="text-ink">Last result:</strong> {chk.lastResult}
+                      </p>
+                      <p>
+                        <strong className="text-ink">Baseline:</strong> {chk.baselineComparison}
+                      </p>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           )
         })}
-      </div>
+      </Card>
     </ModuleShell>
   )
 }
-
-
-
