@@ -263,9 +263,19 @@ export default function Scheduler() {
     }
   })
 
-  const displayedChecks = filterCategory === "All"
-    ? checks
-    : checks.filter((c) => c.category === filterCategory)
+  const displayedChecks = useMemo(() => {
+    const list = filterCategory === "All"
+      ? checks
+      : checks.filter((c) => c.category === filterCategory)
+    // Visual hierarchy: overdue first, then upcoming (nearest due), then completed.
+    const rank = (c: ScheduledCheck) => (c.completed ? 2 : c.dueDay < currentMissionDay ? 0 : 1)
+    return [...list].sort((a, b) => {
+      const r = rank(a) - rank(b)
+      if (r !== 0) return r
+      if (rank(a) === 1) return a.dueDay - b.dueDay
+      return a.title.localeCompare(b.title)
+    })
+  }, [checks, filterCategory])
 
   // ── Next-7-days cadence strip ──
   const cadence = useMemo(() => {
@@ -480,51 +490,64 @@ export default function Scheduler() {
             ? `+${-daysAway}d`
             : `${daysAway}d`
 
+          // Resolve state once for the whole card
+          const state: "done" | "overdue" | "due" = chk.completed
+            ? "done"
+            : isOverdue
+            ? "overdue"
+            : "due"
+          const STATE = {
+            done:    { chip: "bg-signal/15 text-signal",   chipNode: <><CheckCircle2 className="size-3" /> Done</> },
+            overdue: { chip: "bg-warning/20 text-warning", chipNode: <><Clock className="size-3" /> Overdue</> },
+            due:     { chip: "bg-border text-ink",          chipNode: <>{daysAway}d</> },
+          }[state]
+
           return (
-            <Card key={chk.id} className="flex flex-col gap-3 p-4">
-              {/* Header: status icon + title + state chip */}
+            <Card key={chk.id} className="flex h-full flex-col gap-3 p-4">
+              {/* Accent bar — state at a glance */}
+              <span
+                aria-hidden
+                className="h-1 w-full shrink-0 rounded-full opacity-80"
+                style={{ background: ringColor }}
+              />
+
+              {/* Header — fixed heights for uniform rows */}
               <div className="flex items-start gap-3">
                 <span
                   aria-hidden
                   className={`flex size-10 shrink-0 items-center justify-center rounded-2xl ${
-                    chk.completed
-                      ? "bg-signal/15 text-signal"
-                      : isOverdue
-                      ? "bg-warning/15 text-warning"
-                      : "liquid-glass-clear text-ink"
+                    chk.completed ? "bg-signal/15 text-signal" : isOverdue ? "bg-warning/15 text-warning" : "liquid-glass-clear text-ink"
                   }`}
                 >
                   <Icon className="size-5" strokeWidth={1.6} />
                 </span>
-                <div className="min-w-0 flex-1 space-y-0.5">
-                  <span className="block text-[14px] font-semibold leading-tight text-ink">
-                    {chk.title}
-                  </span>
-                  <span className="block text-[11px] text-label">
-                    {chk.category} · {chk.recurrence}
-                  </span>
-                </div>
-                {chk.completed ? (
-                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-signal/15 px-2 py-0.5 text-[10.5px] font-semibold text-signal">
-                    <CheckCircle2 className="size-3" /> Done
-                  </span>
-                ) : isOverdue ? (
-                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-warning/20 px-2 py-0.5 text-[10.5px] font-semibold text-warning">
-                    <Clock className="size-3" /> Overdue
-                  </span>
-                ) : (
-                  <span className="shrink-0 rounded-full bg-border px-2 py-0.5 text-[10.5px] font-medium text-ink">
-                    +{daysAway}d
-                  </span>
-                )}
+                <span className="line-clamp-2 min-h-[38px] flex-1 self-stretch text-[14px] font-semibold leading-[1.3] text-ink">
+                  {chk.title}
+                </span>
+                <span
+                  className={`inline-flex h-5 shrink-0 items-center gap-1 rounded-full px-2 text-[10.5px] font-semibold ${STATE.chip}`}
+                >
+                  {STATE.chipNode}
+                </span>
               </div>
 
-              {/* Cadence ring + interval info */}
-              <div className="flex items-center gap-3">
+              {/* Category + recurrence chips */}
+              <div className="flex min-w-0 items-center gap-1.5">
+                <span className="max-w-[70%] truncate rounded-full liquid-glass-clear px-2.5 py-0.5 text-[10.5px] font-medium text-label">
+                  {chk.category}
+                </span>
+                <span className="shrink-0 rounded-full border border-border px-2.5 py-0.5 text-[10.5px] font-medium text-label">
+                  {chk.recurrence}
+                </span>
+              </div>
+
+              {/* Cadence block — ring + two fixed stat rows in a uniform inset */}
+              <div className="flex items-center gap-3 rounded-2xl liquid-glass-clear p-3">
                 <CadenceRing
                   pct={consumed}
                   center={ringCenter}
                   color={ringColor}
+                  size={56}
                   ariaLabel={
                     `Cadence clock for ${chk.title}: ` +
                     (consumed == null
@@ -532,43 +555,44 @@ export default function Scheduler() {
                       : `day ${Math.round(consumed * interval)} of ${interval}-day ${chk.recurrence.toLowerCase()} window ` +
                         (chk.completed
                           ? "recorded complete this cycle."
-                          : (consumed ?? 0) > 1
-                          ? "window exceeded, overdue."
+                          : (consumed ?? 0) >= 1
+                          ? "window used up, due now."
                           : `${daysAway} days remaining.`))
                   }
                 />
-                <ul className="min-w-0 flex-1 space-y-1 text-[11.5px] leading-snug">
-                  <li className="flex items-center justify-between gap-2">
-                    <span className="text-label">Window</span>
-                    <span className="font-medium tabular-nums text-ink">{interval}d {chk.recurrence.toLowerCase()}</span>
-                  </li>
+                <ul className="min-w-0 flex-1 space-y-1.5 text-[11.5px]">
                   <li className="flex items-center justify-between gap-2">
                     <span className="text-label">Next due</span>
-                    <span className="font-medium tabular-nums text-ink">Day {chk.dueDay}</span>
+                    <span className="font-semibold tabular-nums text-ink">Day {chk.dueDay}</span>
                   </li>
-                  {chk.lastResult && (
-                    <li className="flex min-w-0 items-center justify-between gap-2">
-                      <span className="text-label">Result</span>
-                      <span className="truncate font-medium text-ink">{chk.lastResult}</span>
-                    </li>
-                  )}
+                  <li className="flex items-center justify-between gap-2">
+                    <span className="text-label">Window</span>
+                    <span className="font-semibold tabular-nums text-ink">{interval}d</span>
+                  </li>
+                  <li className="flex items-center justify-between gap-2">
+                    <span className="shrink-0 text-label">Result</span>
+                    <span className="min-w-0 truncate text-right font-semibold text-ink" title={chk.lastResult}>
+                      {chk.lastResult ?? "—"}
+                    </span>
+                  </li>
                 </ul>
               </div>
 
-              {/* Baseline comparison */}
-              {chk.baselineComparison && (
-                <div className="rounded-xl liquid-glass-clear px-3 py-2 text-[11.5px] text-label">
-                  <span className="font-semibold text-ink">Baseline:</span> {chk.baselineComparison}
-                </div>
-              )}
+              {/* Baseline — single uniform line */}
+              <div className="flex min-h-5 items-center gap-1.5 overflow-hidden whitespace-nowrap text-[11.5px] text-label">
+                <span className="shrink-0 font-semibold text-ink">Baseline</span>
+                <span className="min-w-0 truncate" title={chk.baselineComparison}>
+                  {chk.baselineComparison ?? "No baseline reference yet"}
+                </span>
+              </div>
 
-              {/* Expandable rationale */}
+              {/* Why — uniform label row, expands inline */}
               <button
                 onClick={() => setExpandedId(isOpen ? null : chk.id)}
                 aria-expanded={isOpen}
-                className="flex items-center gap-1 text-left text-[11.5px] font-medium text-label hover:text-ink"
+                className="flex items-center gap-1 self-start text-[11.5px] font-medium text-label transition-colors hover:text-ink"
               >
-                Why this check?
+                Why this check
                 <ChevronDown
                   size={14}
                   className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -581,8 +605,8 @@ export default function Scheduler() {
                 </p>
               )}
 
-              {/* Footer actions */}
-              <div className="mt-auto flex items-center gap-2 pt-1">
+              {/* Footer — pinned to card bottom on every card */}
+              <div className="mt-auto flex items-center gap-2 border-t border-border pt-3">
                 <button
                   onClick={() => toggleComplete(chk.id)}
                   className={`flex-1 rounded-full px-3.5 py-2 text-[12.5px] font-medium transition-colors ${
