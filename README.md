@@ -3,7 +3,7 @@
 <img src="https://i.postimg.cc/wxN8W5t4/Whats-App-Image-2026-11-08-at-10-36-37-PM-Photoroom.png" alt="VITASTRA Logo" width="96" height="96" style="border-radius:20px;" />
 
 # VITASTRA
-### Astronaut Health Intelligence Platform
+### Astronaut Health monitoring Platform
 
 **Understand the body. Connect the risks. Act before a silent problem becomes a mission-critical one.**
 
