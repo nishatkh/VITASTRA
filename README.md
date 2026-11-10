@@ -1,15 +1,19 @@
 <div align="center">
 
+<img src="public/icon-logo.jpeg" alt="VITASTRA Logo" width="96" height="96" style="border-radius:20px;" />
+
 # VITASTRA
 ### Astronaut Health Intelligence Platform
-**Real NASA-Data-Driven · Offline-First · Delay-Aware Triage · Evidence-Based Surveillance**
 
-NASA International Space Apps Challenge 2026 · Team: **Zero Gravity Minds**
+**Understand the body. Connect the risks. Act before a silent problem becomes a mission-critical one.**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20App-6366f1?style=for-the-badge&logo=vercel)](https://github.com/nishatkh/VITASTRA)
-[![Tech Stack](https://img.shields.io/badge/React%2019-TypeScript-3178c6?style=for-the-badge&logo=typescript)](https://github.com/nishatkh/VITASTRA)
-[![PWA](https://img.shields.io/badge/PWA-Offline%20Ready-22c55e?style=for-the-badge&logo=googlechrome)](https://github.com/nishatkh/VITASTRA)
-[![NASA OSDR](https://img.shields.io/badge/NASA%20OSDR-OSD--569%20%7C%20OSD--575-0b3d91?style=for-the-badge&logo=nasa)](https://osdr.nasa.gov/)
+*NASA International Space Apps Challenge 2026 · Team: **Zero Gravity Minds***
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20App-6366f1?style=for-the-badge&logo=vercel&logoColor=white)](https://github.com/nishatkh/VITASTRA)
+[![React 19](https://img.shields.io/badge/React%2019-TypeScript%205.7-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://github.com/nishatkh/VITASTRA)
+[![PWA](https://img.shields.io/badge/PWA-Offline%20Ready-22c55e?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/nishatkh/VITASTRA)
+[![NASA OSDR](https://img.shields.io/badge/NASA%20OSDR-OSD--569%20%7C%20OSD--575-0b3d91?style=for-the-badge&logo=nasa&logoColor=white)](https://osdr.nasa.gov/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -17,80 +21,139 @@ NASA International Space Apps Challenge 2026 · Team: **Zero Gravity Minds**
 
 ## What is VITASTRA?
 
-**VITASTRA** is a mission-critical astronaut health intelligence and clinical decision-support platform designed for deep-space long-duration missions (Moon, Mars, L1/L2, and deep-space transits).
+**VITASTRA** is a mission-critical astronaut health intelligence and clinical decision-support platform for deep-space long-duration missions — Moon, Mars, L1/L2, and deep-space transits.
 
-VITASTRA combines **real, verified NASA research data** (OSDR Inspiration4 OSD-569 whole-blood CBC and OSD-575 serum CMP & cytokines), **NASA Five-Hazard risk mapping**, **delay-aware medical reporting (SBAR)**, **saliva-based immune surveillance**, **bone & muscle countermeasure scoring**, **sensor data quality validation**, and an **evidence-grounded health coach** with offline-first PWA architecture.
+A conventional dashboard tells an astronaut what their heart rate is right now. **VITASTRA tells the astronaut what has *changed*, how it connects to the mission environment, whether the evidence is reliable, what to check next, and what can safely wait for Earth.**
+
+VITASTRA connects four things that conventional health dashboards treat separately:
+
+| Layer | What it tracks |
+|---|---|
+| 🧑‍🚀 **The Astronaut** | Vitals, sleep, mood, exercise, symptoms, biological samples, and active health checks |
+| 🌡️ **The Environment** | Radiation, cabin air (CO₂, O₂), temperature, pressure, and mission conditions |
+| 🛸 **The Mission** | Workload, communication delay, equipment availability, and time in microgravity |
+| 🔬 **The Evidence** | Real NASA research, each astronaut's personal baseline, confidence levels, and data quality |
 
 > **Decision support, never diagnosis.** VITASTRA surfaces biological signals, tracks individual baselines, and recommends validated operational procedures — flight surgeons and astronauts decide.
 
 ---
 
-## Core Capabilities & Feature Overview
+## The Problem VITASTRA Solves
 
-| Feature Module | Technology & Source | Operational Scope |
-|---|---|---|
-| **Inspiration4 Research Intelligence** | NASA OSDR OSD-569 & OSD-575 | Interactive multi-panel dashboard (CBC, CMP, Cytokines) across all 4 civilian astronauts (C001–C004) across L-92 to R+194. |
-| **NASA Five Hazards-to-Outcomes Map** | NASA HRP Architecture | Systems-biology graph connecting Radiation, Isolation, Distance, Altered Gravity, and Hostile Environments to 9 health domains. |
-| **Silent Biological Risk Surveillance** | CUSUM & Multi-domain Checks | Scheduled surveillance tracking for vision (SANS), cognitive speed (PVT), balance sway, sleep efficiency, and viral shedding. |
-| **Saliva-Based Immune Monitoring** | Artemis II Saliva Protocol | Complete 7-stage sample lifecycle (Scheduled → Collected → Stored at -80°C → Submitted → Processing → Result Received → Reviewed) tracking VZV, EBV, and cortisol. |
-| **Bone & Muscle Protection Scorecard** | NASA HRP Countermeasures | Delivered vs planned mechanical load tracking (ARED, CEVIS, T2), hardware outage logging, and adherence scoring. |
-| **Space Biology Research Library** | Peer-Reviewed NASA Studies | Filterable catalog of 8 space biology studies (iPSC neural organoids PMC11631337, cardiac tissue chips, kidney chips, lung chips). |
-| **Evidence-Based Health Coach** | Grounded Rules Engine | Explains baseline shifts, identifies missing data, cites flight procedures (MED, SANS, ECLSS), and strictly refuses to fabricate medical advice. |
-| **Delay-Aware Medical Reporting** | Structured NASA SBAR | Formal clinical handoff reporting (Situation, Background, Assessment, Recommendation) with 0–40 min light-delay transmission state machine. |
-| **Radiation & Space Weather Monitor** | NASA DONKI & RadLab | Absorbed dose (mGy) to effective dose (mSv) conversion, Solar Superstorm flare catalog (GOES-16 X8.7), and gloved storm shelter checklist. |
-| **Sensor & Data Quality Intelligence** | Plausibility Validation Engine | System-wide detection of missing values, sensor dropouts, implausible bounds, and stale readings. |
-| **Personal Health Baseline** | Statistical Baseline Engine | Individualized baseline calculations (Mean, SD, Median, MAD, Z-scores) with strict N≥2 sufficiency requirements. |
-| **Four-Level Alert Lifecycle** | NASA-STD-3001 Geometric Triage | Distinct geometric shapes (Circle, Diamond, Triangle, Octagon) with full lifecycle states (New, Acknowledged, Resolved, Dismissed). |
+NASA identifies **five hazards of human spaceflight**:
+
+1. 🌌 Space radiation
+2. 🧠 Isolation and confinement
+3. 📡 Distance from Earth
+4. 🌀 Altered gravity fields
+5. ⚠️ Hostile or closed environments
+
+These hazards **interact**. Microgravity, stress, poor sleep, radiation, and cabin air conditions can contribute to overlapping changes across immune function, cardiovascular health, vision, bone and muscle, and cognition — often silently, without noticeable symptoms.
+
+Long-duration missions create a compounding problem: health changes develop gradually, real-time Earth support may be delayed by up to 40 minutes, and there is no way to rely on symptoms alone.
+
+VITASTRA uses **personal baselines, scheduled biological surveillance, connected risk chains, transparent confidence levels, and onboard decision support** to close that gap.
 
 ---
 
-## Real NASA Data Integration Matrix
+## Core Capabilities
 
-VITASTRA adheres strictly to **Rule 2: Zero data fabrication or simulated measurements presented as real telemetry**.
+| Feature Module | Technology & Source | What It Does |
+|---|---|---|
+| **Inspiration4 Research Intelligence** | NASA OSDR OSD-569 & OSD-575 | Interactive multi-panel dashboard (CBC, CMP, Cytokines, Cardiovascular) across 4 civilian astronauts (C001–C004), L-92 to R+194 |
+| **NASA Five Hazards Map** | NASA HRP Architecture | Systems-biology graph connecting 5 hazards to 9 health domains |
+| **Silent Biological Risk Engine** | CUSUM & Multi-domain Checks | Scheduled surveillance for vision (SANS), cognitive speed (PVT), balance sway, sleep efficiency, and viral shedding |
+| **Saliva-Based Immune Monitoring** | Artemis II Saliva Protocol | 7-stage sample lifecycle (Scheduled → Collected → Stored at −80°C → Submitted → Processing → Received → Reviewed) tracking VZV, EBV, cortisol |
+| **Bone & Muscle Scorecard** | NASA HRP Countermeasures | Planned vs. delivered mechanical load (ARED, CEVIS, T2), hardware outage logging, and adherence scoring |
+| **Space Biology Research Library** | Peer-Reviewed NASA Studies | Filterable catalog of 8 space biology studies — iPSC neural organoids, cardiac tissue chips, kidney chips, lung chips |
+| **Evidence-Based Health Coach** | Grounded Rules Engine | Explains baseline shifts, cites flight procedures (MED, SANS, ECLSS), and strictly refuses to fabricate medical advice |
+| **Delay-Aware Medical Reporting** | Structured NASA SBAR | Formal clinical handoff (Situation, Background, Assessment, Recommendation) with 0–40 min light-delay state machine |
+| **Radiation & Space Weather** | NASA DONKI & RadLab | Absorbed dose (mGy → mSv), Solar Superstorm flare catalog (GOES-16 X8.7), and storm shelter checklist |
+| **Sensor & Data Quality Engine** | Plausibility Validation | System-wide detection of missing values, sensor dropouts, implausible bounds, and stale readings |
+| **Personal Health Baseline** | Statistical Baseline Engine | Mean, SD, Median, MAD, Z-scores with strict N≥2 sufficiency — sparse data stays uncalculated |
+| **Four-Level Alert Lifecycle** | NASA-STD-3001 Triage | Distinct shapes (Circle, Diamond, Triangle, Octagon) with lifecycle states: New → Acknowledged → Resolved → Dismissed |
 
-| NASA Dataset | Source / Accession | Total Records | Integration Status |
+---
+
+## Real NASA Data Integrations
+
+VITASTRA strictly follows **Zero Fabrication** — no simulated measurements are ever presented as real telemetry.
+
+| NASA Dataset | Source / Accession | Records | Status |
 |---|---|---|---|
-| **Inspiration4 Whole Blood (CBC)** | NASA OSDR OSD-569 | 553 records | **Fully Working (Normalized & Verified)** |
-| **Inspiration4 Serum (CMP)** | NASA OSDR OSD-575 | 531 records | **Fully Working (Normalized & Verified)** |
-| **Inspiration4 Multiplex Cytokines** | NASA OSDR OSD-575 | 1,988 records | **Fully Working (Normalized & Verified)** |
-| **Inspiration4 Cardiovascular Markers** | NASA OSDR OSD-575 | 252 records | **Fully Working (Normalized & Verified)** |
-| **NASA DONKI Space Weather** | `api.nasa.gov/DONKI` | Live API + Archive | **Working with Verified Solar Superstorm Archive Fallback** |
-| **NASA RadLab Radiation Physics** | `visualization.osdr.nasa.gov` | Daily Dosimetry | **Fully Working (0.25–0.55 mGy/day LEO Baseline)** |
-| **NASA ISS Environmental Telemetry** | NASA EDA / ECLSS | Continuous Telemetry | **Fully Working (CO2, Pressure, Temp, O2)** |
+| Inspiration4 Whole Blood (CBC) | NASA OSDR OSD-569 | 553 | ✅ Fully Working |
+| Inspiration4 Serum (CMP) | NASA OSDR OSD-575 | 531 | ✅ Fully Working |
+| Inspiration4 Multiplex Cytokines | NASA OSDR OSD-575 | 1,988 | ✅ Fully Working |
+| Inspiration4 Cardiovascular Markers | NASA OSDR OSD-575 | 252 | ✅ Fully Working |
+| NASA DONKI Space Weather | `api.nasa.gov/DONKI` | Live + Archive | ✅ Working (Solar Superstorm Fallback) |
+| NASA RadLab Radiation Physics | `visualization.osdr.nasa.gov` | Daily Dosimetry | ✅ Fully Working (0.25–0.55 mGy/day LEO) |
+| NASA ISS Environmental Telemetry | NASA EDA / ECLSS | Continuous | ✅ Fully Working (CO₂, Pressure, Temp, O₂) |
 
 ### Scientific Data Quality Rules
-- **Outdated race-based eGFR equations** (`eGFR AFRICAN AMERICAN` and `eGFR NON-AFR. AMERICAN`) are strictly excluded from analysis calculations and documented in compliance with modern clinical nephrology consensus.
-- **Sex-labeled analytes** (e.g. `HEMATOCRIT (FEMALE)`) are normalized to standard clinical nomenclature while preserving the original raw clinical string in `raw_analyte`.
-- **Preflight baseline sufficiency:** A minimum of **two valid preflight observations** is required to compute standard deviations and postflight z-scores. Sparse measurements remain uncalculated rather than silently fabricated.
-- **Missing values remain missing:** Unrecorded tests are never silently imputed or interpolated.
+
+- **Race-based eGFR exclusion:** `eGFR AFRICAN AMERICAN` and `eGFR NON-AFR. AMERICAN` are strictly excluded in compliance with modern clinical nephrology consensus.
+- **Sex-labeled analytes** (e.g. `HEMATOCRIT (FEMALE)`) are normalized to standard clinical nomenclature; original raw string preserved in `raw_analyte`.
+- **Preflight baseline sufficiency:** Minimum **two valid preflight observations** required before computing SD and postflight Z-scores.
+- **Missing values remain missing:** No silent imputation or interpolation — ever.
 
 ---
 
-## Quick Start & Setup
+## Quick Start
 
 ### Prerequisites
-- **Node.js**: v20+ (recommended v22+)
-- **Python**: v3.10+ (for data ingestion and verification suite)
+
+| Tool | Version |
+|---|---|
+| Node.js | v20+ (v22+ recommended) |
+| npm | v10+ (bundled with Node) |
+| Python | v3.10+ *(optional — for data ingestion scripts only)* |
+
+### Installation & Development
 
 ```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/nishatkh/VITASTRA.git
 cd VITASTRA
 
 # 2. Install dependencies
 npm install
 
-# 3. (Optional) Run the repeatable NASA data ingestion pipeline
+# 3. Start the development server
+npm run dev
+# → App available at http://localhost:8443
+```
+
+### Environment Variables *(Optional — for live NASA DONKI API)*
+
+The app works fully offline without any environment variables. The NASA DONKI integration falls back to a verified archived Solar Superstorm dataset when no API key is provided.
+
+Create a `.env.local` file in the project root to enable live NASA API access:
+
+```env
+# Optional: NASA API key for live DONKI space weather data
+# Get your free key at https://api.nasa.gov/
+VITE_NASA_API_KEY=your_nasa_api_key_here
+```
+
+> `.env*` files are excluded from git by `.gitignore` — your key will never be committed.
+
+### NASA Data Ingestion *(Optional — data already included in `src/data/`)*
+
+```bash
+# Re-run the repeatable NASA OSDR ingestion pipeline
 python scripts/ingest_nasa_data.py
 
-# 4. Run automated platform verification suite
+# Run the automated scientific integrity verification suite
 python scripts/verify_vitastra.py
+```
 
-# 5. Start development server (http://localhost:8443 or dynamic port)
-npm run dev
+### Production Build
 
-# 6. Build for production (includes PWA service worker generation)
+```bash
+# Build for production (generates PWA service worker)
 npm run build
+
+# Preview the production build locally
 npm run preview
 ```
 
@@ -101,81 +164,204 @@ npm run preview
 ```
 VITASTRA/
 ├── src/
-│   ├── api/                  # API layer, schemas (Zod), and query hooks
-│   ├── components/           # UI primitives, Charts, AppFrame, Layout, WhyDrawer
+│   ├── api/                    # API layer: HTTP client, Zod schemas, TanStack Query hooks
+│   │   ├── clients.ts          # NASA DONKI, RadLab, ECLSS API clients
+│   │   ├── hooks.ts            # React Query data-fetching hooks
+│   │   ├── schemas.ts          # Zod validation schemas for all data types
+│   │   └── mock.ts             # Offline fallback mock data
+│   ├── components/             # Shared UI primitives and layout
+│   │   ├── AppFrame.tsx        # Root shell: WebGL background, navbar, timeline bar
+│   │   ├── Charts.tsx          # Recharts wrappers (ECG, trend, bar, radar)
+│   │   ├── Layout.tsx          # Page layout, offline banner, section wrappers
+│   │   └── ui/                 # Liquid-glass navbar, shader background (WebGL)
 │   ├── data/
-│   │   ├── processed/        # Normalized Inspiration4 dataset, DONKI archive, Research library
-│   │   └── raw/              # Preserved original submitted NASA CSV files
-│   ├── modules/              # Health domain intelligence modules
-│   │   ├── bone/             # Countermeasure scorecard & outage logger
-│   │   ├── coach/            # Evidence-grounded health coach
-│   │   ├── cognitive/        # PVT reaction test & balance sway
-│   │   ├── environment/      # Cabin CO2, pressure, oxygen, temp
-│   │   ├── hazards/          # NASA Five Hazards-to-Outcomes Map
-│   │   ├── heart/            # Cardiovascular baseline & ECG line
-│   │   ├── immune/           # Saliva sample lifecycle tracker
-│   │   ├── mood/             # Private circadian & behavioral check-in
-│   │   ├── radiation/        # RadLab dosimetry & DONKI solar storm monitor
-│   │   ├── scheduler/        # Silent biological risk surveillance
-│   │   ├── sensor/           # Data quality & plausibility tester
-│   │   ├── triage/           # Delay-aware SBAR handoff reporting
-│   │   ├── twin/             # Physiological expected vs actual twin
-│   │   └── validation/       # 100-crew detector validation simulator
-│   ├── screens/              # Top-level views (Inspiration4, ResearchLibrary, Baseline, Alerts, Sources...)
+│   │   ├── processed/          # Normalized NASA datasets (JSON — bundled with app)
+│   │   └── raw/                # Preserved original NASA OSDR CSV submissions
+│   ├── modules/                # Health domain intelligence modules (one per domain)
+│   │   ├── bone/               # Countermeasure scorecard & hardware outage logger
+│   │   ├── coach/              # Evidence-grounded health coach (rules engine)
+│   │   ├── cognitive/          # PVT reaction test & balance sway tracker
+│   │   ├── contested/          # Contested-pattern low-confidence view
+│   │   ├── environment/        # Cabin CO₂, pressure, O₂, temperature (ECLSS)
+│   │   ├── hazards/            # NASA Five Hazards-to-Outcomes interactive map
+│   │   ├── heart/              # Cardiovascular baseline, ECG animation
+│   │   ├── immune/             # Saliva sample lifecycle tracker (7-stage)
+│   │   ├── mood/               # Private circadian & behavioral check-in
+│   │   ├── radiation/          # RadLab dosimetry & DONKI solar storm monitor
+│   │   ├── scheduler/          # Silent biological risk surveillance scheduler
+│   │   ├── sensor/             # Sensor data quality & plausibility tester
+│   │   ├── triage/             # Delay-aware SBAR medical handoff reporting
+│   │   ├── twin/               # Physiological expected-vs-actual digital twin
+│   │   └── validation/         # 100-crew detector validation simulator
+│   ├── screens/                # Top-level route views
+│   │   ├── Home.tsx            # Mission dashboard with live vitals
+│   │   ├── Inspiration4.tsx    # NASA OSDR multi-panel research dashboard
+│   │   ├── Timeline.tsx        # Mission timeline & analytics
+│   │   ├── Alerts.tsx          # Four-level alert lifecycle manager
+│   │   ├── Baseline.tsx        # Personal statistical baseline engine
+│   │   ├── ResearchLibrary.tsx # Space biology research catalog
+│   │   └── ...                 # Settings, Sources, Privacy, More
 │   ├── services/
-│   │   ├── baseline/         # Baseline engine (Mean, SD, Median, MAD, Z-score)
-│   │   ├── data-validation/  # Sensor plausibility & quality validator
-│   │   └── nasa/             # NASA DONKI live client & error handling
-│   ├── store/                # Zustand state & IndexedDB offline persistence
-│   └── styles/               # CSS tokens & Tailwind CSS v4
+│   │   ├── baseline/           # Baseline engine: Mean, SD, Median, MAD, Z-score
+│   │   ├── data-validation/    # Sensor plausibility & quality validator
+│   │   └── nasa/               # NASA DONKI live client & error handling
+│   ├── store/
+│   │   ├── useApp.ts           # Zustand global state (day, astronaut, alerts)
+│   │   └── persist.ts          # IndexedDB offline persistence layer
+│   ├── lib/
+│   │   ├── hash.ts             # SHA-256 cryptographic audit chain
+│   │   └── export.ts           # Data export utilities
+│   └── styles/
+│       └── tokens.css          # Design tokens (liquid-glass palette, spacing)
 ├── docs/
-│   └── data-sources.md       # Comprehensive NASA dataset documentation
+│   └── data-sources.md         # Comprehensive NASA dataset documentation
 ├── scripts/
-│   ├── ingest_nasa_data.py   # Repeatable NASA OSDR ingestion pipeline
-│   └── verify_vitastra.py    # Automated scientific integrity test suite
-└── public/                   # PWA manifest, service worker, icons
+│   ├── ingest_nasa_data.py     # Repeatable NASA OSDR ingestion pipeline
+│   ├── fetch_nasa_data.py      # NASA DONKI live fetch helper
+│   └── verify_vitastra.py      # Automated scientific integrity test suite
+└── public/                     # PWA manifest, icons (192px, 512px)
 ```
+
+### Technology Stack
+
+| Layer | Technology |
+|---|---|
+| **UI Framework** | React 19, TypeScript 5.7 |
+| **Routing** | React Router v8 (file-based, 29 routes) |
+| **Data Fetching** | TanStack React Query v5 |
+| **State Management** | Zustand v5 |
+| **Offline Storage** | IndexedDB via `idb` |
+| **Charts** | Recharts v3 |
+| **Animations** | Framer Motion v13 |
+| **Styling** | Tailwind CSS v4 (Vite plugin) |
+| **Build Tool** | Vite 8, Rolldown |
+| **PWA** | vite-plugin-pwa + Workbox |
+| **Schema Validation** | Zod v4 |
+| **Visual Effects** | Custom WebGL shaders (GLSL — no three.js dependency) |
+| **Formatting** | oxfmt |
 
 ---
 
-## Responsive Viewport Validation
+## Application Routes
 
-VITASTRA is validated for seamless usability across all responsive breakpoints:
-- **Mobile Portrait (360px & 390px):** Optimized header with compact navigation, collapsible status strip, 2-column vitals grid, and touch-scrollable pill navigation.
-- **Tablet (768px):** Adaptive multi-column grid, resized Recharts containers, and side-by-side assessment panels.
-- **Laptop & Desktop (1024px, 1440px, 1920px):** High-density multi-pane mission control view with persistent astronaut strip, full SVG flow maps, and responsive data tables.
+| Route | Module | Description |
+|---|---|---|
+| `/` | Home | Live mission dashboard with vitals strip and timeline bar |
+| `/body` | Heart | Cardiovascular baseline, ECG animation, HRV trends |
+| `/bone` | Bone | Countermeasure scorecard (ARED, CEVIS, T2) |
+| `/immune` | Immune | Saliva sample lifecycle tracker |
+| `/vision` | (via scheduler) | SANS vision check scheduling |
+| `/radiation` | Radiation | RadLab dosimetry + DONKI solar storm monitor |
+| `/mood` | Mood | Private circadian & behavioral check-in |
+| `/env` | Environment | ECLSS cabin telemetry (CO₂, O₂, pressure, temp) |
+| `/cognitive` | Cognitive | Cognitive baseline dashboard |
+| `/cognitive/test` | CognitiveTest | PVT reaction-time test |
+| `/checks` | Scheduler | Silent biological risk surveillance schedule |
+| `/coach` | Coach | Evidence-based health coach |
+| `/twin` | Twin | Physiological digital twin (expected vs. actual) |
+| `/sensor` | Sensor | Data quality & plausibility tester |
+| `/contested` | Contested | Low-confidence pattern view |
+| `/baseline` | Baseline | Personal statistical baseline engine |
+| `/alerts` | Alerts | Four-level alert lifecycle manager |
+| `/timeline` | Timeline | Mission timeline & analytics |
+| `/inspiration4` | Inspiration4 | NASA OSDR multi-panel research dashboard |
+| `/research` | ResearchLibrary | Space biology research catalog |
+| `/mc/hazards` | Hazards | NASA Five Hazards-to-Outcomes map |
+| `/mc/triage` | Triage | Delay-aware SBAR medical handoff |
+| `/mc/validation` | Validation | 100-crew detector validation simulator |
 
 ---
 
 ## Privacy & Security by Design
 
-- **Offline-First Storage:** All astronaut check-ins, questionnaires, and baseline logs reside in local client-side storage (IndexedDB / LocalStorage) with zero unprompted data transmission.
-- **Role-Based Privacy Tiers:** Three distinct access tiers (Private to Astronaut, Medical Officer Only, Mission Control) ensure psychological check-ins remain confidential.
-- **Cryptographic Audit Chain:** Audit events are linked with cryptographic SHA-256 hashes (`lib/hash.ts`) to prevent silent log alteration.
-- **Anonymized Research Data:** Inspiration4 research data strictly preserves anonymized IDs (`C001`–`C004`) without demographic re-identification.
+| Feature | Implementation |
+|---|---|
+| **Offline-First Storage** | All check-ins, baselines, and logs stored in client-side IndexedDB — zero unprompted transmission |
+| **Role-Based Privacy Tiers** | Three tiers: *Private to Astronaut*, *Medical Officer Only*, *Mission Control* — psychological data never auto-shared |
+| **Cryptographic Audit Chain** | Audit events linked with SHA-256 hashes (`lib/hash.ts`) to prevent silent log alteration |
+| **Anonymized Research Data** | Inspiration4 IDs strictly preserved as `C001`–`C004` — no demographic re-identification |
+| **No API Key Exposure** | Environment variables gated behind `VITE_` prefix; `.env*` excluded from git |
+
+---
+
+## Responsive Breakpoints
+
+VITASTRA is designed and validated across all viewports:
+
+| Breakpoint | Layout |
+|---|---|
+| **Mobile (360–390px)** | Compact floating navbar, 2-column vitals grid, touch-scrollable pill navigation |
+| **Tablet (768px)** | Adaptive multi-column grid, side-by-side assessment panels |
+| **Laptop & Desktop (1024px–1920px)** | Full multi-pane mission control with persistent astronaut strip, SVG hazard map, and data tables |
 
 ---
 
 ## Scientific Limitations & Disclosures
 
-1. **Not an Autonomous Diagnostic Tool:** VITASTRA provides clinical decision-support and surveillance. It identifies statistical deviations from personal baselines, not clinical disease.
-2. **Inspiration4 Cohort Boundary:** The Inspiration4 study represents four healthy civilian crewmembers on a 3-day flight. Findings cannot be generalized as universal human spaceflight norms.
-3. **Organoid Models vs Human Astronauts:** Research on 3D neural organoids (PMC11631337) and tissue chips provides valuable cellular insight, but does not prove clinical pathology in living crewmembers.
-4. **Mechanical Load vs Bone Density:** Countermeasure logs record mechanical load delivered, not in vivo bone mineral density.
+1. **Decision support only.** VITASTRA identifies statistical deviations from personal baselines. It does not diagnose clinical disease.
+2. **Inspiration4 cohort boundary.** The Inspiration4 study represents four healthy civilian crewmembers on a 3-day flight. Findings cannot be generalized as universal spaceflight norms.
+3. **Sample ≠ result.** A saliva sample marked "collected" is not a laboratory test result. VITASTRA clearly distinguishes collection from analysis.
+4. **Organoid models ≠ astronaut physiology.** Tissue-chip and organoid research provides cellular insight, not clinical proof of pathology in living crewmembers.
+5. **Mechanical load ≠ bone density.** Countermeasure logs record delivered mechanical load, not in-vivo bone mineral density.
+6. **Population estimates ≠ individual predictions.** The ~1–1.5% per month bone density loss is a population average. VITASTRA does not apply it as an individual forecast.
+
+---
+
+## Development Scripts
+
+```bash
+npm run dev       # Start Vite development server (port 8443)
+npm run build     # Production build with PWA service worker
+npm run preview   # Preview production build locally
+npm run format    # Format source files with oxfmt
+```
+
+```bash
+python scripts/ingest_nasa_data.py   # Re-ingest NASA OSDR datasets into src/data/
+python scripts/fetch_nasa_data.py    # Fetch latest DONKI events from NASA API
+python scripts/verify_vitastra.py    # Run scientific integrity verification suite
+```
 
 ---
 
 ## Team & Attribution
 
-**Team Name:** Zero Gravity Minds  
-**Team Leader:** Sadiya Islam Sujana  
+**Team Name:** Zero Gravity Minds
+**Team Leader:** Sadiya Islam Sujana
 Developed for the **NASA International Space Apps Challenge 2026**.
 
-| # | Member |
-|---|--------|
-| 1 | **Sadiya Islam Sujana** (Team Leader) |
-| 2 | **MD. Nahidur Rahman Khan Nishat** |
-| 3 | **Ibrahim Bin Sultan** |
-| 4 | **Jayed Alam** |
-| 5 | **Md Solayman Hossain Shawon** |
-| 6 | **Nafisa Tabassum Nusrat** |
+| # | Member | Role |
+|---|---|---|
+| 1 | **Sadiya Islam Sujana** | Team Leader |
+| 2 | **MD. Nahidur Rahman Khan Nishat** | Developer |
+| 3 | **Ibrahim Bin Sultan** | Developer |
+| 4 | **Jayed Alam** | Developer |
+| 5 | **Md Solayman Hossain Shawon** | Developer |
+| 6 | **Nafisa Tabassum Nusrat** | Developer |
+
+---
+
+## NASA Resources & References
+
+| Resource | URL |
+|---|---|
+| NASA Five Hazards of Human Spaceflight | https://www.nasa.gov/hrp/hazards/ |
+| NASA Human Research Program | https://www.nasa.gov/hrp/ |
+| NASA OSDR Open Science Data Repository | https://osdr.nasa.gov/ |
+| NASA DONKI Space Weather API | https://api.nasa.gov/ |
+| Inspiration4 OSD-569 (CBC) | https://osdr.nasa.gov/bio/repo/data/studies/OSD-569 |
+| Inspiration4 OSD-575 (CMP & Cytokines) | https://osdr.nasa.gov/bio/repo/data/studies/OSD-575 |
+| NASA Immune Biomarkers / Artemis II | https://www.nasa.gov/reference/immune-biomarkers/ |
+| NASA Bone & Muscle Countermeasures | https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/ |
+| Neural Organoids ISS Study (PMC11631337) | https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/ |
+| NASA RadLab Radiation Data | https://visualization.osdr.nasa.gov/ |
+
+---
+
+<div align="center">
+
+**VITASTRA · Zero Gravity Minds · NASA Space Apps Challenge 2026**
+
+*Built with real NASA data. Offline-first. Decision support, never diagnosis.*
+
+</div>
