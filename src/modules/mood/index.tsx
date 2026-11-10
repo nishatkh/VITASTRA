@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Link } from "react-router"
 import { Lock } from "lucide-react"
 import { ModuleShell, StatusRow, NextActions } from "../../components/Layout"
 import { DotNum } from "../../components/DotNum"
 import { BaselineChart } from "../../components/Charts"
 import { Card, SourceChip } from "../../components/ui"
+import { LineCompare, AreaTrend, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation, useMoodEntries, useAddMoodEntry } from "../../api/hooks"
 import { useApp } from "../../store/useApp"
 import { EmptyChart, SkeletonCard } from "../../components/EmptyState"
@@ -31,6 +32,17 @@ export default function Mood() {
 
   const e = moodEntriesData?.[moodEntriesData.length - 1] ?? { stress: 0, social: 0, sleepStart: 22.5, activeMin: 0 }
   const level: Level = ev.z.mood <= -2 || ev.z.stress >= 2 ? "observe" : "normal"
+
+  // ── Isolation rhythm analytics ──
+  const moodRows = useMemo(() => {
+    const m = moodEntriesData ?? []
+    return m.map((v, i) => ({
+      d: `D${day - (m.length - 1 - i)}`,
+      stress: v.stress,
+      social: v.social,
+      active: Math.round(v.activeMin),
+    }))
+  }, [moodEntriesData, day])
   const hh = Math.floor(e.sleepStart), mm = Math.round((e.sleepStart - hh) * 60)
   const sug = level === "normal"
     ? ["Keep the current light and sleep schedule", "A regular call home helps. Schedule one this week"]
@@ -64,6 +76,46 @@ export default function Mood() {
         <div className="label mb-1">Mood trend vs your baseline · private</div>
         {ev ? <BaselineChart metric="mood" day={day} /> : <EmptyChart title="No baseline data" />}
       </section>
+
+      {/* Isolation Rhythm Analytics */}
+      <Card className="col-span-full p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Isolation Rhythm Analytics · private</span>
+          <SourceChip kind="synthetic" label="Local check-in history" />
+        </div>
+        {moodRows.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <LineCompare
+              data={moodRows}
+              xKey="d"
+              keys={["stress", "social"]}
+              labels={["Stress (0-100)", "Social contact (0-10)"]}
+              colors={[CHART_COLORS.warning, CHART_COLORS.violet]}
+              height={170}
+              ariaLabel={`Stress score and social contact over the last ${moodRows.length} days. Stress around ${Math.round(moodRows[moodRows.length - 1].stress)}, social contact ${moodRows[moodRows.length - 1].social}.`}
+            />
+            <AreaTrend
+              data={moodRows}
+              xKey="d"
+              yKeys={["active"]}
+              labels={["Active minutes"]}
+              colors={[CHART_COLORS.emerald]}
+              unit="min"
+              height={170}
+              ariaLabel={`Daily active minutes over the last ${moodRows.length} days, most recently ${Math.round(moodRows[moodRows.length - 1].active)} minutes.`}
+            />
+          </div>
+        ) : (
+          <EmptyChart
+            title="No check-in history yet"
+            description="Save your first private check-in below and rhythm charts will build from it."
+          />
+        )}
+        <p className="text-[12px] leading-snug text-label">
+          Social contact and movement are buffers against the third-quarter psychological dip. This data never leaves
+          the device unless you change the privacy tier above.
+        </p>
+      </Card>
       <Card className="flex flex-col gap-4 p-5">
         <div className="text-[18px] font-semibold tracking-[-0.02em]">Daily check-in</div>
         {([

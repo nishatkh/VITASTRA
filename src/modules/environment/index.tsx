@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { Link } from "react-router"
 import { Radiation } from "lucide-react"
 import {
@@ -12,6 +13,7 @@ import { Card, SourceChip } from "../../components/ui"
 import { useEvaluation, useLatestEnvironment, useEnvironmentReadings } from "../../api/hooks"
 import { useApp } from "../../store/useApp"
 import { EmptyChart, SkeletonCard } from "../../components/EmptyState"
+import { AreaTrend, CHART_COLORS } from "../../components/Analytics"
 import type { Level } from "../../data/types"
 
 export default function Environment() {
@@ -23,6 +25,18 @@ export default function Environment() {
 
   const e = latestEnv ?? ev?.env
   const hist = envHistory?.slice(-60).map((v) => (v.co2 - 2500) / 3800) ?? []
+
+  // ── Full cabin environment profile (chart-ready series) ──
+  const envSeries = useMemo(() => {
+    const h = envHistory ?? []
+    return h.map((v, i) => ({
+      d: `D${Math.max(1, day - (h.length - 1 - i))}`,
+      temp: +v.temp.toFixed(1),
+      humidity: Math.round(v.humidity),
+      voc: +(v.voc ?? 0).toFixed(2),
+      o2: +v.o2.toFixed(2),
+    }))
+  }, [envHistory, day])
 
   if (!ev || !e) {
     return (
@@ -87,6 +101,67 @@ export default function Environment() {
           <span className="text-[13px] font-semibold">Radiation</span>
         </Link>
       </div>
+
+      {/* Cabin Environment Profile */}
+      <Card className="col-span-2 p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Full Cabin Environment Profile · 60 days</span>
+          <SourceChip kind="nasa" label="ECLSS telemetry" />
+        </div>
+        {envSeries.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <AreaTrend
+              data={envSeries}
+              xKey="d"
+              yKeys={["temp"]}
+              labels={["Temperature"]}
+              colors={[CHART_COLORS.teal]}
+              unit="C"
+              decimals={1}
+              height={130}
+              ariaLabel="Cabin temperature over 60 days, around 22 degrees C with daily fluctuation."
+            />
+            <AreaTrend
+              data={envSeries}
+              xKey="d"
+              yKeys={["humidity"]}
+              labels={["Humidity"]}
+              colors={[CHART_COLORS.violet]}
+              unit="%"
+              height={130}
+              ariaLabel="Cabin humidity over 60 days, around 50 to 55 percent."
+            />
+            <AreaTrend
+              data={envSeries}
+              xKey="d"
+              yKeys={["o2"]}
+              labels={["Oxygen"]}
+              colors={[CHART_COLORS.emerald]}
+              unit="%"
+              decimals={2}
+              height={130}
+              refValue={19.5}
+              refLabel="Min 19.5 kPa"
+              ariaLabel="Cabin oxygen concentration over 60 days, staying above the 19.5 percent minimum threshold."
+            />
+            <AreaTrend
+              data={envSeries}
+              xKey="d"
+              yKeys={["voc"]}
+              labels={["VOC index"]}
+              colors={[CHART_COLORS.amber]}
+              decimals={2}
+              height={130}
+              ariaLabel="Volatile organic compound index over 60 days, around 0.10 to 0.15."
+            />
+          </div>
+        ) : (
+          <EmptyChart
+            title="No cabin history"
+            description="Environmental profile charts appear when the telemetry stream is connected."
+          />
+        )}
+      </Card>
       <Card className="p-5">
         <div className="mb-3 text-[19px] font-semibold tracking-[-0.02em]">Which one changed?</div>
         <div className="grid grid-cols-2 gap-3">

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { motion } from "framer-motion"
 import {
   Wrench,
@@ -19,6 +19,7 @@ import {
 } from "../../components/Layout"
 import { DotNum } from "../../components/DotNum"
 import { SourceChip, Card } from "../../components/ui"
+import { BarSeries, DonutGraph, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation, useExerciseOutages, useLogOutage, useClearOutages } from "../../api/hooks"
 import { useApp } from "../../store/useApp"
 import type { Level } from "../../data/types"
@@ -153,6 +154,34 @@ export default function Bone() {
     setShowOutageModal(false)
   }
 
+  // ── Countermeasure analytics (derived from session log) ──
+  const sessionSeries = useMemo(
+    () =>
+      [...logs]
+        .sort((a, b) => a.day - b.day)
+        .map((l) => ({
+          day: `D${l.day}`,
+          planned: l.plannedMin,
+          delivered: l.completed ? l.durationMin : 0,
+          load: l.loadKg,
+        })),
+    [logs],
+  )
+
+  const deviceMix = useMemo(() => {
+    const by: Record<string, number> = {}
+    logs.forEach(
+      (l) => (by[l.device] = (by[l.device] ?? 0) + (l.completed ? l.durationMin : 0)),
+    )
+    const palette = [CHART_COLORS.signal, CHART_COLORS.teal, CHART_COLORS.violet]
+    return Object.entries(by).map(([name, value], i) => ({
+      name,
+      value,
+      count: logs.filter((l) => l.device === name).length,
+      color: palette[i % palette.length],
+    }))
+  }, [logs])
+
   return (
     <ModuleShell title={["Bone & Muscle", "Protection Scorecard"]}>
       {/* Overview & Delivered Load Score */}
@@ -190,6 +219,51 @@ export default function Bone() {
             This countermeasure scorecard tracks <strong>delivered mechanical load and equipment availability</strong>. Exercise logs do not directly measure in vivo bone mineral density (BMD). True osteological change requires clinical Dual-Energy X-Ray Absorptiometry (DXA) or Quantitative Computed Tomography (QCT). VITASTRA does not calculate individual bone loss without validated radiological scans.
           </p>
         </div>
+      </Card>
+
+      {/* Session Delivery Analytics */}
+      <Card className="p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Session Delivery Analytics</span>
+          <SourceChip kind="synthetic" label="Derived from session log" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start gap-4">
+          <BarSeries
+            data={sessionSeries}
+            xKey="day"
+            keys={["planned", "delivered"]}
+            names={["Planned min", "Delivered min"]}
+            colors={[CHART_COLORS.label, CHART_COLORS.signal]}
+            unit="min"
+            ariaLabel={`Planned versus delivered exercise minutes per session across ${sessionSeries.length} logged sessions. Legend: planned minutes and delivered minutes.`}
+          />
+
+          <div className="flex flex-col items-center gap-2">
+            <DonutGraph
+              segments={deviceMix.map((d) => ({ value: d.value, color: d.color }))}
+              centerValue={`${deviceMix.length}`}
+              centerLabel="Devices"
+              ariaLabel={`Distribution of delivered exercise minutes by device: ${deviceMix
+                .map((d) => `${d.name} ${d.value} minutes`)
+                .join(", ")}.`}
+            />
+            <ul className="flex flex-col gap-1 text-[11.5px] text-label">
+              {deviceMix.map((d) => (
+                <li key={d.name} className="flex items-center gap-1.5">
+                  <i className="h-2.5 w-3.5 rounded-sm" style={{ background: d.color }} />
+                  <span className="text-ink font-semibold">{d.value}</span> min · {d.count} session{d.count === 1 ? "" : "s"}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <p className="text-[12px] leading-snug text-label">
+          Mechanical load is tracked per session. Shortfalls (delivered bars under planned bars) show where protective
+          stimulus was reduced — the driver behind the score above. This remains a delivery proxy, not a direct BMD
+          measurement.
+        </p>
       </Card>
 
       {/* Equipment Outage & Degradation Tracker */}

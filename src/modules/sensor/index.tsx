@@ -12,6 +12,7 @@ import { ModuleShell, NextActions } from "../../components/Layout"
 import { Card, Segmented, SourceChip } from "../../components/ui"
 import { ConfidenceBar } from "../../components/Level"
 import { DotWave } from "../../components/DotWave"
+import { DonutGraph, StackBar, GaugeGraph, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation, useApp } from "../../api/hooks"
 import {
   validateMeasurement,
@@ -113,6 +114,28 @@ export default function Sensor() {
 
   const qualitySummary = assessDatasetQuality(SAMPLE_TELEMETRY_STREAM)
 
+  // ── Telemetry audit analytics ──
+  const statusSegments = [
+    {
+      value: SAMPLE_TELEMETRY_STREAM.filter((s) => s.qualityStatus === "valid").length,
+      color: CHART_COLORS.signal,
+    },
+    {
+      value: SAMPLE_TELEMETRY_STREAM.filter((s) => s.qualityStatus === "missing_value").length,
+      color: CHART_COLORS.amber,
+    },
+    {
+      value: SAMPLE_TELEMETRY_STREAM.filter((s) => s.qualityStatus === "implausible_measurement").length,
+      color: CHART_COLORS.red,
+    },
+  ]
+
+  const severityParts = (["info", "warning", "error"] as const).map((sv) => ({
+    value: SAMPLE_TELEMETRY_STREAM.filter((s) => s.severity === sv).length,
+    color: sv === "info" ? CHART_COLORS.label : sv === "warning" ? CHART_COLORS.warning : CHART_COLORS.red,
+    label: sv,
+  }))
+
   const handleRunValidationTest = (e: React.FormEvent) => {
     e.preventDefault()
     const validated = validateMeasurement(
@@ -177,6 +200,46 @@ export default function Sensor() {
               {qualitySummary.issueCount}
             </div>
           </div>
+        </div>
+      </Card>
+
+      {/* Telemetry Audit Analytics */}
+      <Card className="p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Telemetry Audit Analytics</span>
+          <SourceChip kind="synthetic" label="Quality engine output" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-5">
+          <DonutGraph
+            segments={statusSegments}
+            centerValue={`${Math.round(qualitySummary.overallConfidence * 100)}%`}
+            centerLabel="Valid"
+            ariaLabel={`Telemetry record quality donut: ${statusSegments[0].value} valid, ${statusSegments[1].value} missing, ${statusSegments[2].value} implausible.`}
+          />
+
+          <div className="space-y-2.5">
+            <StackBar parts={severityParts} ariaLabel={`Severity mix: ${severityParts.map((p) => `${p.label} ${p.value}`).join(", ")}`} />
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-label">
+              {severityParts.map((p) => (
+                <li key={p.label} className="flex items-center gap-1.5 capitalize">
+                  <i className="h-2.5 w-3.5 rounded-sm" style={{ background: p.color }} />
+                  {p.label} · <span className="text-ink font-semibold">{p.value}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-[12.5px] leading-snug text-label">
+              {statusSegments[1].value + statusSegments[2].value} of {SAMPLE_TELEMETRY_STREAM.length} records were
+              isolated from baseline calculations by the plausibility engine.
+            </p>
+          </div>
+
+          <GaugeGraph
+            value={qualitySummary.overallConfidence > 1 ? qualitySummary.overallConfidence / 100 : qualitySummary.overallConfidence}
+            label="Dataset confidence"
+            size={128}
+            ariaLabel={`Dataset confidence gauge: ${Math.round(qualitySummary.overallConfidence * 100)} percent overall reliability.`}
+          />
         </div>
       </Card>
 

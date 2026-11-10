@@ -19,6 +19,7 @@ import {
 } from "lucide-react"
 import { ModuleShell } from "../../components/Layout"
 import { Card, Title, SourceChip } from "../../components/ui"
+import { DonutGraph, GaugeGraph, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation } from "../../api/hooks"
 import { useApp } from "../../store/useApp"
 
@@ -183,6 +184,29 @@ export default function Scheduler() {
 
   const completedCount = checks.filter((c) => c.completed).length
   const overdueChecks = checks.filter((c) => !c.completed && c.dueDay < currentMissionDay)
+  const pendingCount = checks.filter((c) => !c.completed && c.dueDay >= currentMissionDay).length
+
+  // ── Surveillance adherence analytics ──
+  const adherenceDonut = [
+    { value: completedCount, color: CHART_COLORS.signal },
+    { value: overdueChecks.length, color: CHART_COLORS.warning },
+    { value: pendingCount, color: CHART_COLORS.label },
+  ]
+
+  const categoryStats = Array.from(
+    checks.reduce((m, c) => {
+      const g = m.get(c.category) ?? { total: 0, done: 0 }
+      m.set(c.category, { total: g.total + 1, done: g.done + (c.completed ? 1 : 0) })
+      return m
+    }, new Map<string, { total: number; done: number }>()),
+  ).map(([name, s]) => {
+    const pct = Math.round((s.done / s.total) * 100)
+    return {
+      name,
+      pct,
+      color: pct === 100 ? CHART_COLORS.signal : pct >= 50 ? CHART_COLORS.teal : CHART_COLORS.warning,
+    }
+  })
 
   const displayedChecks = filterCategory === "All"
     ? checks
@@ -255,6 +279,51 @@ export default function Scheduler() {
             </button>
           ))}
         </div>
+      </Card>
+
+      {/* Surveillance Adherence Analytics */}
+      <Card className="p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Surveillance Coverage Analytics</span>
+          <SourceChip kind="synthetic" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-5">
+          <DonutGraph
+            segments={adherenceDonut}
+            centerValue={`${Math.round((completedCount / Math.max(1, checks.length)) * 100)}%`}
+            centerLabel="Adherence"
+            ariaLabel={`Check completion donut: ${completedCount} completed, ${pendingCount} upcoming, ${overdueChecks.length} overdue.`}
+          />
+
+          <ul className="flex flex-col gap-2">
+            {categoryStats.map((c) => (
+              <li key={c.name} className="flex items-center gap-3 text-[12.5px]">
+                <span className="w-44 shrink-0 truncate text-label">{c.name}</span>
+                <span className="relative h-2 flex-1 overflow-hidden rounded-full bg-border">
+                  <span
+                    className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
+                    style={{ width: `${c.pct}%`, background: c.color }}
+                  />
+                </span>
+                <span className="w-12 shrink-0 text-right font-semibold tabular-nums text-ink">{c.pct}%</span>
+              </li>
+            ))}
+          </ul>
+
+          <GaugeGraph
+            value={completedCount / Math.max(1, checks.length)}
+            label="Current cycle coverage"
+            size={128}
+            ariaLabel={`Overall surveillance coverage gauge: ${Math.round((completedCount / Math.max(1, checks.length)) * 100)} percent of scheduled checks completed this cycle.`}
+          />
+        </div>
+
+        <p className="text-[12px] leading-snug text-label">
+          Amber segments are overdue assessments — an operational scheduling gap, not a medical finding. Daily checks
+          weigh most in the coverage score since a missed cadence window breaks the trend continuity the baseline
+          engine depends on.
+        </p>
       </Card>
 
       {/* Assessment Checks Grid */}

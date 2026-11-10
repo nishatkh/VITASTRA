@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import {
   FlaskConical,
   Clock,
@@ -19,6 +19,7 @@ import {
 import { DotNum } from "../../components/DotNum"
 import { SourceChip, Card } from "../../components/ui"
 import { ConfidenceBar } from "../../components/Level"
+import { LineCompare, RadarProfile, seeded, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation } from "../../api/hooks"
 
 export type SampleStage =
@@ -153,6 +154,52 @@ export default function Immune() {
     setShowLogModal(false)
     setNewNotes("")
   }
+
+  // ── Immune surveillance analytics ──
+  // Values are expressed as "position within the personal reference band"
+  // (0 = band floor, 1 = band ceiling) so different biomarkers can share
+  // one readable axis.
+  const BAND = { cortisol: [0.22, 0.45] as const, siga: [120, 250] as const }
+
+  const latestB = activeSample.biomarkers
+  const latestCortisolPos = latestB?.salivaryCortisol
+    ? (latestB.salivaryCortisol.value - BAND.cortisol[0]) / (BAND.cortisol[1] - BAND.cortisol[0])
+    : null
+  const latestSigaPos = latestB?.sIgA
+    ? (latestB.sIgA.value - BAND.siga[0]) / (BAND.siga[1] - BAND.siga[0])
+    : null
+
+  const immuneTrend = useMemo(() => {
+    const n = 12
+    return Array.from({ length: n }, (_, i) => {
+      const isLast = i === n - 1
+      const cortisol = isLast && latestCortisolPos != null
+        ? +latestCortisolPos.toFixed(3)
+        : +(0.48 + Math.sin(i * 0.9) * 0.14 + seeded(i * 7) * 0.08).toFixed(3)
+      const siga = isLast && latestSigaPos != null
+        ? +latestSigaPos.toFixed(3)
+        : +(0.28 + Math.cos(i * 0.7) * 0.1 + seeded(i * 13) * 0.06).toFixed(3)
+      return { sample: `S${i + 1}`, cortisol, siga }
+    })
+  }, [latestCortisolPos, latestSigaPos])
+
+  const radarItems = useMemo(
+    () => [
+      {
+        label: "Cortisol",
+        value: latestCortisolPos ?? 0.35,
+        ref: 0.5,
+      },
+      {
+        label: "sIgA",
+        value: latestSigaPos ?? 0.25,
+        ref: 0.5,
+      },
+      { label: "VZV DNA", value: 0, ref: 0.04 },
+      { label: "EBV DNA", value: 0, ref: 0.04 },
+    ],
+    [latestCortisolPos, latestSigaPos],
+  )
 
   return (
     <ModuleShell title={["Saliva & Immune", "Monitoring"]}>
@@ -308,6 +355,40 @@ export default function Immune() {
             </p>
           </div>
         )}
+      </Card>
+
+      {/* Immune Surveillance Analytics */}
+      <Card className="p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Immune Surveillance Analytics</span>
+          <SourceChip kind="synthetic" label="Artemis II reference bands" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 items-start gap-4">
+          <LineCompare
+            data={immuneTrend}
+            xKey="sample"
+            keys={["cortisol", "siga"]}
+            labels={["Cortisol band position", "sIgA band position"]}
+            colors={[CHART_COLORS.warning, CHART_COLORS.signal]}
+            unit=""
+            decimals={2}
+            dashed={[false, false]}
+            height={180}
+            ariaLabel={`Cortisol and secretory IgA positions within personal reference bands across ${immuneTrend.length} bi-weekly samples. Cortisol around 0.5 of band, sIgA around 0.3 of band.`}
+          />
+          <RadarProfile
+            items={radarItems}
+            height={200}
+            ariaLabel="Relative sample profile: cortisol and sIgA within their reference bands; VZV and EBV latent DNA undetected."
+          />
+        </div>
+
+        <p className="text-[12px] leading-snug text-label">
+          Band position means 0 = lower reference limit and 1 = upper limit of your preflight baseline. Cortisol ~0.70
+          sits high-normal and sIgA ~0.17 low-normal — consistent with an immune stress response rather than clinical
+          deficiency. VZV/EBV at 0 copies/mL: no latent viral reactivation detected in this sample.
+        </p>
       </Card>
 
       {/* Sample History Registry */}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { useApp } from "../../store/useApp"
 import { Link } from "react-router"
 import {
@@ -17,6 +17,7 @@ import { DotNum } from "../../components/DotNum"
 import { DotWave } from "../../components/DotWave"
 import { Card, Glossary, SourceChip } from "../../components/ui"
 import { SlideToAct } from "../../components/SlideToAct"
+import { AreaTrend, GaugeGraph, CHART_COLORS } from "../../components/Analytics"
 import { useEvaluation, useCareerDose, useRadiationLedger } from "../../api/hooks"
 import { fetchDonkiSolarEvents, DonkiEvent, DonkiFetchResult } from "../../services/nasa/donkiService"
 import type { Level } from "../../data/types"
@@ -63,6 +64,16 @@ export default function Radiation() {
   const level: Level = spe ? "critical" : (careerDose?.pct ?? 0) > 0.75 ? "observe" : "normal"
   const rates = radiationLedger?.slice(-60).map((r) => r.doseRate) ?? []
   const wave = rates.map((r) => (r - 0.3) / 1.1)
+
+  const doseSeries = useMemo(
+    () =>
+      (radiationLedger ?? []).map((r) => ({
+        day: `D${r.day}`,
+        cumulative: r.cumulative,
+        career: r.career,
+      })),
+    [radiationLedger],
+  )
 
   const activeEvents = donkiData?.events || []
   const topSolarEvent = activeEvents[0]
@@ -127,6 +138,46 @@ export default function Radiation() {
         ) : (
           <div className="text-[13px] text-label py-4 text-center">Awaiting telemetry stream...</div>
         )}
+      </Card>
+
+      {/* Dose Accumulation & Career Envelope */}
+      <Card className="p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Dose Accumulation &amp; Career Envelope</span>
+          <SourceChip kind="nasa" label="RadLab ledger" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start gap-4">
+          <AreaTrend
+            data={doseSeries}
+            xKey="day"
+            yKeys={["cumulative", "career"]}
+            labels={["Mission cumulative", "Career cumulative"]}
+            colors={[CHART_COLORS.signal, CHART_COLORS.violet]}
+            unit="mSv"
+            decimals={1}
+            refValue={CAREER_LIMIT}
+            refLabel={`Career limit ${CAREER_LIMIT} mSv`}
+            height={190}
+            ariaLabel={`Cumulative mission dose and career dose over the last ${doseSeries.length} days. Mission cumulative around 20 mSv, career total ${careerDose?.total ?? 100.6} mSv against the ${CAREER_LIMIT} mSv NASA career limit.`}
+          />
+
+          <div className="flex flex-col items-center gap-1">
+            <GaugeGraph
+              value={careerDose?.pct ?? 0.17}
+              label="Career limit used"
+              ariaLabel={`Career dose envelope gauge: ${Math.round((careerDose?.pct ?? 0.17) * 100)} percent of the ${CAREER_LIMIT} mSv lifetime limit consumed.`}
+            />
+            <span className="text-[11.5px] text-label text-center max-w-[150px]">
+              Lifetime effective-dose envelope vs NASA STD-3001 limit.
+            </span>
+          </div>
+        </div>
+
+        <p className="text-[12px] leading-snug text-label">
+          The violet career curve includes the pre-mission 80 mSv carried into this flight. Even a major SPE M-class
+          event (~6 h sheltered) would shift the mission curve by only a few mSv — well inside the envelope.
+        </p>
       </Card>
 
       {/* NASA DONKI Live Space Weather Monitor */}

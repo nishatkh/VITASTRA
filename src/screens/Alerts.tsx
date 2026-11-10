@@ -15,6 +15,7 @@ import { Screen } from "../components/Layout"
 import { Card, Title, SourceChip } from "../components/ui"
 import { AlertCounter } from "../components/AlertCounter"
 import { LevelDot, levelLabel, AlertBadge } from "../components/Level"
+import { DonutGraph, StackBar, CHART_COLORS } from "../components/Analytics"
 import { useAlerts } from "../api/hooks"
 import type { Alert, Level } from "../data/types"
 
@@ -83,6 +84,19 @@ export default function Alerts() {
     return a.lifecycleState === activeTab
   })
 
+  // ── Alert lifecycle analytics ──
+  const levelSegments = (["normal", "observe", "warning", "critical"] as const).map((l) => ({
+    value: managedAlerts.filter((a) => a.level === l).length,
+    color: l === "normal" ? CHART_COLORS.label : l === "observe" ? CHART_COLORS.signal : l === "warning" ? CHART_COLORS.warning : CHART_COLORS.red,
+  }))
+  const lifecycleParts = (["New", "Acknowledged", "Resolved"] as const).map((s) => ({
+    value: managedAlerts.filter((a) => a.lifecycleState === s).length,
+    color: s === "New" ? CHART_COLORS.amber : s === "Acknowledged" ? CHART_COLORS.label : CHART_COLORS.teal,
+    label: s,
+  }))
+  const lifecycleTotal = managedAlerts.length || 1
+  const oldestWait = Math.max(0, ...managedAlerts.map((a) => a.canWaitMinutes))
+
   return (
     <Screen>
       <div className="col-span-full">
@@ -114,6 +128,55 @@ export default function Alerts() {
 
         <div className="text-[12px] text-label">
           {managedAlerts.filter((a) => a.lifecycleState === "New").length} unacknowledged alerts
+        </div>
+      </Card>
+
+      {/* Alert Intelligence Analytics */}
+      <Card className="col-span-full p-4 sm:p-5 space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="label font-semibold text-ink">Alert Intelligence Analytics</span>
+          <SourceChip kind="synthetic" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] items-center gap-5">
+          <div className="flex items-center gap-4">
+            <DonutGraph
+              segments={levelSegments}
+              centerValue={`${managedAlerts.length}`}
+              centerLabel="Open alerts"
+              ariaLabel={`Alert severity distribution: ${levelSegments
+                .map((s, i) => `${["normal", "observe", "warning", "critical"][i]} ${s.value}`)
+                .join(", ")}`}
+            />
+            <ul className="flex flex-col gap-1 text-[11.5px] text-label">
+              {(["normal", "observe", "warning", "critical"] as const).map((l, i) => (
+                <li key={l} className="flex items-center gap-1.5">
+                  <i className="h-2.5 w-3.5 rounded-sm" style={{ background: levelSegments[i].color }} />
+                  {levelLabel(l)} · <span className="text-ink font-semibold">{levelSegments[i].value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-2.5">
+            <StackBar
+              parts={lifecycleParts}
+              ariaLabel={`Alert lifecycle breakdown: ${lifecycleParts.map((p) => `${p.label} ${p.value}`).join(", ")}`}
+            />
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-label">
+              {lifecycleParts.map((p) => (
+                <li key={p.label} className="flex items-center gap-1.5">
+                  <i className="h-2.5 w-3.5 rounded-sm" style={{ background: p.color }} />
+                  {p.label} · <span className="text-ink font-semibold">{p.value}</span>
+                  <span className="text-label/70">({Math.round((p.value / lifecycleTotal) * 100)}%)</span>
+                </li>
+              ))}
+            </ul>
+            <div className="text-[12.5px] text-label leading-snug">
+              Longest-dwell signal can wait <strong className="text-ink">{oldestWait} min</strong> before escalation.
+              Grouping has collapsed {managedAlerts.length} raw signals into confirmed notifications.
+            </div>
+          </div>
         </div>
       </Card>
 
