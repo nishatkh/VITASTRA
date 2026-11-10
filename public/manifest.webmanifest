@@ -1,6 +1,6 @@
 {
-  "name": "ASTRA-X",
-  "short_name": "ASTRA-X",
+  "name": "VITASTRA",
+  "short_name": "VITASTRA",
   "description": "Offline-first astronaut health monitoring. Decision support, never diagnosis.",
   "start_url": "/",
   "scope": "/",
