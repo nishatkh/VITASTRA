@@ -33,8 +33,8 @@
   --signal: #35BDE6;
   --signal-strong: #62D5F8;
   --signal-soft: rgba(53, 189, 230, 0.16);
-  --warning: #F5A623;
-  --warning-soft: rgba(245, 166, 35, 0.16);
+  --warning: #E879F9;
+  --warning-soft: rgba(232, 121, 249, 0.16);
   --data-fill: #F0F7FF;
   --data-muted: rgba(140, 175, 207, 0.45);
   --baseline-band: rgba(53, 189, 230, 0.08);

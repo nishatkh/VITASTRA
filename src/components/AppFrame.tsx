@@ -225,7 +225,7 @@ function TimelineBar() {
     {
       icon: Dumbbell,
       label: "exercise",
-      color: "text-amber-400",
+      color: "text-fuchsia-400",
       count: (m: number) =>
         sessions.filter((s, i) => monthOf(i) === m && s.machineStatus !== "ok").length,
     },

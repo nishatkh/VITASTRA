@@ -505,6 +505,6 @@ export const CHART_COLORS = {
   teal: "#2dd4bf",
   violet: "#a78bfa",
   red: "#f87171",
-  amber: "#fbbf24",
+  amber: "#e879f9",
   emerald: "#34d399",
 }

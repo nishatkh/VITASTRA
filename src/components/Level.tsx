@@ -30,7 +30,7 @@ export function LevelDot({ level, size = 12 }: { level: Level; size?: number }) 
     return (
       <span
         aria-hidden
-        className="inline-block shrink-0 bg-amber-500"
+        className="inline-block shrink-0 bg-fuchsia-400"
         style={{ ...base, clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
       />
     )
@@ -56,13 +56,13 @@ export function AlertBadge({
     ? {
         normal: "liquid-glass-clear text-white/90 border border-white/20",
         observe: "liquid-glass-clear text-white border border-white/30 font-semibold",
-        warning: "liquid-glass-clear text-amber-300 border border-amber-400/50 font-semibold",
+        warning: "liquid-glass-clear text-fuchsia-300 border border-fuchsia-400/50 font-semibold",
         critical: "liquid-glass-clear text-red-300 border border-red-400/50 font-semibold",
       }[level]
     : {
         normal: "liquid-glass-clear text-ink border border-border shadow-xs",
         observe: "liquid-glass-clear text-ink border border-ink/30 font-semibold shadow-xs",
-        warning: "liquid-glass-clear text-amber-900 border border-amber-500/50 font-semibold shadow-xs",
+        warning: "liquid-glass-clear text-fuchsia-700 border border-fuchsia-500/50 font-semibold shadow-xs",
         critical: "liquid-glass-clear text-red-700 border border-red-500/50 font-semibold shadow-xs",
       }[level]
 

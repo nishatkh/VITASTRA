@@ -22,6 +22,7 @@ import { AlertBadge, LevelDot, levelLabel } from "../components/Level"
 import { AlertCounter } from "../components/AlertCounter"
 import { AlertCard } from "../components/WhyDrawer"
 import { EmptyChart, SkeletonChart, SkeletonCard } from "../components/EmptyState"
+import { AreaTrend, BarSeries, CHART_COLORS } from "../components/Analytics"
 import { useAstronaut, useEvaluation, useAlerts, useNextCheck, useCareerDose, useLatestEnvironment, useConnection } from "../api/hooks"
 import { useApp } from "../store/useApp"
 
@@ -39,8 +40,7 @@ function Trend({ value, prev, unit = "" }: { value: number; prev: number; unit?:
   )
 }
 
-// ── Monthly summary cards ────────────────────────────────────────────────────
-const MONTHS = ["May", "Jun", "Jul", "Aug", "Sep", "Oct"]
+// ── Monthly summary (analytic rebuild) ──────────────────────────────────────
 const MONTH_DATA = [
   { month: "May", hr: 58, hrv: 53, spo2: 97.8, stress: 28, rad: 0.47, mood: 72 },
   { month: "Jun", hr: 59, hrv: 52, spo2: 97.7, stress: 29, rad: 0.48, mood: 71 },
@@ -50,40 +50,100 @@ const MONTH_DATA = [
   { month: "Oct", hr: 62, hrv: 48, spo2: 97.8, stress: 38, rad: 0.49, mood: 68 },
 ]
 
-function MonthCard({ d }: { d: typeof MONTH_DATA[0] }) {
-  const barPct = Math.min(100, (d.stress / 60) * 100)
+function MonthlySummary() {
+  const trendData = MONTH_DATA.map((d) => ({ x: d.month, hr: d.hr, hrv: d.hrv }))
+  const stressData = MONTH_DATA.map((d) => ({ x: d.month, stress: d.stress }))
+  const moodData = MONTH_DATA.map((d) => ({ x: d.month, mood: d.mood }))
+  const radData = MONTH_DATA.map((d) => ({ x: d.month, rad: d.rad }))
+
+  const first = MONTH_DATA[0]
+  const latest = MONTH_DATA[MONTH_DATA.length - 1]
+  const hrvDelta = latest.hrv - first.hrv
+  const stressDelta = latest.stress - first.stress
+  const hrDelta = latest.hr - first.hr
+
+  const chips: Array<[string, string, string]> = [
+    [`${latest.hr} bpm`, hrDelta === 0 ? "HR · flat" : `HR · ${hrDelta > 0 ? "+" : ""}${hrDelta} over 6 mo`, hrDelta > 0 ? "text-signal" : "text-ink"],
+    [`${latest.hrv} ms`, `HRV · ${hrvDelta > 0 ? "+" : ""}${hrvDelta} over 6 mo`, hrvDelta < 0 ? "text-warning" : "text-signal"],
+    [`${latest.stress}`, `Stress · ${stressDelta > 0 ? "+" : ""}${stressDelta} over 6 mo`, stressDelta > 0 ? "text-warning" : "text-signal"],
+    [`${latest.mood}`, "Mood · latest", "text-ink"],
+  ]
+
   return (
-    <div className="liquid-glass-primary glass-hover flex flex-col gap-3 p-4">
-      <span className="label font-semibold text-ink">{d.month}</span>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-[12.5px]">
-        <div className="flex flex-col">
-          <span className="text-ink-3">Avg HR</span>
-          <span className="font-semibold tabular-nums">{d.hr} <span className="font-normal text-ink-3">bpm</span></span>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-ink-3">HRV</span>
-          <span className="font-semibold tabular-nums">{d.hrv} <span className="font-normal text-ink-3">ms</span></span>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-ink-3">SpO2</span>
-          <span className="font-semibold tabular-nums">{d.spo2}<span className="font-normal text-ink-3">%</span></span>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-ink-3">Mood</span>
-          <span className="font-semibold tabular-nums">{d.mood}</span>
-        </div>
-        <div className="col-span-2 flex flex-col">
-          <div className="flex justify-between">
-            <span className="text-ink-3">Stress index</span>
-            <span className="font-semibold tabular-nums">{d.stress}</span>
-          </div>
-          <span className="mt-1 h-1 overflow-hidden rounded-full bg-border/40">
-            <span className="block h-full rounded-full liquid-glass-dark" style={{ width: `${barPct}%` }} />
+    <div className="liquid-glass-primary space-y-4 p-5">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="label text-[13px] font-semibold text-ink">
+          May → Oct · drift over mission
+        </span>
+        <span className="text-[11.5px] text-label">Hover a point for that month's values</span>
+      </div>
+
+      {/* quick-read chips */}
+      <div className="flex flex-wrap gap-2">
+        {chips.map(([value, label, tone]) => (
+          <span
+            key={label}
+            className="inline-flex min-w-0 items-baseline gap-2 rounded-full liquid-glass-clear px-3 py-1 text-[11.5px] text-label"
+          >
+            <strong className={`text-[13px] font-semibold tabular-nums ${tone}`}>{value}</strong>
+            {label}
           </span>
+        ))}
+      </div>
+
+      <div className="grid gap-x-6 gap-y-5 md:grid-cols-2">
+        <div>
+          <span className="label mb-1 block !text-[11px]">Heart rate & HRV, monthly</span>
+          <AreaTrend
+            data={trendData}
+            xKey="x"
+            yKeys={["hr", "hrv"]}
+            labels={["HR (bpm)", "HRV (ms)"]}
+            colors={[CHART_COLORS.teal, CHART_COLORS.violet]}
+            ariaLabel="Monthly heart rate and heart-rate-variability across the last six months: HR drifting up from 58 to 62 bpm while HRV falls from 53 to 48 milliseconds."
+            height={152}
+          />
         </div>
-        <div className="col-span-2 flex flex-col">
-          <span className="text-ink-3">Radiation dose</span>
-          <span className="font-semibold tabular-nums">{d.rad} <span className="font-normal text-ink-3">mSv/day</span></span>
+
+        <div>
+          <span className="label mb-1 block !text-[11px]">Stress index, monthly</span>
+          <BarSeries
+            data={stressData}
+            xKey="x"
+            keys={["stress"]}
+            names={["Stress index"]}
+            colors={[CHART_COLORS.warning]}
+            ariaLabel="Monthly stress index rising from 28 in May to 38 in October."
+            height={152}
+          />
+        </div>
+
+        <div>
+          <span className="label mb-1 block !text-[11px]">Mood, monthly</span>
+          <BarSeries
+            data={moodData}
+            xKey="x"
+            keys={["mood"]}
+            names={["Mood"]}
+            colors={[CHART_COLORS.emerald]}
+            ariaLabel="Monthly mood easing from 72 in May to 68 in October."
+            height={152}
+          />
+        </div>
+
+        <div>
+          <span className="label mb-1 block !text-[11px]">Radiation dose, daily equivalent</span>
+          <AreaTrend
+            data={radData}
+            xKey="x"
+            yKeys={["rad"]}
+            labels={["Dose (mSv/day)"]}
+            colors={[CHART_COLORS.signal]}
+            ariaLabel="Monthly average radiation dose, flat around 0.47 to 0.50 millisieverts per day."
+            height={152}
+            unit=" mSv"
+            decimals={2}
+          />
         </div>
       </div>
     </div>
@@ -153,6 +213,18 @@ export default function Home() {
   const delta = liveHR - baselineHR
   const inDays = nextCheck ? nextCheck.due - (ev?.day ?? 0) : 0
 
+  // last-3-minutes HR series from the live ECG buffer (1 sample / 3 s)
+  const hrSpark = liveWave.map((v, i) => ({
+    x: i === liveWave.length - 1 ? "now" : `-${(liveWave.length - 1 - i) * 3}s`,
+    hr: Math.round((45 + v * 75) * 10) / 10,
+  }))
+  const hrVals = hrSpark.map((p) => p.hr)
+  const hrMin = hrVals.length ? Math.min(...hrVals) : 0
+  const hrMax = hrVals.length ? Math.max(...hrVals) : 0
+  const hrAvg = hrVals.length
+    ? Math.round((hrVals.reduce((a, b) => a + b, 0) / hrVals.length) * 10) / 10
+    : 0
+
   if (evalLoading) {
     return (
       <div className="grid items-start gap-5 pb-4 lg:grid-cols-12">
@@ -217,9 +289,32 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Animated ECG Waveform */}
-        <div className="w-full pt-1">
+        {/* Animated ECG Waveform + last-3-minutes band */}
+        <div className="w-full space-y-2">
           <EcgLine bpm={liveHR} color="var(--signal)" height={64} />
+          {hrSpark.length >= 2 && (
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                <span className="label !text-[10.5px]">Last 3 min</span>
+                <span className="text-[11.5px] tabular-nums text-label">
+                  min {hrMin} · avg {hrAvg} · max {hrMax} bpm
+                </span>
+              </div>
+              <AreaTrend
+                data={hrSpark}
+                xKey="x"
+                yKeys={["hr"]}
+                labels={["HR (bpm)"]}
+                colors={[CHART_COLORS.signal]}
+                ariaLabel="Heart rate over the last three minutes with your personal baseline marked."
+                height={92}
+                unit=" bpm"
+                decimals={1}
+                refValue={baselineHR}
+                refLabel="baseline"
+              />
+            </div>
+          )}
         </div>
       </section>
 
@@ -291,8 +386,8 @@ export default function Home() {
       {/* ── Monthly Health Summary ── */}
       <div className="col-span-full">
         <SectionHead>Monthly Health Summary</SectionHead>
-        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {MONTH_DATA.map((d) => <MonthCard key={d.month} d={d} />)}
+        <div className="mt-3">
+          <MonthlySummary />
         </div>
       </div>
 

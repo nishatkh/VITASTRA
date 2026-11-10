@@ -48,7 +48,7 @@ export function ConnectionPill({ dark }: { dark?: boolean }) {
             : "liquid-glass-clear text-ink-2 border border-cyan-400/30 shadow-xs"
       }`}
     >
-      <cfg.Icon size={15} strokeWidth={1.8} className={inv ? "text-amber-400" : "text-emerald-400"} aria-hidden />
+      <cfg.Icon size={15} strokeWidth={1.8} className={inv ? "text-fuchsia-300" : "text-emerald-400"} aria-hidden />
       {cfg.text}
     </span>
   )
