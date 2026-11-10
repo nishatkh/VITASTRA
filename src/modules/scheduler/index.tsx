@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react"
 import { Link } from "react-router"
 import {
-  CalendarCheck,
   Clock,
   Eye,
   Brain,
@@ -15,8 +14,6 @@ import {
   AlertCircle,
   ChevronRight,
   ChevronDown,
-  Plus,
-  Info,
 } from "lucide-react"
 import { ModuleShell } from "../../components/Layout"
 import { Card, Title, SourceChip } from "../../components/ui"
@@ -161,6 +158,60 @@ const INITIAL_SCHEDULED_CHECKS: ScheduledCheck[] = [
     route: "/bone",
   },
 ]
+
+/** Pulls the mission-day number out of "Day 42 · 09:15 UTC" style strings. */
+function lastDoneDay(s?: string): number | null {
+  const m = s?.match(/Day (\d+)/)
+  return m ? Number(m[1]) : null
+}
+
+const INTERVAL_DAYS: Record<ScheduledCheck["recurrence"], number> = {
+  Daily: 2,
+  Weekly: 7,
+  "Bi-weekly": 14,
+  Monthly: 30,
+}
+
+/** Small cadence-clock ring: how much of the recurrence interval has elapsed. */
+function CadenceRing({
+  pct,
+  center,
+  color,
+  ariaLabel,
+  size = 62,
+}: {
+  pct: number | null
+  center: string
+  color: string
+  ariaLabel: string
+  size?: number
+}) {
+  const r = (size - 8) / 2
+  const c = 2 * Math.PI * r
+  const frac = pct == null ? 0 : Math.max(0, Math.min(1, pct))
+  return (
+    <div role="img" aria-label={ariaLabel} className="relative inline-flex shrink-0">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ transform: "rotate(-90deg)" }}>
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--border)" strokeWidth={6} />
+        {frac > 0 && (
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            fill="none"
+            stroke={color}
+            strokeWidth={6}
+            strokeLinecap="round"
+            strokeDasharray={`${frac * c} ${c}`}
+          />
+        )}
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center text-[11px] font-semibold tabular-nums text-ink">
+        {center}
+      </span>
+    </div>
+  )
+}
 
 export default function Scheduler() {
   const day = useApp((s) => s.day)
@@ -395,120 +446,164 @@ export default function Scheduler() {
         </p>
       </Card>
 
-      {/* Consolidated Assessment Registry */}
-      <Card className="col-span-full p-5 space-y-1">
-        <div className="flex items-center justify-between pb-2">
-          <span className="label font-semibold text-ink">
-            Assessment Registry {filterCategory !== "All" ? `· ${filterCategory}` : ""}
-          </span>
-          <span className="text-[11.5px] tabular-nums text-label">
-            {displayedChecks.length} of {checks.length} shown
-          </span>
-        </div>
-
+      {/* Assessment Card Grid */}
+      <div
+        className="col-span-full grid gap-3"
+        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))" }}
+      >
         {displayedChecks.map((chk) => {
           const Icon = chk.icon
           const isOverdue = !chk.completed && chk.dueDay < currentMissionDay
           const isOpen = expandedId === chk.id
           const daysAway = chk.dueDay - currentMissionDay
 
+          // Cadence clock: fraction of the recurrence interval consumed since
+          // the last recorded result. Completed fresh checks restart near 0.
+          const interval = INTERVAL_DAYS[chk.recurrence]
+          const lastDay = lastDoneDay(chk.lastCompletedDate)
+          const elapsed = lastDay == null ? null : currentMissionDay - lastDay
+          const consumed =
+            elapsed == null ? null : chk.completed ? Math.max(0, Math.min(1, elapsed / interval)) : Math.max(0, Math.min(1.2, (elapsed + chk.dueDay - currentMissionDay) / interval))
+          const ringColor = chk.completed
+            ? CHART_COLORS.signal
+            : isOverdue
+            ? CHART_COLORS.warning
+            : (consumed ?? 0) >= 1
+            ? CHART_COLORS.amber
+            : CHART_COLORS.teal
+          const ringCenter = chk.completed
+            ? "Done"
+            : isOverdue
+            ? `+${-daysAway}d`
+            : `${daysAway}d`
+
           return (
-            <div key={chk.id} className="border-t border-border py-3 first:border-0 first:pt-0">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
-                <button
-                  onClick={() => setExpandedId(isOpen ? null : chk.id)}
-                  aria-expanded={isOpen}
-                  className="flex min-w-0 flex-1 items-center gap-3 rounded-xl text-left"
+            <Card key={chk.id} className="flex flex-col gap-3 p-4">
+              {/* Header: status icon + title + state chip */}
+              <div className="flex items-start gap-3">
+                <span
+                  aria-hidden
+                  className={`flex size-10 shrink-0 items-center justify-center rounded-2xl ${
+                    chk.completed
+                      ? "bg-signal/15 text-signal"
+                      : isOverdue
+                      ? "bg-warning/15 text-warning"
+                      : "liquid-glass-clear text-ink"
+                  }`}
                 >
-                  <span
-                    aria-hidden
-                    className={`flex size-9 shrink-0 items-center justify-center rounded-2xl ${
-                      chk.completed
-                        ? "bg-signal/15 text-signal"
-                        : isOverdue
-                        ? "bg-warning/15 text-warning"
-                        : "liquid-glass-clear text-ink"
-                    }`}
-                  >
-                    <Icon className="size-4.5" strokeWidth={1.6} />
+                  <Icon className="size-5" strokeWidth={1.6} />
+                </span>
+                <div className="min-w-0 flex-1 space-y-0.5">
+                  <span className="block text-[14px] font-semibold leading-tight text-ink">
+                    {chk.title}
                   </span>
-
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14.5px] font-semibold text-ink">
-                      {chk.title}
-                    </span>
-                    <span className="block truncate text-[11.5px] text-label">
-                      {chk.category} · {chk.recurrence} · Day {chk.dueDay}
-                    </span>
+                  <span className="block text-[11px] text-label">
+                    {chk.category} · {chk.recurrence}
                   </span>
-
-                  <ChevronDown
-                    size={16}
-                    className={`shrink-0 text-label transition-transform ${isOpen ? "rotate-180" : ""}`}
-                    aria-hidden
-                  />
-                </button>
-
-                <div className="flex shrink-0 items-center justify-between gap-2 sm:justify-end">
-                  {chk.completed ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal">
-                      <CheckCircle2 className="size-3" /> Done
-                    </span>
-                  ) : isOverdue ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-warning/20 px-2.5 py-0.5 text-[11px] font-semibold text-warning">
-                      <Clock className="size-3" /> Overdue
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-border px-2.5 py-0.5 text-[11px] font-medium text-ink">
-                      +{daysAway}d
-                    </span>
-                  )}
-
-                  <button
-                    onClick={() => toggleComplete(chk.id)}
-                    className={`rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-colors ${
-                      chk.completed
-                        ? "liquid-glass-clear text-label hover:text-ink"
-                        : "liquid-glass-dark text-white hover:bg-border-strong"
-                    }`}
-                  >
-                    {chk.completed ? "Mark Incomplete" : "Record"}
-                  </button>
-
-                  {chk.route && (
-                    <Link
-                      to={chk.route}
-                      className="flex items-center gap-0.5 rounded-full px-2 py-1 text-[12px] font-medium text-accent hover:underline"
-                      aria-label={`Open module for ${chk.title}`}
-                    >
-                      Module <ChevronRight className="size-3" aria-hidden />
-                    </Link>
-                  )}
                 </div>
+                {chk.completed ? (
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-signal/15 px-2 py-0.5 text-[10.5px] font-semibold text-signal">
+                    <CheckCircle2 className="size-3" /> Done
+                  </span>
+                ) : isOverdue ? (
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-warning/20 px-2 py-0.5 text-[10.5px] font-semibold text-warning">
+                    <Clock className="size-3" /> Overdue
+                  </span>
+                ) : (
+                  <span className="shrink-0 rounded-full bg-border px-2 py-0.5 text-[10.5px] font-medium text-ink">
+                    +{daysAway}d
+                  </span>
+                )}
               </div>
 
-              {isOpen && (
-                <div className="mt-2.5 grid gap-3 rounded-2xl liquid-glass-clear p-3.5 text-[12.5px] leading-relaxed text-label sm:grid-cols-2">
-                  <p className="sm:col-span-2">
-                    <Info className="mr-1 inline size-3.5 text-accent" aria-hidden />
-                    <strong className="text-ink">Why this check:</strong> {chk.relevanceRationale}
-                  </p>
-                  {chk.lastCompletedDate && (
-                    <>
-                      <p>
-                        <strong className="text-ink">Last result:</strong> {chk.lastResult}
-                      </p>
-                      <p>
-                        <strong className="text-ink">Baseline:</strong> {chk.baselineComparison}
-                      </p>
-                    </>
+              {/* Cadence ring + interval info */}
+              <div className="flex items-center gap-3">
+                <CadenceRing
+                  pct={consumed}
+                  center={ringCenter}
+                  color={ringColor}
+                  ariaLabel={
+                    `Cadence clock for ${chk.title}: ` +
+                    (consumed == null
+                      ? "no recorded interval yet."
+                      : `day ${Math.round(consumed * interval)} of ${interval}-day ${chk.recurrence.toLowerCase()} window ` +
+                        (chk.completed
+                          ? "recorded complete this cycle."
+                          : (consumed ?? 0) > 1
+                          ? "window exceeded, overdue."
+                          : `${daysAway} days remaining.`))
+                  }
+                />
+                <ul className="min-w-0 flex-1 space-y-1 text-[11.5px] leading-snug">
+                  <li className="flex items-center justify-between gap-2">
+                    <span className="text-label">Window</span>
+                    <span className="font-medium tabular-nums text-ink">{interval}d {chk.recurrence.toLowerCase()}</span>
+                  </li>
+                  <li className="flex items-center justify-between gap-2">
+                    <span className="text-label">Next due</span>
+                    <span className="font-medium tabular-nums text-ink">Day {chk.dueDay}</span>
+                  </li>
+                  {chk.lastResult && (
+                    <li className="flex min-w-0 items-center justify-between gap-2">
+                      <span className="text-label">Result</span>
+                      <span className="truncate font-medium text-ink">{chk.lastResult}</span>
+                    </li>
                   )}
+                </ul>
+              </div>
+
+              {/* Baseline comparison */}
+              {chk.baselineComparison && (
+                <div className="rounded-xl liquid-glass-clear px-3 py-2 text-[11.5px] text-label">
+                  <span className="font-semibold text-ink">Baseline:</span> {chk.baselineComparison}
                 </div>
               )}
-            </div>
+
+              {/* Expandable rationale */}
+              <button
+                onClick={() => setExpandedId(isOpen ? null : chk.id)}
+                aria-expanded={isOpen}
+                className="flex items-center gap-1 text-left text-[11.5px] font-medium text-label hover:text-ink"
+              >
+                Why this check?
+                <ChevronDown
+                  size={14}
+                  className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  aria-hidden
+                />
+              </button>
+              {isOpen && (
+                <p className="rounded-xl border border-border p-3 text-[12px] leading-relaxed text-label">
+                  {chk.relevanceRationale}
+                </p>
+              )}
+
+              {/* Footer actions */}
+              <div className="mt-auto flex items-center gap-2 pt-1">
+                <button
+                  onClick={() => toggleComplete(chk.id)}
+                  className={`flex-1 rounded-full px-3.5 py-2 text-[12.5px] font-medium transition-colors ${
+                    chk.completed
+                      ? "liquid-glass-clear text-label hover:text-ink"
+                      : "liquid-glass-dark text-white hover:bg-border-strong"
+                  }`}
+                >
+                  {chk.completed ? "Mark Incomplete" : "Record"}
+                </button>
+                {chk.route && (
+                  <Link
+                    to={chk.route}
+                    className="inline-flex items-center gap-0.5 rounded-full px-2.5 py-2 text-[12px] font-medium text-accent hover:underline"
+                    aria-label={`Open module for ${chk.title}`}
+                  >
+                    Module <ChevronRight className="size-3" aria-hidden />
+                  </Link>
+                )}
+              </div>
+            </Card>
           )
         })}
-      </Card>
+      </div>
     </ModuleShell>
   )
 }
