@@ -29,10 +29,10 @@ VITASTRA connects four things that conventional health dashboards treat separate
 
 | Layer | What it tracks |
 |---|---|
-| 🧑‍🚀 **The Astronaut** | Vitals, sleep, mood, exercise, symptoms, biological samples, and active health checks |
-| 🌡️ **The Environment** | Radiation, cabin air (CO₂, O₂), temperature, pressure, and mission conditions |
-| 🛸 **The Mission** | Workload, communication delay, equipment availability, and time in microgravity |
-| 🔬 **The Evidence** | Real NASA research, each astronaut's personal baseline, confidence levels, and data quality |
+| <img src="docs/icons/astronaut.svg" width="18" height="18" align="center" alt="Astronaut" /> **The Astronaut** | Vitals, sleep, mood, exercise, symptoms, biological samples, and active health checks |
+| <img src="docs/icons/environment.svg" width="18" height="18" align="center" alt="Environment" /> **The Environment** | Radiation, cabin air (CO₂, O₂), temperature, pressure, and mission conditions |
+| <img src="docs/icons/mission.svg" width="18" height="18" align="center" alt="Mission" /> **The Mission** | Workload, communication delay, equipment availability, and time in microgravity |
+| <img src="docs/icons/evidence.svg" width="18" height="18" align="center" alt="Evidence" /> **The Evidence** | Real NASA research, each astronaut's personal baseline, confidence levels, and data quality |
 
 > **Decision support, never diagnosis.** VITASTRA surfaces biological signals, tracks individual baselines, and recommends validated operational procedures — flight surgeons and astronauts decide.
 
@@ -42,11 +42,11 @@ VITASTRA connects four things that conventional health dashboards treat separate
 
 NASA identifies **five hazards of human spaceflight**:
 
-1. 🌌 Space radiation
-2. 🧠 Isolation and confinement
-3. 📡 Distance from Earth
-4. 🌀 Altered gravity fields
-5. ⚠️ Hostile or closed environments
+1. <img src="docs/icons/radiation.svg" width="16" height="16" align="center" alt="Radiation" /> **Space radiation**
+2. <img src="docs/icons/isolation.svg" width="16" height="16" align="center" alt="Isolation" /> **Isolation and confinement**
+3. <img src="docs/icons/distance.svg" width="16" height="16" align="center" alt="Distance" /> **Distance from Earth**
+4. <img src="docs/icons/gravity.svg" width="16" height="16" align="center" alt="Gravity" /> **Altered gravity fields**
+5. <img src="docs/icons/hostile.svg" width="16" height="16" align="center" alt="Hostile" /> **Hostile or closed environments**
 
 These hazards **interact**. Microgravity, stress, poor sleep, radiation, and cabin air conditions can contribute to overlapping changes across immune function, cardiovascular health, vision, bone and muscle, and cognition — often silently, without noticeable symptoms.
 
@@ -81,13 +81,13 @@ VITASTRA strictly follows **Zero Fabrication** — no simulated measurements are
 
 | NASA Dataset | Source / Accession | Records | Status |
 |---|---|---|---|
-| Inspiration4 Whole Blood (CBC) | NASA OSDR OSD-569 | 553 | ✅ Fully Working |
-| Inspiration4 Serum (CMP) | NASA OSDR OSD-575 | 531 | ✅ Fully Working |
-| Inspiration4 Multiplex Cytokines | NASA OSDR OSD-575 | 1,988 | ✅ Fully Working |
-| Inspiration4 Cardiovascular Markers | NASA OSDR OSD-575 | 252 | ✅ Fully Working |
-| NASA DONKI Space Weather | `api.nasa.gov/DONKI` | Live + Archive | ✅ Working (Solar Superstorm Fallback) |
-| NASA RadLab Radiation Physics | `visualization.osdr.nasa.gov` | Daily Dosimetry | ✅ Fully Working (0.25–0.55 mGy/day LEO) |
-| NASA ISS Environmental Telemetry | NASA EDA / ECLSS | Continuous | ✅ Fully Working (CO₂, Pressure, Temp, O₂) |
+| Inspiration4 Whole Blood (CBC) | NASA OSDR OSD-569 | 553 | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working** |
+| Inspiration4 Serum (CMP) | NASA OSDR OSD-575 | 531 | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working** |
+| Inspiration4 Multiplex Cytokines | NASA OSDR OSD-575 | 1,988 | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working** |
+| Inspiration4 Cardiovascular Markers | NASA OSDR OSD-575 | 252 | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working** |
+| NASA DONKI Space Weather | `api.nasa.gov/DONKI` | Live + Archive | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Working (Solar Fallback)** |
+| NASA RadLab Radiation Physics | `visualization.osdr.nasa.gov` | Daily Dosimetry | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working (LEO)** |
+| NASA ISS Environmental Telemetry | NASA EDA / ECLSS | Continuous | <img src="docs/icons/check-verified.svg" width="15" height="15" align="center" alt="Verified" /> **Fully Working** |
 
 ### Scientific Data Quality Rules
 
