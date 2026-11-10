@@ -76,8 +76,8 @@ export function OfflineBanner() {
 export function Screen({ children }: { children: ReactNode; back?: boolean }) {
   return (
     <div
-      className="grid items-start gap-4 pb-6"
-      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))" }}
+      className="screen-grid grid items-start gap-4 pb-6"
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), minmax(0, 1fr)))" }}
     >
       {children}
     </div>

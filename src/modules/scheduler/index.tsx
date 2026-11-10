@@ -12,6 +12,7 @@ import {
   Dumbbell,
   CheckCircle2,
   AlertCircle,
+  Info,
   ChevronRight,
   ChevronDown,
 } from "lucide-react"
@@ -294,77 +295,90 @@ export default function Scheduler() {
   return (
     <ModuleShell title={["Silent-Signal", "Scheduler"]}>
       {/* Hero: adherence + filters */}
-      <Card className="p-5 space-y-4">
+      <Card className="p-5 space-y-5">
         <div className="flex items-center justify-between">
           <span className="label font-semibold text-ink">Scheduled Preventive Surveillance</span>
           <SourceChip kind="nasa" label="NASA Flight Medicine" />
         </div>
 
-        <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
-          <div className="flex min-w-0 items-center gap-4">
+        {/* Region 1 — adherence chart (consistent size) | next-up */}
+        <div className="grid grid-cols-1 items-center gap-5 md:grid-cols-[auto_minmax(240px,minmax(0,1fr))]">
+          <div className="flex shrink-0 items-center gap-4">
             <DonutGraph
               segments={adherenceDonut}
               centerValue={`${Math.round((completedCount / Math.max(1, checks.length)) * 100)}%`}
               centerLabel="Adherence"
-              size={116}
+              size={112}
               ariaLabel={`Check completion donut: ${completedCount} completed, ${pendingCount} upcoming, ${overdueChecks.length} overdue.`}
             />
-            <ul className="flex flex-col gap-1 text-[12px] text-label">
-              <li className="flex items-center gap-1.5">
+            <ul className="flex flex-col gap-1.5 text-[12px] text-label">
+              <li className="flex items-center gap-2">
                 <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.signal }} />
-                Completed · <span className="font-semibold text-ink">{completedCount}</span>
+                Completed <span className="font-semibold text-ink">· {completedCount}</span>
               </li>
-              <li className="flex items-center gap-1.5">
+              <li className="flex items-center gap-2">
                 <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.label }} />
-                Upcoming · <span className="font-semibold text-ink">{pendingCount}</span>
+                Upcoming <span className="font-semibold text-ink">· {pendingCount}</span>
               </li>
-              <li className="flex items-center gap-1.5">
+              <li className="flex items-center gap-2">
                 <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.warning }} />
-                Overdue · <span className="font-semibold text-ink">{overdueChecks.length}</span>
+                Overdue <span className="font-semibold text-ink">· {overdueChecks.length}</span>
               </li>
             </ul>
           </div>
 
-          <div className="w-full min-w-0 flex-1 space-y-3">
-            {nextUp && (
-              <div className="flex min-w-0 items-center gap-2 rounded-2xl liquid-glass-clear px-3.5 py-2.5 text-[12.5px]">
-                <Clock className="size-4 shrink-0 text-signal" />
-                <span className="shrink-0 text-label">Next up:</span>
-                <span className="min-w-0 flex-1 truncate font-semibold text-ink">{nextUp.title}</span>
-                <span className="ml-auto shrink-0 rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal">
-                  Day {nextUp.dueDay}
+          {nextUp && (
+            <div className="flex min-w-0 items-center gap-3 rounded-2xl liquid-glass-clear p-3.5">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-signal/15 text-signal">
+                <Clock className="size-5" strokeWidth={1.6} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[10.5px] uppercase tracking-wider text-label">
+                  Next up · Day {nextUp.dueDay}
                 </span>
-              </div>
-            )}
-            <p className="text-[12.5px] leading-snug text-label">
-              Silent signals develop without pain — sensors and scheduled checks, not symptoms, drive this cadence.
-              An overdue assessment is an <strong className="text-ink">operational scheduling delay, never an abnormal medical result</strong>.
-            </p>
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-label mr-1">Filter</span>
-              {["All", "Vision & SANS", "Reaction Time", "Balance & Posture", "Immune Saliva"].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilterCategory(cat)}
-                  className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
-                    filterCategory === cat
-                      ? "liquid-glass-dark text-white"
-                      : "liquid-glass-clear text-label hover:text-ink"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+                <span className="block truncate text-[13.5px] font-semibold text-ink" title={nextUp.title}>
+                  {nextUp.title}
+                </span>
+              </span>
             </div>
-          </div>
+          )}
         </div>
 
+        {/* Region 2 — explanation, full-width so text is never squeezed into a narrow column */}
+        <div className="flex items-start gap-2.5 rounded-2xl border border-border liquid-glass-clear p-4">
+          <Info className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
+          <p className="min-w-0 flex-1 text-[13px] leading-relaxed text-label">
+            Silent signals develop without pain — sensors and scheduled checks drive this cadence, not symptoms. An
+            overdue assessment is an{" "}
+            <strong className="text-ink">operational scheduling delay, never an abnormal medical result</strong>.
+          </p>
+        </div>
+
+        {/* Region 3 — filter pills, own full-width row */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="mr-1 text-[11px] font-semibold uppercase tracking-wider text-label">Filter</span>
+          {["All", "Vision & SANS", "Reaction Time", "Balance & Posture", "Immune Saliva"].map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilterCategory(cat)}
+              className={`rounded-full px-3 py-1 text-[12px] font-medium transition-colors ${
+                filterCategory === cat
+                  ? "liquid-glass-dark text-white"
+                  : "liquid-glass-clear text-label hover:text-ink"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Region 4 — overdue notice */}
         {overdueChecks.length > 0 && (
-          <div className="flex items-center gap-2 rounded-2xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-[12.5px]">
-            <AlertCircle className="size-4 shrink-0 text-warning" />
-            <span className="text-label">
-              <strong className="text-warning">{overdueChecks.length} overdue</strong> — reschedule when mission
-              workload allows: {overdueChecks.map((o) => o.title.split(" (")[0]).join(", ")}.
+          <div className="flex items-start gap-2.5 rounded-2xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-[12.5px]">
+            <AlertCircle className="mt-0.5 size-4 shrink-0 text-warning" />
+            <span className="min-w-0 flex-1 text-label">
+              <strong className="text-warning">{overdueChecks.length} overdue</strong> — reschedule when mission workload
+              allows: {overdueChecks.map((o) => o.title.split(" (")[0]).join(", ")}.
             </span>
           </div>
         )}
@@ -378,29 +392,36 @@ export default function Scheduler() {
         </div>
 
         <div className="space-y-4">
-          <ul className="flex w-full flex-wrap gap-x-6 gap-y-2 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+          {/* Analytics rows — three separated zones: label | bar | percentage */}
+          <ul className="flex flex-col gap-2.5">
             {categoryStats.map((c) => (
-              <li key={c.name} className="flex w-full min-w-0 items-center gap-2.5 text-[12.5px] sm:w-auto sm:min-w-[230px]">
-                <span className="w-28 shrink-0 truncate text-label sm:w-36">{c.name}</span>
-                <span className="relative h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-border">
+              <li
+                key={c.name}
+                className="grid grid-cols-[minmax(88px,150px)_minmax(0,1fr)_44px] items-center gap-3 text-[12.5px]"
+              >
+                <span className="min-w-0 text-label" title={c.name}>
+                  {c.name}
+                </span>
+                <span className="relative h-2 min-w-0 overflow-hidden rounded-full bg-border" role="img" aria-label={`${c.name}: ${c.pct}% complete`}>
                   <span
                     className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
                     style={{ width: `${c.pct}%`, background: c.color }}
                   />
                 </span>
-                <span className="w-10 shrink-0 text-right font-semibold tabular-nums text-ink">{c.pct}%</span>
+                <span className="text-right font-semibold tabular-nums text-ink">{c.pct}%</span>
               </li>
             ))}
           </ul>
 
-          <div className="flex flex-wrap items-center gap-5">
+          {/* Bottom section — coverage gauge + explanation, balanced */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 rounded-2xl liquid-glass-clear p-4">
             <GaugeGraph
               value={completedCount / Math.max(1, checks.length)}
               label="Cycle coverage"
-              size={132}
+              size={124}
               ariaLabel={`Overall surveillance coverage gauge: ${Math.round((completedCount / Math.max(1, checks.length)) * 100)} percent of scheduled checks completed this cycle.`}
             />
-            <p className="min-w-0 flex-1 text-[12px] leading-snug text-label">
+            <p className="min-w-[200px] flex-1 text-[12px] leading-relaxed text-label">
               Coverage is weighted toward daily checks — a missed cadence window breaks the trend continuity the
               baseline engine depends on.
             </p>
@@ -415,42 +436,44 @@ export default function Scheduler() {
           <span className="text-[11px] uppercase tracking-wider text-label">Day {currentMissionDay} → {currentMissionDay + 6}</span>
         </div>
 
-        <div className="overflow-x-auto pb-1">
-          <div className="grid min-w-[400px] grid-cols-7 gap-1.5">
+        {/* Fixed-width tiles inside an intentional inner scroll — the card itself never overflows */}
+        <div role="list" aria-label="Days with scheduled checks over the next week" className="overflow-x-auto">
+          <div className="flex w-max gap-2 px-0.5 py-0.5">
             {cadence.map((c) => {
-            const due = c.dueToday.length
-            const carried = Math.max(0, c.overdueHere)
-            return (
-              <div
-                key={c.missionDay}
-                className={`flex min-w-0 flex-col items-center gap-1.5 rounded-2xl py-2.5 ${
-                  c.today ? "liquid-glass-dark text-white border border-cyan-400/30" : "liquid-glass-clear"
-                }`}
-              >
-                <span className={`label !text-[10px] ${!c.today ? "!text-label" : "!text-white/80"}`}>
-                  {c.today ? "Today" : `D${c.missionDay}`}
-                </span>
-                <span className="flex h-3.5 items-center justify-center">
-                  {due > 0 ? (
-                    <span className="flex gap-0.5">
-                      {c.dueToday.slice(0, 2).map((d) => (
-                        <i
-                          key={d.id}
-                          className="size-2 rounded-full"
-                          style={{ background: CHART_COLORS.signal }}
-                        />
-                      ))}
-                    </span>
-                  ) : (
-                    <i className="size-2 rounded-full bg-border" />
-                  )}
-                </span>
-                <span className={`text-[11px] font-semibold tabular-nums ${c.today ? "text-white" : "text-ink"}`}>
-                  {due || carried > 0 ? `${due + Math.min(carried, 2)}` : "—"}
-                </span>
-              </div>
-            )
-          })}
+              const due = c.dueToday.length
+              const carried = Math.max(0, c.overdueHere)
+              return (
+                <div
+                  role="listitem"
+                  key={c.missionDay}
+                  className={`flex w-16 shrink-0 flex-col items-center justify-center gap-1.5 rounded-2xl px-1 py-2.5 text-center ${
+                    c.today ? "liquid-glass-dark text-white border border-cyan-400/30" : "liquid-glass-clear"
+                  }`}
+                >
+                  <span className={`label !text-[10px] ${c.today ? "!text-white/80" : "!text-label"}`}>
+                    {c.today ? "Today" : `D${c.missionDay}`}
+                  </span>
+                  <span className="flex h-3.5 items-center justify-center">
+                    {due > 0 ? (
+                      <span className="flex gap-0.5">
+                        {c.dueToday.slice(0, 2).map((d) => (
+                          <i
+                            key={d.id}
+                            className="size-2 rounded-full"
+                            style={{ background: CHART_COLORS.signal }}
+                          />
+                        ))}
+                      </span>
+                    ) : (
+                      <i className="size-2 rounded-full bg-border" />
+                    )}
+                  </span>
+                  <span className={`text-[11px] font-semibold tabular-nums ${c.today ? "text-white" : "text-ink"}`}>
+                    {due || carried > 0 ? `${due + Math.min(carried, 2)}` : "—"}
+                  </span>
+                </div>
+              )
+            })}
           </div>
         </div>
         <p className="text-[11.5px] text-label">

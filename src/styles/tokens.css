@@ -170,6 +170,11 @@
 
 @layer components {
 
+  /* ── 0. Dashboard grid system — never let a card's content overflow its column ── */
+  .screen-grid > * {
+    min-width: 0;
+  }
+
   /* ── 1. Primary Liquid Glass ── Major containers & floating panels ── */
   .liquid-glass-primary {
     position: relative;
