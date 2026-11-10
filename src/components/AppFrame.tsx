@@ -7,7 +7,7 @@ import {
   Dumbbell,
   FlaskConical,
 } from "lucide-react"
-import { SheetRootCtx } from "./Sheet"
+import { Sheet, SheetRootCtx } from "./Sheet"
 import { OfflineBanner } from "./Layout"
 import { useEvaluation } from "../api/hooks"
 import { useApp } from "../store/useApp"
@@ -84,6 +84,7 @@ const PILLS = [
 function ScrollablePills() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [startX, setStartX] = useState(0)
   const [scrollLeft, setScrollLeft] = useState(0)
 
@@ -118,9 +119,17 @@ function ScrollablePills() {
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     >
-      <span className="icon-btn size-12 shrink-0 pointer-events-none text-cyan-400" aria-hidden>
+      <button
+        type="button"
+        aria-label="Open mission sections menu"
+        aria-expanded={menuOpen}
+        aria-haspopup="dialog"
+        onMouseDown={(e) => e.stopPropagation()}
+        onClick={() => setMenuOpen(true)}
+        className="icon-btn size-12 shrink-0 text-cyan-400"
+      >
         <SlidersHorizontal size={18} strokeWidth={2} />
-      </span>
+      </button>
       {PILLS.map((p) => (
         <NavLink
           key={p.to}
@@ -139,6 +148,26 @@ function ScrollablePills() {
           {p.label}
         </NavLink>
       ))}
+      <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} title="Mission sections">
+        <nav aria-label="Mission sections" className="flex flex-wrap gap-2">
+          {PILLS.map((p) => (
+            <NavLink
+              key={p.to}
+              to={p.to}
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `inline-flex min-h-10 items-center rounded-full px-4 text-[12px] font-medium transition-colors ${
+                  isActive
+                    ? "liquid-glass-dark text-white border border-cyan-400/40 font-semibold"
+                    : "liquid-glass-clear text-ink-2 hover:text-ink hover:border-cyan-400/30"
+                }`
+              }
+            >
+              {p.label}
+            </NavLink>
+          ))}
+        </nav>
+      </Sheet>
     </div>
   )
 }
