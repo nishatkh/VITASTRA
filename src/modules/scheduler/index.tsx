@@ -290,8 +290,8 @@ export default function Scheduler() {
           <SourceChip kind="nasa" label="NASA Flight Medicine" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] items-start gap-5">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
+          <div className="flex min-w-0 items-center gap-4">
             <DonutGraph
               segments={adherenceDonut}
               centerValue={`${Math.round((completedCount / Math.max(1, checks.length)) * 100)}%`}
@@ -301,26 +301,26 @@ export default function Scheduler() {
             />
             <ul className="flex flex-col gap-1 text-[12px] text-label">
               <li className="flex items-center gap-1.5">
-                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.signal }} />
+                <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.signal }} />
                 Completed · <span className="font-semibold text-ink">{completedCount}</span>
               </li>
               <li className="flex items-center gap-1.5">
-                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.label }} />
+                <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.label }} />
                 Upcoming · <span className="font-semibold text-ink">{pendingCount}</span>
               </li>
               <li className="flex items-center gap-1.5">
-                <i className="h-2.5 w-3.5 rounded-sm" style={{ background: CHART_COLORS.warning }} />
+                <i className="h-2.5 w-3.5 shrink-0 rounded-sm" style={{ background: CHART_COLORS.warning }} />
                 Overdue · <span className="font-semibold text-ink">{overdueChecks.length}</span>
               </li>
             </ul>
           </div>
 
-          <div className="space-y-3">
+          <div className="w-full min-w-0 flex-1 space-y-3">
             {nextUp && (
-              <div className="flex items-center gap-2 rounded-2xl liquid-glass-clear px-3.5 py-2.5 text-[12.5px]">
+              <div className="flex min-w-0 items-center gap-2 rounded-2xl liquid-glass-clear px-3.5 py-2.5 text-[12.5px]">
                 <Clock className="size-4 shrink-0 text-signal" />
-                <span className="text-label">Next up:</span>
-                <span className="font-semibold text-ink truncate">{nextUp.title}</span>
+                <span className="shrink-0 text-label">Next up:</span>
+                <span className="min-w-0 flex-1 truncate font-semibold text-ink">{nextUp.title}</span>
                 <span className="ml-auto shrink-0 rounded-full bg-signal/15 px-2.5 py-0.5 text-[11px] font-semibold text-signal">
                   Day {nextUp.dueDay}
                 </span>
@@ -367,34 +367,35 @@ export default function Scheduler() {
           <SourceChip kind="synthetic" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-5">
-          <ul className="flex flex-col gap-2">
+        <div className="space-y-4">
+          <ul className="flex w-full flex-wrap gap-x-6 gap-y-2 sm:grid sm:grid-cols-2 lg:grid-cols-3">
             {categoryStats.map((c) => (
-              <li key={c.name} className="flex items-center gap-3 text-[12.5px]">
-                <span className="w-44 shrink-0 truncate text-label">{c.name}</span>
-                <span className="relative h-2 flex-1 overflow-hidden rounded-full bg-border">
+              <li key={c.name} className="flex w-full min-w-0 items-center gap-2.5 text-[12.5px] sm:w-auto sm:min-w-[230px]">
+                <span className="w-28 shrink-0 truncate text-label sm:w-36">{c.name}</span>
+                <span className="relative h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-border">
                   <span
                     className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
                     style={{ width: `${c.pct}%`, background: c.color }}
                   />
                 </span>
-                <span className="w-12 shrink-0 text-right font-semibold tabular-nums text-ink">{c.pct}%</span>
+                <span className="w-10 shrink-0 text-right font-semibold tabular-nums text-ink">{c.pct}%</span>
               </li>
             ))}
           </ul>
 
-          <GaugeGraph
-            value={completedCount / Math.max(1, checks.length)}
-            label="Cycle coverage"
-            size={132}
-            ariaLabel={`Overall surveillance coverage gauge: ${Math.round((completedCount / Math.max(1, checks.length)) * 100)} percent of scheduled checks completed this cycle.`}
-          />
+          <div className="flex flex-wrap items-center gap-5">
+            <GaugeGraph
+              value={completedCount / Math.max(1, checks.length)}
+              label="Cycle coverage"
+              size={132}
+              ariaLabel={`Overall surveillance coverage gauge: ${Math.round((completedCount / Math.max(1, checks.length)) * 100)} percent of scheduled checks completed this cycle.`}
+            />
+            <p className="min-w-0 flex-1 text-[12px] leading-snug text-label">
+              Coverage is weighted toward daily checks — a missed cadence window breaks the trend continuity the
+              baseline engine depends on.
+            </p>
+          </div>
         </div>
-
-        <p className="text-[12px] leading-snug text-label">
-          Coverage is weighted toward daily checks — a missed cadence window breaks the trend continuity the baseline
-          engine depends on.
-        </p>
       </Card>
 
       {/* Cadence Strip — next 7 days */}
@@ -404,14 +405,15 @@ export default function Scheduler() {
           <span className="text-[11px] uppercase tracking-wider text-label">Day {currentMissionDay} → {currentMissionDay + 6}</span>
         </div>
 
-        <div className="grid grid-cols-7 gap-1.5">
-          {cadence.map((c) => {
+        <div className="overflow-x-auto pb-1">
+          <div className="grid min-w-[400px] grid-cols-7 gap-1.5">
+            {cadence.map((c) => {
             const due = c.dueToday.length
             const carried = Math.max(0, c.overdueHere)
             return (
               <div
                 key={c.missionDay}
-                className={`flex flex-col items-center gap-1.5 rounded-2xl py-2.5 ${
+                className={`flex min-w-0 flex-col items-center gap-1.5 rounded-2xl py-2.5 ${
                   c.today ? "liquid-glass-dark text-white border border-cyan-400/30" : "liquid-glass-clear"
                 }`}
               >
@@ -421,7 +423,7 @@ export default function Scheduler() {
                 <span className="flex h-3.5 items-center justify-center">
                   {due > 0 ? (
                     <span className="flex gap-0.5">
-                      {c.dueToday.slice(0, 3).map((d) => (
+                      {c.dueToday.slice(0, 2).map((d) => (
                         <i
                           key={d.id}
                           className="size-2 rounded-full"
@@ -439,10 +441,11 @@ export default function Scheduler() {
               </div>
             )
           })}
+          </div>
         </div>
         <p className="text-[11.5px] text-label">
-          Cyan dots mark checks landing on that day; the number includes overdue items still carried. Open a day by
-          recording the assessment below.
+          Cyan dots mark checks landing on that day; the number includes overdue items still carried. Record the
+          assessment on a card below.
         </p>
       </Card>
 
