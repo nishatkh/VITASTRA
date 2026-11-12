@@ -265,8 +265,22 @@ export default function Home() {
       </div>
 
       {/* ── Live Heart Rate ── */}
-      <section className="liquid-glass-primary glass-hover p-5 col-span-full lg:col-span-6 flex flex-col justify-between" aria-label="Heart rate">
-        <div>
+      <section className="liquid-glass-primary glass-hover col-span-full lg:col-span-6 overflow-hidden relative min-h-[260px]" aria-label="Heart rate">
+        {/* Right-side glow behind the heart */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-rose-950/40 pointer-events-none" />
+
+        {/* Large heart pinned to the right, slightly overflowing */}
+        <div className="absolute -right-6 top-1/2 -translate-y-1/2 pointer-events-none select-none">
+          <img
+            src="https://static.wixstatic.com/media/10d771_e303381262274d379bdd53ad6b7a2e36~mv2.gif"
+            alt="Beating heart"
+            className="w-72 h-72 object-contain drop-shadow-[0_0_60px_rgba(239,68,68,0.6)]"
+          />
+        </div>
+
+        {/* Left content — capped at 55% width so it never overlaps the heart */}
+        <div className="relative z-10 p-5 flex flex-col gap-3 max-w-[55%]">
+          {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="live-pulse size-2 rounded-full bg-signal" aria-hidden />
@@ -275,11 +289,11 @@ export default function Home() {
             <IconBtn icon={History} label="Heart history" to="/body" size={44} />
           </div>
 
-          <div className="mt-3">
-            <DotNum value={liveHR} unit="bpm" size={92} />
-          </div>
+          {/* BPM */}
+          <DotNum value={liveHR} unit="bpm" size={92} />
 
-          <div className="mb-4 mt-1 flex items-center gap-3 text-[13.5px] text-label">
+          {/* Delta / trend */}
+          <div className="flex items-center gap-2 text-[13.5px] text-label -mt-1">
             <span>
               {Math.abs(delta) < 1
                 ? "On your baseline"
@@ -287,11 +301,11 @@ export default function Home() {
             </span>
             <Trend value={liveHR} prev={prevHR} unit=" bpm" />
           </div>
-        </div>
 
-        {/* Animated ECG Waveform + last-3-minutes band */}
-        <div className="w-full space-y-2">
-          <EcgLine bpm={liveHR} color="var(--signal)" height={64} />
+          {/* ECG line */}
+          <EcgLine bpm={liveHR} color="var(--signal)" height={56} />
+
+          {/* Sparkline */}
           {hrSpark.length >= 2 && (
             <div>
               <div className="mb-1 flex items-center justify-between">
@@ -307,7 +321,7 @@ export default function Home() {
                 labels={["HR (bpm)"]}
                 colors={[CHART_COLORS.signal]}
                 ariaLabel="Heart rate over the last three minutes with your personal baseline marked."
-                height={92}
+                height={72}
                 unit=" bpm"
                 decimals={1}
                 refValue={baselineHR}

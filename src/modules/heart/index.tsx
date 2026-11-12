@@ -60,28 +60,41 @@ export default function Heart() {
 
   return (
     <ModuleShell title={["Heart &", "Circulation"]}>
-      {/* ── Live Heart Rate Card ── */}
-      <section className="card p-5" aria-label="Live heart rate">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="live-pulse size-2 rounded-full bg-signal" aria-hidden />
-            <span className="label">Heart rate · live</span>
+
+      {/* ── Live rate card + floating heart (no box) ── */}
+      <div className="col-span-full relative">
+
+        {/* Heart GIF — absolutely on the right, overflows upward, no box */}
+        <div className="absolute -top-32 right-0 select-none pointer-events-none z-10">
+          <img
+            src="https://static.wixstatic.com/media/10d771_e303381262274d379bdd53ad6b7a2e36~mv2.gif"
+            alt="Beating heart"
+            className="w-[480px] h-[480px] object-contain drop-shadow-[0_0_80px_rgba(239,68,68,0.65)]"
+          />
+        </div>
+
+        {/* Card — full width, never shrunk by the GIF */}
+        <section className="card w-full overflow-hidden relative" aria-label="Live heart rate">
+          {/* Fade out card bg on the right where the heart sits */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/60 pointer-events-none z-0" />
+          <div className="p-5 pb-2 flex flex-col gap-3 max-w-[55%]">
+            <div className="flex items-center gap-2">
+              <span className="live-pulse size-2 rounded-full bg-signal" aria-hidden />
+              <span className="label">Heart rate · live</span>
+            </div>
+            <DotNum value={liveHR} unit="bpm" size={92} />
+            <div className="text-[13px] text-label leading-snug">
+              Continuous telemetry stream · live QRS wave
+            </div>
+            <SourceChip kind="nasa" label="Continuous ECG & Cardiorespiratory Telemetry" />
           </div>
-          <SourceChip kind="nasa" label="Continuous ECG & Cardiorespiratory Telemetry" />
-        </div>
+          {/* ECG — full card width, tall */}
+          <div className="w-full px-2 pb-3">
+            <EcgLine bpm={liveHR} color="var(--signal)" height={110} />
+          </div>
+        </section>
 
-        <div className="my-3">
-          <DotNum value={liveHR} unit="bpm" size={92} />
-        </div>
-
-        <div className="mb-3 text-[13.5px] text-label">
-          Continuous telemetry stream · live QRS wave
-        </div>
-
-        <div className="w-full pt-1">
-          <EcgLine bpm={liveHR} color="var(--signal)" height={64} />
-        </div>
-      </section>
+      </div>
 
       <div className="grid grid-cols-2 gap-3">
         {(["restHR", "hrv", "spo2", "hrr"] as MetricKey[]).map((k) => (
