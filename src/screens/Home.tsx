@@ -265,21 +265,21 @@ export default function Home() {
       </div>
 
       {/* ── Live Heart Rate ── */}
-      <section className="liquid-glass-primary glass-hover col-span-full lg:col-span-6 overflow-hidden relative min-h-[260px]" aria-label="Heart rate">
+      <section className="liquid-glass-primary glass-hover col-span-full lg:col-span-6 overflow-hidden relative min-h-[220px] sm:min-h-[260px]" aria-label="Heart rate">
         {/* Right-side glow behind the heart */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-rose-950/40 pointer-events-none" />
 
-        {/* Large heart pinned to the right, slightly overflowing */}
-        <div className="absolute -right-6 top-1/2 -translate-y-1/2 pointer-events-none select-none">
+        {/* Heart pinned to the right, responsive scaling */}
+        <div className="absolute -right-3 sm:-right-4 md:-right-6 top-1/2 -translate-y-1/2 pointer-events-none select-none">
           <img
             src="https://static.wixstatic.com/media/10d771_e303381262274d379bdd53ad6b7a2e36~mv2.gif"
             alt="Beating heart"
-            className="w-72 h-72 object-contain drop-shadow-[0_0_60px_rgba(239,68,68,0.6)]"
+            className="w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 lg:w-72 lg:h-72 object-contain drop-shadow-[0_0_25px_rgba(239,68,68,0.45)] sm:drop-shadow-[0_0_45px_rgba(239,68,68,0.55)] md:drop-shadow-[0_0_60px_rgba(239,68,68,0.6)]"
           />
         </div>
 
-        {/* Left content — capped at 55% width so it never overlaps the heart */}
-        <div className="relative z-10 p-5 flex flex-col gap-3 max-w-[55%]">
+        {/* Left content — responsive max-width so it never overlaps the heart */}
+        <div className="relative z-10 p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3 max-w-[65%] sm:max-w-[60%] lg:max-w-[55%]">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">

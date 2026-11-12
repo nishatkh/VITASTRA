@@ -64,12 +64,12 @@ export default function Heart() {
       {/* ── Live rate card + floating heart (no box) ── */}
       <div className="col-span-full relative">
 
-        {/* Heart GIF — absolutely on the right, overflows upward, no box */}
-        <div className="absolute -top-32 right-0 select-none pointer-events-none z-10">
+        {/* Heart GIF — responsive scaling, floats on the right and overflows upward gracefully */}
+        <div className="absolute -top-8 sm:-top-16 md:-top-24 lg:-top-32 -right-3 sm:-right-2 md:right-0 select-none pointer-events-none z-10">
           <img
             src="https://static.wixstatic.com/media/10d771_e303381262274d379bdd53ad6b7a2e36~mv2.gif"
             alt="Beating heart"
-            className="w-[480px] h-[480px] object-contain drop-shadow-[0_0_80px_rgba(239,68,68,0.65)]"
+            className="w-36 h-36 sm:w-56 sm:h-56 md:w-80 md:h-80 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] object-contain drop-shadow-[0_0_30px_rgba(239,68,68,0.45)] sm:drop-shadow-[0_0_55px_rgba(239,68,68,0.55)] md:drop-shadow-[0_0_80px_rgba(239,68,68,0.65)]"
           />
         </div>
 
@@ -77,13 +77,13 @@ export default function Heart() {
         <section className="card w-full overflow-hidden relative" aria-label="Live heart rate">
           {/* Fade out card bg on the right where the heart sits */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/60 pointer-events-none z-0" />
-          <div className="p-5 pb-2 flex flex-col gap-3 max-w-[55%]">
+          <div className="p-4 sm:p-5 pb-2 flex flex-col gap-2 sm:gap-3 max-w-[65%] sm:max-w-[60%] md:max-w-[55%]">
             <div className="flex items-center gap-2">
               <span className="live-pulse size-2 rounded-full bg-signal" aria-hidden />
               <span className="label">Heart rate · live</span>
             </div>
             <DotNum value={liveHR} unit="bpm" size={92} />
-            <div className="text-[13px] text-label leading-snug">
+            <div className="text-[12px] sm:text-[13px] text-label leading-snug">
               Continuous telemetry stream · live QRS wave
             </div>
             <SourceChip kind="nasa" label="Continuous ECG & Cardiorespiratory Telemetry" />
