@@ -13,7 +13,7 @@
 [![React 19](https://img.shields.io/badge/React%2019-TypeScript%205.7-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://github.com/nishatkh/VITASTRA)
 [![PWA](https://img.shields.io/badge/PWA-Offline%20Ready-22c55e?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/nishatkh/VITASTRA)
 [![NASA OSDR](https://img.shields.io/badge/NASA%20OSDR-OSD--569%20%7C%20OSD--575-0b3d91?style=for-the-badge&logo=nasa&logoColor=white)](https://osdr.nasa.gov/)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-NASA%20Exempt%20%7C%20Restricted-blue?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -338,6 +338,16 @@ Developed for the **NASA International Space Apps Challenge 2026**.
 | 4 | **Jayed Alam** | Video Editor & Motion Designer |
 | 5 | **Md Solayman Hossain Shawon** | Security Researcher |
 | 6 | **Nafisa Tabassum Nusrat** | Developer |
+
+---
+
+## License
+
+This project is licensed under a **Custom Restricted License with NASA Exemption**:
+- **NASA Permitted Use:** Unrestricted, royalty-free, perpetual authorization is granted to the **National Aeronautics and Space Administration (NASA)** and its associated programs to use, modify, deploy, and distribute the software for mission, scientific, operational, and research purposes without copyright restrictions.
+- **Other Parties:** All rights reserved. Any use, copying, modification, or distribution by other organizations or third parties requires prior explicit written permission from the authors (**Zero Gravity Minds**).
+
+See the [LICENSE](LICENSE) file for complete legal terms.
 
 ---
 
