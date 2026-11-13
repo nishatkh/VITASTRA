@@ -449,10 +449,47 @@ See the [LICENSE](LICENSE) file for complete legal terms.
 
 *Every AI tool we used, what we used it for, and the data it worked on.*
 
-| AI Tool / Model | What We Used It For | Data It Worked On |
+### Summary Table
+
+| AI Tool / Framework | What We Used It For | Data It Worked On |
 |---|---|---|
-| **Google Gemini (Gemini 2.5 Pro & Flash) & Claude (via Antigravity Assistant)** | Accelerated application engineering, TypeScript type definitions, UI styling with Tailwind CSS, development of the automated scientific integrity verification suite (`scripts/verify_vitastra.py`), and documentation structuring. | Project source code (`src/`), data parsing scripts (`scripts/`), and structured data schemas. **Zero real astronaut health data or personal medical information was uploaded to or processed by external LLMs.** |
-| **Deterministic In-App Health Engine (Rule-Based Expert System)** | To guarantee mission-critical safety and eliminate hallucination risk, our in-app "Health Coach" and triage assistant were deliberately engineered as **grounded deterministic rule engines** citing verified flight procedures (MED, SANS, ECLSS) and NASA clinical literature rather than generative probabilistic models. | Local client-side IndexedDB telemetry streams, calculated personal baselines, and peer-reviewed flight procedure mappings. |
+| **Google Gemini (Gemini 2.5 Pro & Flash)** *(via Antigravity Assistant)* | Architectural design, full-stack React 19/TypeScript scaffolding, refactoring complex multi-panel state, responsive layout engineering, and formulating the automated verification test suite (`scripts/verify_vitastra.py`). | Application source code (`src/`), data parsing scripts (`scripts/`), and JSON schemas. **Zero real astronaut health data or personal medical records were processed by external models.** |
+| **Anthropic Claude 3.5 Sonnet** *(via Antigravity Assistant)* | Algorithmic optimization for mathematical baseline models, Bessel's sample correction logic, WebGL shader performance tuning, and technical documentation synthesis. | Component code, mathematical algorithms, and public documentation. |
+| **Statistical AI & Anomaly Detection Algorithms** *(In-App Engine)* | Continuous physiological surveillance using **CUSUM (Cumulative Sum Control Charts)**, **Robust Z-Score modeling (Median Absolute Deviation)**, and multi-hazard Bayesian risk correlation. | Bundled longitudinal NASA OSDR Inspiration4 vitals, daily telemetry streams, and personal baseline distributions. |
+| **LLM-Assisted Research Literature Structuring** | Parsing, categorizing, and structuring complex scientific relationships from NASA Human Research Program (HRP) Evidence Books, NASA OSDR publications, and PMC papers into machine-readable JSON schemas (`hazards_map_data.json` & `space_biology_research.json`). | Publicly available peer-reviewed space biology papers and open NASA research reports. |
+| **Deterministic Clinical Expert Engine** *(Zero-Hallucination Design)* | Autonomous clinical decision support for deep space: intentionally built as a **deterministic expert rules engine** citing NASA flight rules (MED, SANS, ECLSS) rather than unconstrained generative text to guarantee zero medical hallucinations. | Onboard IndexedDB baselines, telemetry bounds, and verified NASA flight operational procedures. |
+
+---
+
+### Detailed Breakdown of AI Utilization
+
+#### 1. Software Engineering & Architecture Acceleration
+We utilized **Google Gemini 2.5 Pro & Flash** alongside **Claude 3.5 Sonnet** within the Antigravity developer environment as pair programmers to:
+- Generate type-safe Zod schemas and TypeScript interfaces for complex NASA OSDR panels (553 CBC records, 531 CMP records, 1,988 cytokine measurements).
+- Build lightweight, high-performance custom WebGL shaders (`src/components/ui/WebGLBackground.tsx`) for a liquid-glass mission control interface without heavy 3D engine overhead.
+- Develop the automated scientific integrity test suite (`scripts/verify_vitastra.py`) that programmatically verifies baseline calculations against official NASA submitted datasets.
+
+#### 2. Space Biology Knowledge Engineering & Ontology Formulation
+Translating narrative clinical research into structured decision logic is a major bottleneck in aerospace medicine. We utilized LLMs to:
+- Synthesize evidence classifications (Established Evidence, Emerging Research, Experimental Evidence) from NASA Human Research Program Evidence Books and NASA OSDR research.
+- Map the interconnected pathways between the **5 Hazards of Human Spaceflight** (Radiation, Isolation, Distance, Microgravity, Closed Environment) and 9 physiological organ domains into a queryable graph.
+- All AI-structured clinical rules and literature cross-references were manually audited and verified against original NASA source documentation.
+
+#### 3. Onboard Machine Learning & Statistical Anomaly Detection
+VITASTRA embeds statistical machine learning and anomaly detection algorithms directly into the client runtime:
+- **CUSUM (Cumulative Sum Control Charts):** Tracks cumulative deviations from personal baselines to catch gradual, subclinical physiological drift (e.g. resting heart rate elevation, HRV depression) before acute symptoms manifest.
+- **Robust Z-Score Estimation:** Uses median and Median Absolute Deviation (MAD) alongside Bessel's corrected standard deviation ($N \ge 2$ preflight threshold) to prevent outliers from distorting clinical baselines.
+- **Sensor Plausibility Validation:** Algorithmic verification of incoming biometric telemetry against physiological limits to instantly detect sensor dropouts, lead detachments, and implausible readings.
+
+#### 4. Medical AI Safety & "Zero-Hallucination" Architecture
+In deep-space long-duration missions (with up to 40-minute round-trip comms latency), **astronaut life safety depends on deterministic certainty**. Unconstrained generative AI models are prone to probabilistic hallucination, making them hazardous for autonomous clinical diagnosis:
+- **Rule-Grounded Decision Support:** Our in-app "Health Coach" and SBAR triage assistant are deliberately architected as **deterministic expert rules engines**. Recommendations strictly cite NASA Flight Rules, Spaceflight Clinical Standards (NASA-STD-3001), and standard flight medical procedures (MED, SANS, ECLSS).
+- **Clear Clinical Translation Boundaries:** The engine explicitly flags experimental evidence (e.g., in vitro organoid microchips) and clearly discloses that cellular stress markers do not equate to proven pathology in living astronauts.
+- **Decision Support, Never Diagnosis:** VITASTRA calculates statistical shifts and suggests validated operational procedures — the flight surgeon and crew always maintain final clinical authority.
+
+#### 5. Data Privacy & AI Governance
+- **Zero Data Leakage:** All baseline calculations, symptom logs, psychological check-ins, and medical reports run **100% client-side in IndexedDB**.
+- **No External Inference on Astronaut Data:** No astronaut physiological measurements or mission records are ever transmitted to external AI APIs or third-party cloud models.
 
 ---
 
