@@ -13,7 +13,7 @@
 [![React 19](https://img.shields.io/badge/React%2019-TypeScript%205.7-3178c6?style=for-the-badge&logo=typescript&logoColor=white)](https://github.com/nishatkh/VITASTRA)
 [![PWA](https://img.shields.io/badge/PWA-Offline%20Ready-22c55e?style=for-the-badge&logo=googlechrome&logoColor=white)](https://github.com/nishatkh/VITASTRA)
 [![NASA OSDR](https://img.shields.io/badge/NASA%20OSDR-OSD--569%20%7C%20OSD--575-0b3d91?style=for-the-badge&logo=nasa&logoColor=white)](https://osdr.nasa.gov/)
-[![License](https://img.shields.io/badge/License-NASA%20Exempt%20%7C%20Restricted-blue?style=for-the-badge)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -437,11 +437,22 @@ Developed for the **NASA International Space Apps Challenge 2026**.
 
 ## License
 
-This project is licensed under a **Custom Restricted License with NASA Exemption**:
-- **NASA Permitted Use:** Unrestricted, royalty-free, perpetual authorization is granted to the **National Aeronautics and Space Administration (NASA)** and its associated programs to use, modify, deploy, and distribute the software for mission, scientific, operational, and research purposes without copyright restrictions.
-- **Other Parties:** All rights reserved. Any use, copying, modification, or distribution by other organizations or third parties requires prior explicit written permission from the authors (**Zero Gravity Minds**).
+This project is open-source software licensed under the **[MIT License](LICENSE)** in full compliance with the **NASA Space Apps Challenge Open Licensing Policy**. NASA, space agency partners, researchers, and the global developer community are granted permission to access, use, modify, distribute, and build upon this codebase.
 
-See the [LICENSE](LICENSE) file for complete legal terms.
+---
+
+## Declaration and Agreements
+
+We confirm full agreement and compliance with the following official NASA Space Apps declarations and standards:
+
+- **Accessible Interface:** Our project interface is designed for universal accessibility, featuring semantic HTML, responsive multi-breakpoint layouts, high-contrast visual styling, and multimodal feedback (sound and visual telemetry) so anyone can use it.
+- **Official Submission:** Our NASA Space Apps Challenge project page is complete and submitted on [spaceappschallenge.org](https://www.spaceappschallenge.org/).
+- **Participant Terms & Conditions:** We accept the [NASA Space Apps Participant Terms & Conditions](https://www.spaceappschallenge.org/legal/) regarding participation, open-source licensing, third-party material attribution, liability, and NASA media release.
+- **Standard of Conduct:** We uphold the [NASA Space Apps Standard of Conduct](https://www.spaceappschallenge.org/resources/participant-faqs/), maintaining a collaborative, respectful, anti-harassment, and non-discriminatory environment.
+- **Local Event Terms of Participation:** We adhere to the [Local Event Terms](https://www.nasaspaceappsbd.com/agreements#local_terms) — providing accurate data, original work with all sources and AI tools declared, and accepting judges' decisions as final.
+- **Media and Photo Release:** We consent to the [Local Media and Photo Release](https://www.nasaspaceappsbd.com/agreements#media_release) for promotional coverage.
+- **Youth & Minor Safety:** We confirm compliance with [Team Members Under 18 Policies](https://www.nasaspaceappsbd.com/agreements#minors) regarding parental consent and privacy protections.
+- **Privacy Policy:** We comply with [Privacy Terms](https://www.nasaspaceappsbd.com/agreements#privacy) and NASA's Privacy Policy, keeping user and astronaut telemetry 100% client-side with zero external tracking.
 
 ---
 
