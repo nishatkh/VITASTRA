@@ -445,20 +445,63 @@ See the [LICENSE](LICENSE) file for complete legal terms.
 
 ---
 
-## NASA Resources & References
+## Use of AI *
 
-| Resource | URL |
-|---|---|
-| NASA Five Hazards of Human Spaceflight | https://www.nasa.gov/hrp/hazards/ |
-| NASA Human Research Program | https://www.nasa.gov/hrp/ |
-| NASA OSDR Open Science Data Repository | https://osdr.nasa.gov/ |
-| NASA DONKI Space Weather API | https://api.nasa.gov/ |
-| Inspiration4 OSD-569 (CBC) | https://osdr.nasa.gov/bio/repo/data/studies/OSD-569 |
-| Inspiration4 OSD-575 (CMP & Cytokines) | https://osdr.nasa.gov/bio/repo/data/studies/OSD-575 |
-| NASA Immune Biomarkers / Artemis II | https://www.nasa.gov/reference/immune-biomarkers/ |
-| NASA Bone & Muscle Countermeasures | https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/ |
-| Neural Organoids ISS Study (PMC11631337) | https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/ |
-| NASA RadLab Radiation Data | https://visualization.osdr.nasa.gov/ |
+*Every AI tool we used, what we used it for, and the data it worked on.*
+
+| AI Tool / Model | What We Used It For | Data It Worked On |
+|---|---|---|
+| **Google Gemini (Gemini 2.5 Pro & Flash) & Claude (via Antigravity Assistant)** | Accelerated application engineering, TypeScript type definitions, UI styling with Tailwind CSS, development of the automated scientific integrity verification suite (`scripts/verify_vitastra.py`), and documentation structuring. | Project source code (`src/`), data parsing scripts (`scripts/`), and structured data schemas. **Zero real astronaut health data or personal medical information was uploaded to or processed by external LLMs.** |
+| **Deterministic In-App Health Engine (Rule-Based Expert System)** | To guarantee mission-critical safety and eliminate hallucination risk, our in-app "Health Coach" and triage assistant were deliberately engineered as **grounded deterministic rule engines** citing verified flight procedures (MED, SANS, ECLSS) and NASA clinical literature rather than generative probabilistic models. | Local client-side IndexedDB telemetry streams, calculated personal baselines, and peer-reviewed flight procedure mappings. |
+
+---
+
+## References *
+
+*Every source, paper, dataset, library and asset we drew on, with links where available.*
+
+### 1. NASA Datasets & Technical Publications
+- **NASA OSDR Study OSD-569 (Inspiration4 Complete Blood Count):** [https://osdr.nasa.gov/bio/repo/data/studies/OSD-569](https://osdr.nasa.gov/bio/repo/data/studies/OSD-569)
+- **NASA OSDR Study OSD-575 (Inspiration4 CMP, Cytokines, Cardiovascular Panels):** [https://osdr.nasa.gov/bio/repo/data/studies/OSD-575](https://osdr.nasa.gov/bio/repo/data/studies/OSD-575)
+- **NASA DONKI Space Weather Database & API:** [https://api.nasa.gov/](https://api.nasa.gov/) · Direct catalog: [https://kauai.ccmc.gsfc.nasa.gov/DONKI/](https://kauai.ccmc.gsfc.nasa.gov/DONKI/)
+- **NASA RadLab Radiation Physics Dosimetry Portal:** [https://visualization.osdr.nasa.gov/](https://visualization.osdr.nasa.gov/)
+- **NASA OSDR Open Science Data Repository:** [https://osdr.nasa.gov/](https://osdr.nasa.gov/)
+- **NASA Five Hazards of Human Spaceflight:** [https://www.nasa.gov/hrp/hazards/](https://www.nasa.gov/hrp/hazards/)
+- **NASA Human Research Program (HRP) Evidence Books:** [https://www.nasa.gov/hrp/](https://www.nasa.gov/hrp/)
+- **NASA Spaceflight Human-System Standard (NASA-STD-3001, Vol 1 & 2):** [https://www.nasa.gov/hrp/standards/](https://www.nasa.gov/hrp/standards/)
+- **NASA Immune Biomarkers & Artemis II Saliva Protocol:** [https://www.nasa.gov/reference/immune-biomarkers/](https://www.nasa.gov/reference/immune-biomarkers/)
+- **NASA Bone & Muscle Countermeasures Evidence:** [https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/](https://www.nasa.gov/reference/risk-of-spaceflight-induced-bone-changes/)
+- **NASA Risk of Altered Immune System Responses:** [https://www.nasa.gov/reference/risk-of-altered-immune-system-responses/](https://www.nasa.gov/reference/risk-of-altered-immune-system-responses/)
+- **NASA OSDR Study OSD-44 (Proximal Tubule Kidney Chip in Microgravity):** [https://osdr.nasa.gov/bio/repo/data/studies/OSD-44](https://osdr.nasa.gov/bio/repo/data/studies/OSD-44)
+- **NASA OSDR Study OSD-630 (Astronaut Gut Microbiome Metagenomics):** [https://osdr.nasa.gov/bio/repo/data/studies/OSD-630](https://osdr.nasa.gov/bio/repo/data/studies/OSD-630)
+- **NASA ISS Engineered Heart Tissue & Cardiac Microphysiological Systems:** [https://www.nasa.gov/missions/station/iss-research/its-always-heart-month-on-the-space-station/](https://www.nasa.gov/missions/station/iss-research/its-always-heart-month-on-the-space-station/)
+
+### 2. Partner Space Agency & Academic Research
+- **European Space Agency (ESA) Life Sciences & NASA Joint Muscle Countermeasures:** [https://www.nasa.gov/humans-in-space/counteracting-bone-and-muscle-loss-in-microgravity/](https://www.nasa.gov/humans-in-space/counteracting-bone-and-muscle-loss-in-microgravity/)
+- **ISS Human 3D Neural Organoids (Nature Communications / PMC11631337):** [https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/](https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/)
+- **Airway Epithelial Response & Closed Environment Lung Chip (Harvard Wyss Institute / Nature Microgravity):** [https://www.nasa.gov/missions/station/iss-research/space-station-cell-studies/](https://www.nasa.gov/missions/station/iss-research/space-station-cell-studies/)
+- **National Kidney Foundation & American Society of Nephrology (Race-Free eGFR Consensus Guidelines):** [https://www.kidney.org/professionals/kdoqi/gfr_calculator](https://www.kidney.org/professionals/kdoqi/gfr_calculator)
+- **Clinical Laboratory Reference Intervals (Mayo Clinic Laboratories / Wintrobe Clinical Hematology):** [https://www.mayocliniclabs.com/](https://www.mayocliniclabs.com/)
+
+### 3. Software Libraries & Open Source Frameworks
+- **React 19 & React DOM 19:** [https://react.dev/](https://react.dev/)
+- **TypeScript 5.7:** [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+- **Vite 8 & Rolldown:** [https://vite.dev/](https://vite.dev/)
+- **Tailwind CSS v4:** [https://tailwindcss.com/](https://tailwindcss.com/)
+- **React Router v8:** [https://reactrouter.com/](https://reactrouter.com/)
+- **TanStack React Query v5:** [https://tanstack.com/query/](https://tanstack.com/query/)
+- **Zustand v5:** [https://zustand-demo.pmnd.rs/](https://zustand-demo.pmnd.rs/)
+- **Recharts v3:** [https://recharts.org/](https://recharts.org/)
+- **Framer Motion v13:** [https://motion.dev/](https://motion.dev/)
+- **idb (IndexedDB):** [https://github.com/jakearchibald/idb](https://github.com/jakearchibald/idb)
+- **Lucide React Icons:** [https://lucide.dev/](https://lucide.dev/)
+- **Zod v4:** [https://zod.dev/](https://zod.dev/)
+- **Vite PWA Plugin & Workbox:** [https://vite-pwa-org.netlify.app/](https://vite-pwa-org.netlify.app/)
+- **Oxfmt Formatter:** [https://oxc.rs/](https://oxc.rs/)
+
+### 4. Typography & Visual Assets
+- **Google Fonts (Outfit, Inter Tight, Doto):** [https://fonts.google.com/](https://fonts.google.com/)
+- **NASA Space Mission Graphic Standards & Insignia:** [https://www.nasa.gov/](https://www.nasa.gov/)
 
 ---
 
