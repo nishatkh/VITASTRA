@@ -77,70 +77,70 @@ VITASTRA uses **personal baselines, scheduled biological surveillance, connected
 
 ## 05. Data Used
 
-*List each dataset with a link and one line on how you used it.*
+*List each dataset with a link and one line on how we used it.*
 
 ### NASA Data
-*Every NASA dataset you used. Judges check this against your demo.*
+*Every NASA dataset we used. Judges check this against our demo.*
 
 #### 1. Inspiration4 Complete Blood Count (CBC)
 - **Dataset name:** NASA OSDR Study OSD-569: Inspiration4 Complete Blood Count (CBC)
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-569
-- **How you used it:** Ingested longitudinal preflight (L-92, L-44, L-3) and postflight (R+1, R+45, R+82, R+194) hematology panels across all 4 crew members to calculate individual physiological baselines, standard deviations, and post-mission immune recovery trajectories.
+- **How we used it:** We ingested longitudinal preflight (L-92, L-44, L-3) and postflight (R+1, R+45, R+82, R+194) hematology panels across all 4 crew members to calculate individual physiological baselines, standard deviations, and post-mission immune recovery trajectories.
 
 #### 2. Inspiration4 Comprehensive Metabolic Panel (CMP)
 - **Dataset name:** NASA OSDR Study OSD-575: Inspiration4 Comprehensive Metabolic Panel (CMP)
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-575
-- **How you used it:** Ingested longitudinal blood serum chemistry (electrolytes, glucose, BUN, creatinine, liver enzymes) to track metabolic, renal, and liver function trends across mission phases.
+- **How we used it:** We ingested longitudinal blood serum chemistry (electrolytes, glucose, BUN, creatinine, liver enzymes) to track metabolic, renal, and liver function trends across mission phases.
 
 #### 3. Inspiration4 Multiplex Serum Cytokines Panel
 - **Dataset name:** NASA OSDR Study OSD-575: Inspiration4 Multiplex Serum Cytokines (EvePanel)
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-575
-- **How you used it:** Extracted longitudinal cytokine and chemokine concentrations (IL-6, IL-8, TNF-alpha, IFN-gamma) to evaluate in-flight and post-flight immune activation and systemic inflammatory responses.
+- **How we used it:** We extracted longitudinal cytokine and chemokine concentrations (IL-6, IL-8, TNF-alpha, IFN-gamma) to evaluate in-flight and post-flight immune activation and systemic inflammatory responses.
 
 #### 4. Inspiration4 Cardiovascular Biomarkers Panel
 - **Dataset name:** NASA OSDR Study OSD-575: Inspiration4 Cardiovascular Biomarkers
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-575
-- **How you used it:** Integrated circulating cardiac biomarkers to monitor cardiovascular stress, microvascular remodeling, and microgravity fluid shift adaptations.
+- **How we used it:** We integrated circulating cardiac biomarkers to monitor cardiovascular stress, microvascular remodeling, and microgravity fluid shift adaptations.
 
 #### 5. NASA DONKI Space Weather Database
 - **Dataset name:** NASA Space Weather Database Of Notifications, Knowledge, Information (DONKI) API & Flare Archive
 - **Link:** https://api.nasa.gov/
-- **How you used it:** Integrated real-time and historical solar flare (FLR), coronal mass ejection (CME), and solar particle event (SEP) feeds to trigger autonomous crew radiation alerts and storm shelter checklists.
+- **How we used it:** We integrated real-time and historical solar flare (FLR), coronal mass ejection (CME), and solar particle event (SEP) feeds to trigger autonomous crew radiation alerts and storm shelter checklists.
 
 #### 6. NASA RadLab Radiation Physics Dosimetry
 - **Dataset name:** NASA OSDR RadLab Radiation Dosimetry Dataset
 - **Link:** https://visualization.osdr.nasa.gov/
-- **How you used it:** Analyzed International Space Station radiation physics data and daily absorbed dose rates to benchmark in-cabin ionizing radiation baselines and solar storm hazard thresholds.
+- **How we used it:** We analyzed International Space Station radiation physics data and daily absorbed dose rates to benchmark in-cabin ionizing radiation baselines and solar storm hazard thresholds.
 
 #### 7. NASA Environmental Data Application (EDA) / ISS ECLSS Telemetry
 - **Dataset name:** NASA OSDR Environmental Data Application (EDA) & ISS Life Support Telemetry
 - **Link:** https://osdr.nasa.gov/
-- **How you used it:** Modeled nominal and elevated cabin environmental metrics (ambient CO₂ in ppm, cabin pressure in kPa, O₂ partial pressure, temperature, and humidity) to drive the Closed Environment intelligence module.
+- **How we used it:** We modeled nominal and elevated cabin environmental metrics (ambient CO₂ in ppm, cabin pressure in kPa, O₂ partial pressure, temperature, and humidity) to drive the Closed Environment intelligence module.
 
 #### 8. NASA Human Research Program (HRP) Evidence Books
 - **Dataset name:** NASA Human Research Program: Five Hazards of Human Spaceflight
 - **Link:** https://www.nasa.gov/hrp/hazards/
-- **How you used it:** Sourced clinical risk cross-links mapping the 5 Hazards of Spaceflight (Radiation, Isolation, Distance, Microgravity, Hostile Closed Environment) to linked physiological health outcomes.
+- **How we used it:** We sourced clinical risk cross-links mapping the 5 Hazards of Spaceflight (Radiation, Isolation, Distance, Microgravity, Hostile Closed Environment) to linked physiological health outcomes.
 
 #### 9. NASA OSDR Kidney-on-a-Chip Microgravity Study
 - **Dataset name:** NASA OSDR Study OSD-44: Proximal Tubule Kidney-on-a-Chip Assessment
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-44
-- **How you used it:** Referenced in the Space Biology Research Intelligence Library to understand proximal tubular transport, altered 1,25-dihydroxyvitamin D metabolism, and hypercalciuric stone risk.
+- **How we used it:** We referenced in the Space Biology Research Intelligence Library to understand proximal tubular transport, altered 1,25-dihydroxyvitamin D metabolism, and hypercalciuric stone risk.
 
 #### 10. NASA OSDR Astronaut Gut Microbiome Metagenomics
 - **Dataset name:** NASA OSDR Study OSD-630: Multi-omics Gut Microbiome Shifts in Spaceflight
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-630
-- **How you used it:** Referenced in the research intelligence library to model spaceflight-induced microbiome depletion (*Faecalibacterium prausnitzii*) and intestinal tight-junction permeability shifts.
+- **How we used it:** We referenced in the research intelligence library to model spaceflight-induced microbiome depletion (*Faecalibacterium prausnitzii*) and intestinal tight-junction permeability shifts.
 
 #### 11. NASA ISS Engineered Heart Tissue & Microphysiological Systems
 - **Dataset name:** NASA ISS Research: Engineered Heart Tissue and Cardiac Microphysiological Systems
 - **Link:** https://www.nasa.gov/missions/station/iss-research/its-always-heart-month-on-the-space-station/
-- **How you used it:** Sourced functional contraction mechanics, calcium-handling kinetics, and myofibril disarray evidence for the cardiovascular research intelligence model.
+- **How we used it:** We sourced functional contraction mechanics, calcium-handling kinetics, and myofibril disarray evidence for the cardiovascular research intelligence model.
 
 #### 12. NASA JSC Immunology Laboratory Viral Shedding Cohort
 - **Dataset name:** NASA Johnson Space Center Immunology Laboratory Longitudinal Data: Latent Herpesvirus Reactivation
 - **Link:** https://www.nasa.gov/reference/risk-of-altered-immune-system-responses/
-- **How you used it:** Utilized clinical rates of latent herpesvirus (EBV, VZV, CMV) shedding in saliva as sensitive non-invasive biomarkers of crew stress and T-cell dysfunction.
+- **How we used it:** We utilized clinical rates of latent herpesvirus (EBV, VZV, CMV) shedding in saliva as sensitive non-invasive biomarkers of crew stress and T-cell dysfunction.
 
 ### Other Space Agency Data
 *ESA, JAXA, CSA, ISRO and other partner agencies.*
@@ -150,7 +150,7 @@ None listed.
 > *Note on partner agency research:* Referenced European Space Agency (ESA) Life Sciences & NASA Human Research Program joint long-duration astronaut muscle biopsy and countermeasure studies ([ESA/NASA Countermeasures](https://www.nasa.gov/humans-in-space/counteracting-bone-and-muscle-loss-in-microgravity/)) to model exercise countermeasure efficacy and muscle fiber-type shifts.
 
 ### Other Datasets
-*Any other data source, library or API you drew on.*
+*Any other data source, library or API we drew on.*
 
 None listed.
 
