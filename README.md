@@ -117,27 +117,37 @@ VITASTRA uses **personal baselines, scheduled biological surveillance, connected
 - **Link:** https://osdr.nasa.gov/
 - **How we used it:** We modeled nominal and elevated cabin environmental metrics (ambient CO₂ in ppm, cabin pressure in kPa, O₂ partial pressure, temperature, and humidity) to drive the Closed Environment intelligence module.
 
-#### 8. NASA Human Research Program (HRP) Evidence Books
-- **Dataset name:** NASA Human Research Program: Five Hazards of Human Spaceflight
+#### 8. NASA Five Hazards of Human Spaceflight
+- **Dataset name:** NASA Five Hazards of Human Spaceflight
 - **Link:** https://www.nasa.gov/hrp/hazards/
-- **How we used it:** We sourced clinical risk cross-links mapping the 5 Hazards of Spaceflight (Radiation, Isolation, Distance, Microgravity, Hostile Closed Environment) to linked physiological health outcomes.
+- **How we used it:** We used this framework to structure the cross-hazard risk engine and connect spaceflight stressors (radiation, isolation, distance, microgravity, closed environment) to linked physiological health outcomes.
 
-#### 9. NASA OSDR Kidney-on-a-Chip Microgravity Study
+#### 9. NASA Human Research Program (HRP)
+- **Dataset name:** NASA Human Research Program
+- **Link:** https://www.nasa.gov/hrp/
+- **How we used it:** We used HRP evidence books, human system risk matrices, and clinical research literature to formulate clinical decision support rules, alert thresholds, and mission countermeasure protocols.
+
+#### 10. NASA OSDR Open Science Data Repository
+- **Dataset name:** NASA OSDR Open Science Data Repository
+- **Link:** https://osdr.nasa.gov/
+- **How we used it:** We used the central NASA OSDR platform to discover, query, and download space omics, environmental telemetry, and astronaut biomedical research datasets.
+
+#### 11. NASA OSDR Kidney-on-a-Chip Microgravity Study
 - **Dataset name:** NASA OSDR Study OSD-44: Proximal Tubule Kidney-on-a-Chip Assessment
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-44
 - **How we used it:** We referenced in the Space Biology Research Intelligence Library to understand proximal tubular transport, altered 1,25-dihydroxyvitamin D metabolism, and hypercalciuric stone risk.
 
-#### 10. NASA OSDR Astronaut Gut Microbiome Metagenomics
+#### 12. NASA OSDR Astronaut Gut Microbiome Metagenomics
 - **Dataset name:** NASA OSDR Study OSD-630: Multi-omics Gut Microbiome Shifts in Spaceflight
 - **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-630
 - **How we used it:** We referenced in the research intelligence library to model spaceflight-induced microbiome depletion (*Faecalibacterium prausnitzii*) and intestinal tight-junction permeability shifts.
 
-#### 11. NASA ISS Engineered Heart Tissue & Microphysiological Systems
+#### 13. NASA ISS Engineered Heart Tissue & Microphysiological Systems
 - **Dataset name:** NASA ISS Research: Engineered Heart Tissue and Cardiac Microphysiological Systems
 - **Link:** https://www.nasa.gov/missions/station/iss-research/its-always-heart-month-on-the-space-station/
 - **How we used it:** We sourced functional contraction mechanics, calcium-handling kinetics, and myofibril disarray evidence for the cardiovascular research intelligence model.
 
-#### 12. NASA JSC Immunology Laboratory Viral Shedding Cohort
+#### 14. NASA JSC Immunology Laboratory Viral Shedding Cohort
 - **Dataset name:** NASA Johnson Space Center Immunology Laboratory Longitudinal Data: Latent Herpesvirus Reactivation
 - **Link:** https://www.nasa.gov/reference/risk-of-altered-immune-system-responses/
 - **How we used it:** We utilized clinical rates of latent herpesvirus (EBV, VZV, CMV) shedding in saliva as sensitive non-invasive biomarkers of crew stress and T-cell dysfunction.
@@ -145,16 +155,38 @@ VITASTRA uses **personal baselines, scheduled biological surveillance, connected
 ### Other Space Agency Data
 *ESA, JAXA, CSA, ISRO and other partner agencies.*
 
-None listed.
-
-> *Note on partner agency research:* Referenced European Space Agency (ESA) Life Sciences & NASA Human Research Program joint long-duration astronaut muscle biopsy and countermeasure studies ([ESA/NASA Countermeasures](https://www.nasa.gov/humans-in-space/counteracting-bone-and-muscle-loss-in-microgravity/)) to model exercise countermeasure efficacy and muscle fiber-type shifts.
+#### 1. European Space Agency (ESA) Life Sciences & NASA HRP Joint Study
+- **Dataset name:** European Space Agency (ESA) Life Sciences & NASA HRP Joint Muscle Countermeasure Studies
+- **Link:** https://www.nasa.gov/humans-in-space/counteracting-bone-and-muscle-loss-in-microgravity/
+- **How we used it:** We referenced long-duration astronaut muscle biopsy cohorts and countermeasure efficacy data (ARED resistive exercise and CEVIS cycle ergometry) to model muscle fiber-type transformation and post-landing functional readiness.
 
 ### Other Datasets
 *Any other data source, library or API we drew on.*
 
-None listed.
+#### 1. ISS Human 3D Neural Organoids Microfluidics Study (PMC11631337)
+- **Dataset name:** Nature Communications / UCSD Sanford Stem Cell Institute / Axiom Space ISS Neural Organoids
+- **Link:** https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/
+- **How we used it:** We utilized peer-reviewed research on human 3D cortical neural organoids cultured on the ISS (CubeLab HSAPIENS payload launched aboard SpaceX CRS-19 & Axiom-2) to model microgravity-induced neurocellular stress, synaptic alterations, and tau phosphorylation.
 
-> *Note on academic research datasets:* Referenced peer-reviewed ISS neural organoid microfluidic culture research published in Nature Communications / PMC11631337 ([PMC11631337](https://pmc.ncbi.nlm.nih.gov/articles/PMC11631337/)) for in vitro neurocellular stress modeling under microgravity.
+#### 2. Human Lung Airway-Capillary Microfluidic Chip
+- **Dataset name:** Harvard University Wyss Institute for Biologically Inspired Engineering / Nature Microgravity
+- **Link:** https://www.nasa.gov/missions/station/iss-research/space-station-cell-studies/
+- **How we used it:** We referenced human airway epithelial and endothelial organ-chip responses to elevated cabin CO₂ (4,000 ppm) and particulate simulant to model pulmonary mucosal defense compromises in closed habitats.
+
+#### 3. 3D Engineered Heart Tissue (Biowire II) Microphysiological System
+- **Dataset name:** Stanford Cardiovascular Institute / NIH NCATS Tissue Chips in Space
+- **Link:** https://www.nasa.gov/missions/station/iss-research/its-always-heart-month-on-the-space-station/
+- **How we used it:** We sourced cardiomyocyte twitch force reduction, calcium handling kinetics, and myofibril disarray evidence to inform our cardiovascular deconditioning intelligence model.
+
+#### 4. Proximal Tubule Kidney-on-a-Chip Assessment
+- **Dataset name:** University of Washington Kidney Research Institute / NIH NCATS
+- **Link:** https://osdr.nasa.gov/bio/repo/data/studies/OSD-44
+- **How we used it:** We referenced proximal tubule transport and vitamin D bio-activation data to model hypercalciuria and spaceflight nephrolithiasis risk.
+
+#### 5. Clinical Laboratory Reference Standards
+- **Dataset name:** Mayo Clinic Laboratories & Wintrobe Clinical Hematology Reference Standards
+- **Link:** https://www.mayocliniclabs.com/
+- **How we used it:** We incorporated established standard clinical laboratory reference intervals for routine blood, metabolic, and liver analytes to benchmark values alongside personalized astronaut baselines.
 
 ---
 
